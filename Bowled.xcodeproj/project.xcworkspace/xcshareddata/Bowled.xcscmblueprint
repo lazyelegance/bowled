@@ -1,0 +1,23 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "794512F6A6D96DE74BB142D799CC85D4F49035B5",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "794512F6A6D96DE74BB142D799CC85D4F49035B5" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "BCD61685-B832-4ED5-B4FA-0204970D894B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "794512F6A6D96DE74BB142D799CC85D4F49035B5" : "caughtnbowled\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Bowled",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Bowled.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/lazyelegance\/caughtnbowled.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "794512F6A6D96DE74BB142D799CC85D4F49035B5"
+    }
+  ]
+}
