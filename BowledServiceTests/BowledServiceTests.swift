@@ -1,15 +1,15 @@
 //
-//  CBServiceTests.swift
-//  CBServiceTests
+//  BowledServiceTests.swift
+//  BowledServiceTests
 //
-//  Created by Ezra Bathini on 16/10/15.
-//  Copyright © 2015 Ezra Bathini. All rights reserved.
+//  Created by Ezra Bathini on 16/11/16.
+//  Copyright © 2016 Ezra Bathini. All rights reserved.
 //
 
 import XCTest
-@testable import CBService
+@testable import BowledService
 
-class CBServiceTests: XCTestCase {
+class BowledServiceTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-public protocol CBServiceProtocol {
+public protocol BowledServiceProtocol {
     func didReceiveResults(_ requestType: RequestType, results: NSObject)
     func didReceiveImageResults(_ data: Data)
 }
@@ -25,11 +25,11 @@ public enum RequestType {
     case seriesStandings
 }
 
-open class CBService {
-    var delegate: CBServiceProtocol
+open class BowledService {
+    var delegate: BowledServiceProtocol
     
     
-    public init(delegate: CBServiceProtocol) {
+    public init(delegate: BowledServiceProtocol) {
         self.delegate = delegate
     }
     
@@ -38,6 +38,7 @@ open class CBService {
     
     
     open func getMatches() {
+        print("here")
         let httpHeaderValue = dictionary?.object(forKey: "X-Mashape-Key") as! String
         let HTTPAdditionalHeaders = ["X-Mashape-Key" : httpHeaderValue ]
         config.httpAdditionalHeaders = HTTPAdditionalHeaders
