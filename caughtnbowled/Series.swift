@@ -1,5 +1,5 @@
 //
-//  CBSeries.swift
+//  Series.swift
 //  Bowled
 //
 //  Created by Ezra Bathini on 23/03/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CBTeamStanding {
+struct TeamStanding {
     let teamId: NSNumber
     var teamName = String()
     var teamShortName = String()
@@ -29,10 +29,10 @@ struct CBTeamStanding {
         self.teamId = teamId
     }
     
-    static func teamStandingFromResults(_ results: NSDictionary) -> CBTeamStanding {
+    static func teamStandingFromResults(_ results: NSDictionary) -> TeamStanding {
         if results.count > 0 {
             if let id = results["id"] as? NSNumber, let name = results["name"] as? String, let shortName = results["shortName"] as? String, let groupName = results["groupName"] as? String {
-                var team = CBTeamStanding(teamId: id)
+                var team = TeamStanding(teamId: id)
                 team.teamName = name
                 team.teamShortName = shortName
                 team.groupName = groupName
@@ -58,19 +58,19 @@ struct CBTeamStanding {
             }
         }
         
-        return CBTeamStanding(teamId: 0)
+        return TeamStanding(teamId: 0)
     }
     
 }
 
-struct CBSeries {
+struct Series {
     let seriesId: NSNumber
     var state: String
     var isDomesticFirstClass: Bool = true
     var isReady = false
     var seriesName = String()
     var status: String
-    var teams = [String: [CBTeamStanding]]()
+    var teams = [String: [TeamStanding]]()
     var result: String
     
     init(seriesId: NSNumber) {
@@ -81,11 +81,11 @@ struct CBSeries {
         
     }
     
-    static func seriesStandingsFromResults(_ results: NSDictionary) -> CBSeries {
+    static func seriesStandingsFromResults(results: NSDictionary) -> Series {
         if results.count > 0 {
             if let metaData = results["metaData"] as? NSDictionary {
                 if let seriesId = metaData["seriesId"] as? NSNumber, let seriesName = metaData["series"] as? String, let state = metaData["state"] as? String, let result = metaData["result"] as? String {
-                    var series = CBSeries(seriesId: seriesId)
+                    var series = Series(seriesId: seriesId)
                     series.seriesName = seriesName
                     series.state = state
                     series.result = result
@@ -94,15 +94,15 @@ struct CBSeries {
                         series.isDomesticFirstClass = isDomesticFirstClass
                     }
                     
-                    if let teams = results["teams"] as? NSArray {
+                    if let teams = results["teams"] as? [AnyObject] {
                         if teams.count > 0 {
                             series.teams.removeAll()
                             for team in teams {
                                 if let group = team["groupName"] as? String {
                                     if series.teams[group] == nil {
-                                        series.teams[group] = [CBTeamStanding.teamStandingFromResults(team as! NSDictionary)]
+                                        series.teams[group] = [TeamStanding.teamStandingFromResults(team as! NSDictionary)]
                                     } else {
-                                        series.teams[group]?.append(CBTeamStanding.teamStandingFromResults(team as! NSDictionary))
+                                        series.teams[group]?.append(TeamStanding.teamStandingFromResults(team as! NSDictionary))
                                     }
                                     
                                     
@@ -119,7 +119,7 @@ struct CBSeries {
         }
         
         
-        return CBSeries(seriesId: 0)
+        return Series(seriesId: 0)
     }
     
 }

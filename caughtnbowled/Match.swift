@@ -1,5 +1,5 @@
 //
-//  CBMatch.swift
+//  Match.swift
 //  caughtnbowled
 //
 //  Created by Ezra Bathini on 16/10/15.
@@ -11,7 +11,7 @@ import UIKit
 
 
 
-struct CBMatch {
+struct Match {
     
     let matchId: NSNumber
     var matchTypeId  = NSNumber()
@@ -19,7 +19,8 @@ struct CBMatch {
     let seriesId: NSNumber
     var seriesName: String = "series name"
     var seriesSName: String = "shortName"
-    var seriesshieldImageUrl = URL()
+    var seriesshieldImageUrl: URL!
+    
     
     var matchName: String = "match name"
     var status = MatchStatus.none
@@ -30,7 +31,7 @@ struct CBMatch {
     var hometeamId = NSNumber()
     var hometeamName  = String()
     var hometeamSName  = String()
-    var hometeamLogoURL  = URL()
+    var hometeamLogoURL: URL!
     var hometeamLogo = UIImage()
     var hometeamColor  = String()
     var hometeamIsBatting: Bool = false
@@ -38,7 +39,7 @@ struct CBMatch {
     var awayteamId = NSNumber()
     var awayteamName  = String()
     var awayteamSName  = String()
-    var awayteamLogoURL  = URL()
+    var awayteamLogoURL: URL!
     var awayteamLogo = UIImage()
     var awayteamColor  = String()
     var awayteamIsBatting: Bool = false
@@ -97,8 +98,11 @@ struct CBMatch {
         
     }
     
-    static func matchesFromAPI(_ results: NSArray) -> [CBMatch] {
-        var matches = [CBMatch]()
+    
+
+    
+    static func matchesFromAPI(results: [AnyObject]) -> [Match] {
+        var matches = [Match]()
         
         
         if results.count > 0 {
@@ -133,7 +137,7 @@ struct CBMatch {
                     break
                 }
                 
-                var newMatch = CBMatch(matchId: matchId, seriesId: seriesId, status: status)
+                var newMatch = Match(matchId: matchId, seriesId: seriesId, status: status)
                 
                 newMatch.matchName = result["name"] as! String
                 
@@ -183,7 +187,7 @@ struct CBMatch {
                     let hometeamName = homeTeam["name"] as! String
                     
                     let hometeamNameArray = hometeamName.components(separatedBy: "Men")
-                    newMatch.hometeamName = hometeamNameArray[0].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).uppercased()
+                    newMatch.hometeamName = hometeamNameArray[0].trimmingCharacters(in: NSCharacterSet.whitespaces).uppercased()
                     
                     
                     newMatch.hometeamIsBatting = homeTeam["isBatting"] as! Bool
@@ -219,7 +223,11 @@ struct CBMatch {
                     let awayteamName = awayTeam["name"] as! String
                     
                     let awayteamNameArray = awayteamName.components(separatedBy: "Men")
-                    newMatch.awayteamName = awayteamNameArray[0].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).uppercased()
+                    
+                    
+                    
+                    
+                    newMatch.awayteamName = awayteamNameArray[0].trimmingCharacters(in: NSCharacterSet.whitespaces).uppercased()
                     newMatch.awayteamIsBatting = awayTeam["isBatting"] as! Bool
                     
                     if let hometeamSName = awayTeam["shortName"] as? String, let hometeamLogoURL = awayTeam["logoUrl"] as? String, let hometeamColor = awayTeam["teamColour"] as? String {
@@ -313,7 +321,7 @@ struct CBMatch {
                 if diffDateComponents.year == 0 && diffDateComponents.month == 0 {
                     if diffDateComponents.day == 0 {
                         if currentDateComponents.day == matchStartDateComponents.day {
-                            if diffDateComponents.hour == 0 && diffDateComponents.minute >= 0 {
+                            if diffDateComponents.hour == 0 && diffDateComponents.minute! >= 0 {
                                 newMatch.hasRelDate = true
                                 newMatch.relStartDate = "Starts in \(diffDateComponents.minute) Minutes"
                             } else {
@@ -321,21 +329,21 @@ struct CBMatch {
                                 outFormat.dateFormat = "hh:mm aaa"
                                 newMatch.relStartDate = "STARTS Today, \(outFormat.string(from: startUTC!))"
                             }
-                        } else if currentDateComponents.day + 1 == matchStartDateComponents.day {
+                        } else if currentDateComponents.day! + 1 == matchStartDateComponents.day! {
                             newMatch.hasRelDate = true
                             outFormat.dateFormat = "MMM d hh:mm aaa"
                             newMatch.relStartDate = "STARTS Tomorrow, \(outFormat.string(from: startUTC!))"
-                        } else if currentDateComponents.day - 1 == matchStartDateComponents.day {
+                        } else if currentDateComponents.day! - 1 == matchStartDateComponents.day! {
                             newMatch.hasRelDate = true
                             outFormat.dateFormat = "MMM d hh:mm aaa"
                             newMatch.relStartDate = "STARTed YESterday, \(outFormat.string(from: startUTC!))"
                         }
                     } else if diffDateComponents.day == 1 {
-                        if currentDateComponents.day + 1 == matchStartDateComponents.day {
+                        if currentDateComponents.day! + 1 == matchStartDateComponents.day! {
                             newMatch.hasRelDate = true
                             outFormat.dateFormat = "MMM d hh:mm aaa"
                             newMatch.relStartDate = "STARTS Tomorrow, \(outFormat.string(from: startUTC!))"
-                        } else if currentDateComponents.day + 1 == matchStartDateComponents.day {
+                        } else if currentDateComponents.day! + 1 == matchStartDateComponents.day! {
                             newMatch.hasRelDate = true
                             outFormat.dateFormat = "MMM d hh:mm aaa"
                             newMatch.relStartDate = "STARTed YESterday, \(outFormat.string(from: startUTC!))"
