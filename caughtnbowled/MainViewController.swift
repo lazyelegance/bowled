@@ -8,6 +8,7 @@
 
 import UIKit
 import BowledService
+import Material
 
 
 protocol MainViewControllerDelegate {
@@ -17,19 +18,34 @@ protocol MainViewControllerDelegate {
 }
 
 
-class MainViewController: UIViewController, BowledServiceProtocol {
+class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDelegate, UITableViewDataSource {
     
     var delegate: MainViewControllerDelegate?
     var bowledServiceAPI: BowledService!
 
-    var allMatches = [Match]()
+    var liveMatches = [Match]()
+    var completedMatches = [Match]()
+    var upcomingMatches = [Match]()
+    var topMatches = [Match]()
+    
     var selectedSeriesStanding: Series?
+    
+    var topMatchCellheight = 150
+    
+
+    @IBOutlet weak var topMatchesView: View!
+    
+    @IBOutlet weak var topMatchesTableView: UITableView!
+    
+    
+    @IBOutlet weak var topTableViewHeightConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = true
 
+        self.updateTableHeight()
         
         //get match list
         bowledServiceAPI = BowledService(delegate: self)
@@ -41,6 +57,12 @@ class MainViewController: UIViewController, BowledServiceProtocol {
         // Dispose of any resources that can be recreated.
     }
     
+    func prepareView() {
+        topMatchesView.backgroundColor = Color.clear
+        topMatchesTableView.backgroundColor = Color.clear
+        
+        
+    }
 
     /*
     // MARK: - Navigation
@@ -51,18 +73,40 @@ class MainViewController: UIViewController, BowledServiceProtocol {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: - TableView
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return liveMatches.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = topMatchesTableView.dequeueReusableCell(withIdentifier: "topMatchCell", for: indexPath) as! TopMatchCell
+        
+        if let match = liveMatches[indexPath.row] as Match? {
+            cell.match = match
+        }
+        
+
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(topMatchCellheight)
+    }
 
     // MARK: - Bowled Service
     func didReceiveResults(_ requestType: RequestType, results: NSObject) {
-        print(results)
-        
         if requestType == .matches {
             if let resultsArray = results as? [AnyObject] {
                 DispatchQueue.main.async(execute: {
                     
-                    self.allMatches = Match.matchesFromAPI(results: resultsArray)
+                    (self.topMatches, self.liveMatches, self.completedMatches, self.upcomingMatches) = Match.topMatchesFromAPI(results: resultsArray, internationalOnly: true)
 //                    self.prepareTableViewData()
 //                    self.prepareMenuData()
+                    self.updateTableHeight()
+                    self.topMatchesTableView.reloadData()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 })
             }
@@ -79,5 +123,9 @@ class MainViewController: UIViewController, BowledServiceProtocol {
     
     func didReceiveImageResults(_ data: Data) {
         
+    }
+    
+    func updateTableHeight() {
+        self.topTableViewHeightConstraint.constant = CGFloat(topMatchCellheight * liveMatches.count + 50)
     }
 }

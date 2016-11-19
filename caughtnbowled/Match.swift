@@ -98,6 +98,157 @@ struct Match {
         
     }
     
+    static func topMatchesFromAPI(results: [AnyObject], internationalOnly: Bool) -> ([Match],[Match],[Match],[Match]) {
+        let (liveMatches, completedMatches, upcomingMatches) = self.filterMatchesFromAPI(results: results, internationalOnly: internationalOnly)
+        var topMatches = [Match]()
+        
+        if liveMatches.count > 0 {
+            topMatches = liveMatches
+        }
+        
+        if completedMatches.count > 0 {
+            var i = 0
+            for match in completedMatches {
+                if match.hasRelDate && i < 2 {
+                    topMatches.append(match)
+                    i += 1
+                }
+            }
+        }
+        
+        
+        
+        if upcomingMatches.count > 0 {
+            var i = 0
+            for match in upcomingMatches {
+                if match.hasRelDate && i < 2 {
+                    topMatches.append(match)
+                    i += 1
+                }
+            }
+        }
+        
+        
+        
+//        if completedMatches.count >= 4 {
+//
+//            for i in 0..<4 {
+//                if let match = completedMatches[i] as? Match {
+//                    if !(match.hasRelDate) || i > 1 {
+//                        topMatches.append(match)
+//                    }
+//                }
+//            }
+//            topMatches.append(Match(matchId: 0, seriesId: 0, status: .dummy_completed))
+//        } else if completedMatches.count < 4 && completedMatches.count > 0 {
+//            for (i in 0..< completedMatches.count) {
+//                topMatches.append(completedMatches[i])
+//            }
+//        }
+//        
+//        
+//        if upcomingMatches.count >= 4 {
+//            for i in 0..<4 {
+//                if let match = upcomingMatches[i] as? Match {
+//                    if !(match.hasRelDate) || i > 1 {
+//                        topMatches.append(match)
+//                    }
+//                }
+//                
+//                
+//            }
+//            topMatches.append(Match(matchId: 0, seriesId: 0, status: .dummy_upcoming))
+//        } else if upcomingMatches.count < 4 && completedMatches.count > 0 {
+//            for i in 0..< upcomingMatches.count {
+//                topMatches.append(upcomingMatches[i])
+//            }
+//        }
+        
+        
+        return (topMatches, liveMatches, completedMatches, upcomingMatches)
+    }
+    
+    
+    static func filterMatchesFromAPI(results: [AnyObject], internationalOnly: Bool) -> ([Match],[Match],[Match]) {
+        var liveMatches = [Match]()
+        var completedMatches = [Match]()
+        var upcomingMatches = [Match]()
+        var topMatches = [Match]()
+        let matches = self.matchesFromAPI(results: results)
+        
+        if internationalOnly {
+            for match in matches {
+                if (match.status == .completed && match.isInternational) {
+                    completedMatches.append(match)
+                } else if (match.status == .upcoming && match.isInternational) {
+                    upcomingMatches.append(match)
+                } else if ((match.status == .live) && match.isInternational) {
+                    liveMatches.append(match)
+                }
+                
+            }
+        } else {
+            for match in matches {
+                switch match.status {
+                case .completed :
+                    completedMatches.append(match)
+                case .live:
+                    liveMatches.append(match)
+                case .upcoming:
+                    upcomingMatches.append(match)
+                default:
+                    break
+                }
+            }
+        }
+        
+        if liveMatches.count > 0 {
+            topMatches = liveMatches
+        }
+        
+        if completedMatches.count > 0 {
+            var i = 0
+            for match in completedMatches {
+                if match.hasRelDate && i < 2 {
+                    topMatches.append(match)
+                    i += 1
+                }
+            }
+        }
+        
+        
+        
+        if upcomingMatches.count > 0 {
+            var i = 0
+            for match in upcomingMatches {
+                if match.hasRelDate && i < 2 {
+                    topMatches.append(match)
+                    i += 1
+                }
+            }
+        }
+
+        return (self.sortMatches(matches: liveMatches), self.sortMatches(matches: completedMatches), self.sortMatches(matches: upcomingMatches))
+    }
+    
+    static func sortMatches(matches: [Match]) -> [Match] {
+        
+        matches.sorted { (item1, item2) -> Bool in
+            let item1date = item1.startDateTimeUTCDateFormat
+            let item2date = item2.startDateTimeUTCDateFormat
+            
+            let item1InternationalFlag = item1.isInternational
+            let item2InternationalFlag = item2.isInternational
+            
+            if item1date.compare(item2date as Date) == ComparisonResult.orderedDescending {
+                return true || item1InternationalFlag && !item2InternationalFlag
+            } else {
+                return false || item1InternationalFlag && !item2InternationalFlag
+            }
+        }
+
+        return matches
+    }
     
 
     
