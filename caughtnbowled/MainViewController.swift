@@ -95,6 +95,15 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return CGFloat(topMatchCellheight)
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let match = liveMatches[indexPath.row] as Match? {
+            if let matchDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "MatchDetailController") as? MatchDetailController {
+                matchDetailViewController.match = match
+                self.navigationController?.pushViewController(matchDetailViewController, animated: true)
+            }
+        }
+    }
 
     // MARK: - Bowled Service
     func didReceiveResults(_ requestType: RequestType, results: NSObject) {
@@ -128,4 +137,6 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     func updateTableHeight() {
         self.topTableViewHeightConstraint.constant = CGFloat(topMatchCellheight * liveMatches.count + 50)
     }
+    
+    
 }

@@ -45,25 +45,25 @@
                                                             <rect key="frame" x="5" y="5" width="345" height="90"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="X3H-k5-f8A">
-                                                                    <rect key="frame" x="28" y="8" width="289" height="101"/>
+                                                                    <rect key="frame" x="28" y="8" width="289" height="99"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nUN-fr-0uR">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="289" height="21.5"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="289" height="21"/>
                                                                             <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nft-xl-Toj">
-                                                                            <rect key="frame" x="0.0" y="26.5" width="289" height="21.5"/>
+                                                                            <rect key="frame" x="0.0" y="26" width="289" height="21"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyF-th-jUF">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="239.5" height="21.5"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="239.5" height="21"/>
                                                                                     <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="18"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QgA-Tp-9pX">
-                                                                                    <rect key="frame" x="249.5" y="0.0" width="39.5" height="21.5"/>
+                                                                                    <rect key="frame" x="249.5" y="0.0" width="39.5" height="21"/>
                                                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
@@ -74,16 +74,16 @@
                                                                             </constraints>
                                                                         </stackView>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CrW-p6-R12">
-                                                                            <rect key="frame" x="0.0" y="53" width="289" height="21.5"/>
+                                                                            <rect key="frame" x="0.0" y="52" width="289" height="21"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hpf-25-KFL">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="239.5" height="21.5"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="239.5" height="21"/>
                                                                                     <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="18"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0eR-ze-OJC">
-                                                                                    <rect key="frame" x="249.5" y="0.0" width="39.5" height="21.5"/>
+                                                                                    <rect key="frame" x="249.5" y="0.0" width="39.5" height="21"/>
                                                                                     <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
@@ -91,7 +91,7 @@
                                                                             </subviews>
                                                                         </stackView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szb-ez-3pa">
-                                                                            <rect key="frame" x="0.0" y="79.5" width="289" height="21.5"/>
+                                                                            <rect key="frame" x="0.0" y="78" width="289" height="21"/>
                                                                             <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -175,7 +175,127 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xpk-Wb-1lj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1722" y="-831"/>
+            <point key="canvasLocation" x="-2327" y="-804"/>
+        </scene>
+        <!--Match Detail Controller-->
+        <scene sceneID="XOt-gX-3mD">
+            <objects>
+                <tableViewController storyboardIdentifier="MatchDetailController" id="ec0-cq-nYp" customClass="MatchDetailController" customModule="Bowled" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="tUx-5h-5eR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Jd0-gX-AAA">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="144"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4VJ-Bw-4Fp" customClass="PulseView" customModule="Material">
+                                    <rect key="frame" x="15" y="27" width="345" height="90"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7M0-vH-eZ5">
+                                            <rect key="frame" x="28" y="8" width="299" height="103"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmu-2X-eOk">
+                                                    <rect key="frame" x="0.0" y="0.0" width="299" height="22"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PQj-Lc-lyq">
+                                                    <rect key="frame" x="0.0" y="27" width="299" height="22"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8z-UD-zKF">
+                                                            <rect key="frame" x="0.0" y="0.0" width="249.5" height="22"/>
+                                                            <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="18"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q5F-SJ-vrw">
+                                                            <rect key="frame" x="259.5" y="0.0" width="39.5" height="22"/>
+                                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="c8z-UD-zKF" firstAttribute="baseline" secondItem="q5F-SJ-vrw" secondAttribute="firstBaseline" id="auf-nV-m4m"/>
+                                                    </constraints>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="G0R-f0-rza">
+                                                    <rect key="frame" x="0.0" y="54" width="299" height="22"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="63z-aO-VDA">
+                                                            <rect key="frame" x="0.0" y="0.0" width="249.5" height="22"/>
+                                                            <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="18"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNg-QG-eY8">
+                                                            <rect key="frame" x="259.5" y="0.0" width="39.5" height="22"/>
+                                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gxu-gJ-6If">
+                                                    <rect key="frame" x="0.0" y="81" width="299" height="22"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="7M0-vH-eZ5" secondAttribute="bottom" id="CEn-mk-Ni0"/>
+                                        <constraint firstItem="7M0-vH-eZ5" firstAttribute="leading" secondItem="4VJ-Bw-4Fp" secondAttribute="leadingMargin" constant="20" id="Gf6-5x-hsA"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="7M0-vH-eZ5" secondAttribute="trailing" constant="20" id="GhM-lh-5hN"/>
+                                        <constraint firstItem="7M0-vH-eZ5" firstAttribute="top" secondItem="4VJ-Bw-4Fp" secondAttribute="topMargin" id="jle-2n-M5J"/>
+                                    </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="1" green="0.28482540680000001" blue="0.24095055470000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="4VJ-Bw-4Fp" secondAttribute="trailing" constant="10" id="QwK-PS-tKs"/>
+                                <constraint firstItem="4VJ-Bw-4Fp" firstAttribute="top" secondItem="Jd0-gX-AAA" secondAttribute="top" constant="30" id="UGu-bB-VQZ"/>
+                                <constraint firstItem="4VJ-Bw-4Fp" firstAttribute="leading" secondItem="Jd0-gX-AAA" secondAttribute="leading" constant="10" id="q1L-5y-OSv"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" id="0kb-U9-Ffg">
+                                <rect key="frame" x="0.0" y="172" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0kb-U9-Ffg" id="qsO-KF-og0">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ec0-cq-nYp" id="uGg-Vx-Bn9"/>
+                            <outlet property="delegate" destination="ec0-cq-nYp" id="CJy-jJ-omF"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="headerView" destination="Jd0-gX-AAA" id="mmD-gd-r0x"/>
+                        <outlet property="matchStatus" destination="Gxu-gJ-6If" id="iNY-Z2-fbd"/>
+                        <outlet property="series" destination="vmu-2X-eOk" id="USM-UV-fB0"/>
+                        <outlet property="teamOneName" destination="c8z-UD-zKF" id="2U2-XT-eE5"/>
+                        <outlet property="teamOneScore" destination="q5F-SJ-vrw" id="cmP-tA-Sig"/>
+                        <outlet property="teamTwoName" destination="63z-aO-VDA" id="bBK-bZ-5Vf"/>
+                        <outlet property="teamTwoScore" destination="VNg-QG-eY8" id="vWm-SY-too"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eaH-ex-Rjd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1666" y="-805"/>
         </scene>
         <!--Side Menu Controller-->
         <scene sceneID="cK0-oF-e16">
