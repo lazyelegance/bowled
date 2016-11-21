@@ -22,6 +22,8 @@ struct Scorecard {
     var innings1 = NSDictionary()
     var innings2 = NSDictionary()
     var innings3 = NSDictionary()
+    
+    
     var innings0batsmen = NSArray()
     var innings1batsmen = NSArray()
     var innings2batsmen = NSArray()
@@ -35,6 +37,9 @@ struct Scorecard {
     var innings2toBat = NSArray()
     var innings3toBat = NSArray()
     var fowDict = [NSNumber: [FallOfWicket]]()
+    
+    
+    var innings = [Innings]()
     
     
     var poweredBy = String()
@@ -62,6 +67,34 @@ struct Scorecard {
                         newScorecard.inningsCount = inningsArray.count
                         newScorecard.inningsArray = inningsArray as NSArray
                         var inningsNamesArray = [String]()
+                        
+                        for inn in inningsArray {
+                            if let id = inn["id"] as? NSNumber, let name = inn["name"] as? String, let team = inn["team"] as? [String: AnyObject] {
+                                var newInnings = Innings(id: id, name: name, teamId: team["id"] as! NSNumber, teamShortName: team["shortName"] as! String)
+                                
+                                if let run = inn["run"] as? String, let wicket = inn["wicket"] as? String, let over = inn["over"] as? String, let extra = inn["extra"] as? String, let bye = inn["bye"] as? String, let legBye = inn["legBye"] as? String, let wide = inn["wide"] as? String, let noBall = inn["noBall"] as? String, let runRate = inn["runRate"] as? String, let requiredRunRate = inn["requiredRunRate"] as? String   {
+                                    newInnings.bye = bye
+                                    newInnings.legBye = legBye
+                                    newInnings.wide = wide
+                                    newInnings.noBall = noBall
+                                    newInnings.extra = extra
+                                    
+                                    newInnings.runRate = runRate
+                                    newInnings.requiredRunRate = requiredRunRate
+                                    
+                                    newInnings.run = run
+                                    newInnings.wicket = wicket
+                                    newInnings.over = over
+                                }
+                                
+                                if let batsmenArray = inn["batsmen"] as? [[String: AnyObject]], let bowlersArray = inn["bowlers"] as? [[String: AnyObject]] {
+                                    newInnings.batsmen = Batsman.batsmanFromArray(batsmenArray: batsmenArray)
+                                    newInnings.bowlers = Bowler.bowlerFromArray(bowlersArray: bowlersArray)
+                                }
+
+                                newScorecard.innings.append(newInnings)
+                            }
+                        }
                         
                         for i in 0..<inningsArray.count {
                             

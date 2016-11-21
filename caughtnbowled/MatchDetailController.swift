@@ -25,6 +25,13 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     
     var match: Match!
     var scorecard: Scorecard!
+    var commentary: Commentary!
+    var partnerships = [NSNumber: NSArray]()
+    
+    var matchId: NSNumber!
+    var seriesId: NSNumber!
+    var homeTeamId: NSNumber!
+    var awayTeamId: NSNumber!
     
     var kTableHeaderHeight: CGFloat = 240
     let kHeaderHeight: CGFloat = 300
@@ -51,7 +58,8 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         prepareHeaderView()
         prepareMainMenu()
         
-        bowledServiceAPI = BowledService(delegate: self)
+        
+        
         
     }
 
@@ -69,6 +77,15 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         teamTwoName.text = match.awayteamName
         teamTwoScore.text = match.awayScore
         matchStatus.text = match.matchSummaryText
+        matchId = match.matchId
+        seriesId = match.seriesId
+        
+        // MOVE FROM HERE
+        bowledServiceAPI = BowledService(delegate: self)
+        bowledServiceAPI.getScoreCard(match.matchId, seriesid: match.seriesId)
+        bowledServiceAPI.getCommentary(match.matchId, seriesid: match.seriesId)
+        //refreshLiveMatchData()
+        
     }
     
     func updateHeaderView() {
@@ -131,7 +148,8 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        
+        
         return 1
     }
 
@@ -150,51 +168,6 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         return cell
     }
  
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     //MARK: - segemented views
     
@@ -233,8 +206,9 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
             print("Not connected")
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         case .online(.wwan), .online(.wiFi):
-            bowledServiceAPI.getScoreCard(match.matchId, seriesid: match.seriesId)
-            bowledServiceAPI.getCommentary(match.matchId, seriesid: match.seriesId)
+            print(match)
+//            bowledServiceAPI.getScoreCard(match.matchId, seriesid: match.seriesId)
+//            bowledServiceAPI.getCommentary(match.matchId, seriesid: match.seriesId)
         }
     }
     
@@ -244,7 +218,6 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
             DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                 
                 if let resultsDictionary = results as? NSDictionary {
-                    print(resultsDictionary)
                     let scorecardfromresults = Scorecard.scorecardFromAPI(resultsDictionary)
                     self.scorecard = scorecardfromresults
                     DispatchQueue.main.async(execute: {
@@ -281,19 +254,17 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                             self.hasSubMenu = true
                             
                             
-//                            for i in 1..<(self.scorecard?.inningsNamesArray.count)!) {
+                            for i in 1..<(self.scorecard?.inningsNamesArray.count)! {
 //                                self.bowledServiceAPI.getPartnerships(self.matchId, seriesid: self.seriesId, inniid: i)
-//                            }
+                            }
                         }
                         self.mainMenu.alpha = 1
-//                        SwiftLoader.hide()
+                        SwiftLoader.hide()
                         self.tableView.reloadData()
                         
                     })
                     
                 }
-                
-                
             })
         } else if requestType == .matchPlayers {
 //            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
@@ -351,52 +322,51 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
 //            })
             
         } else if requestType == .commentary {
-//            let commentaryQueue = DispatchQueue(label: "commentaryQueue", attributes: [])
-//            
-//            
-//            
-//            commentaryQueue.async { () -> Void in
-//                
-//                if let resultsDictionary = results as? NSDictionary {
-//                    let commentaryfromresults = CBCommentary.commentaryFromAPI(resultsDictionary)
-//                    //let scorecardkeyfromresult = ScorecardKey(matchid: matchid, seriesid: seriesid)
-//                    
-//                    self.commentary = commentaryfromresults
-//                    //self.activityIndicator.stopAnimation()
-//                    
-//                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//                    
-//                    DispatchQueue.main.async(execute: {
-//                        self.updateMatchDetails()
-//                        //Loading.stop()
-//                    })
-//                }
-//                
-//                
-//            }
+            let commentaryQueue = DispatchQueue(label: "commentaryQueue", attributes: [])
+            
+            
+            
+            commentaryQueue.async { () -> Void in
+                
+                if let resultsDictionary = results as? NSDictionary {
+                    let commentaryfromresults = Commentary.commentaryFromAPI(resultsDictionary)
+                    //let scorecardkeyfromresult = ScorecardKey(matchid: matchid, seriesid: seriesid)
+                    
+                    self.commentary = commentaryfromresults
+                    //self.activityIndicator.stopAnimation()
+                    
+                    print(self.commentary)
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    
+                    DispatchQueue.main.async(execute: {
+                        //self.updateMatchDetails()
+                        //Loading.stop()
+                    })
+                }
+                
+                
+            }
         } else if requestType == .partnerships {
-//            let partnershipsQueue = DispatchQueue(label: "partnershipsQueue", attributes: [])
-//            
-//            
-//            
-//            partnershipsQueue.async { () -> Void in
-//                
-//                if let resultsDictionary = results as? NSDictionary {
-//                    let partnershipsfromresults = CBPartnerships.partnershipsFromAPI(resultsDictionary)
-//                    //let scorecardkeyfromresult = ScorecardKey(matchid: matchid, seriesid: seriesid)
-//                    
-//                    self.partnerships[partnershipsfromresults.inningsid] = partnershipsfromresults.partners
-//                    
-//                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//                    
-//                    DispatchQueue.main.async(execute: {
+            let partnershipsQueue = DispatchQueue(label: "partnershipsQueue", attributes: [])
+            
+            partnershipsQueue.async { () -> Void in
+                
+                if let resultsDictionary = results as? NSDictionary {
+                    let partnershipsfromresults = Partnerships.partnershipsFromAPI(resultsDictionary)
+                    //let scorecardkeyfromresult = ScorecardKey(matchid: matchid, seriesid: seriesid)
+                    
+                    self.partnerships[partnershipsfromresults.inningsid] = partnershipsfromresults.partners
+                    
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    
+                    DispatchQueue.main.async(execute: {
 //                        self.updateMatchDetails()
-//                        //Loading.stop()
-//                    })
-//                }
-//                
-//                
-//            }
+                        //Loading.stop()
+                    })
+                }
+                
+                
+            }
         } else if requestType == .matchDetail {
 //            let partnershipsQueue = DispatchQueue(label: "matchDetailQueue", attributes: [])
 //            

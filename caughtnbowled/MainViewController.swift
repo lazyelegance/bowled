@@ -77,14 +77,14 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     // MARK: - TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return liveMatches.count
+        return completedMatches.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = topMatchesTableView.dequeueReusableCell(withIdentifier: "topMatchCell", for: indexPath) as! TopMatchCell
         
-        if let match = liveMatches[indexPath.row] as Match? {
+        if let match = completedMatches[indexPath.row] as Match? {
             cell.match = match
         }
         
@@ -97,7 +97,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let match = liveMatches[indexPath.row] as Match? {
+        if let match = completedMatches[indexPath.row] as Match? {
             if let matchDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "MatchDetailController") as? MatchDetailController {
                 matchDetailViewController.match = match
                 self.navigationController?.pushViewController(matchDetailViewController, animated: true)
@@ -114,6 +114,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
                     (self.topMatches, self.liveMatches, self.completedMatches, self.upcomingMatches) = Match.topMatchesFromAPI(results: resultsArray, internationalOnly: true)
 //                    self.prepareTableViewData()
 //                    self.prepareMenuData()
+                    print(self.liveMatches.count)
                     self.updateTableHeight()
                     self.topMatchesTableView.reloadData()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
