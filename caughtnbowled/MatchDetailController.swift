@@ -227,12 +227,11 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                 break
             }
         } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "commentaryCell", for: indexPath)
-            let comments = self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 } as! [Comment]
-            
-            
-            cell.textLabel?.text = comments[indexPath.row].text
-            return cell
+            let commentaryCell = tableView.dequeueReusableCell(withIdentifier: "commentaryCell", for: indexPath) as! CommentaryCell
+            let comments = self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }
+            print(comments[indexPath.row])
+            commentaryCell.comment = comments[indexPath.row]
+            return commentaryCell
         }
         
         
@@ -245,18 +244,23 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         
     }
  
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        switch indexPath.section {
-        case 0:
-            return indexPath.row == 0 ? 40 : 80
-        case 1:
-            return indexPath.row == 0 ? 40 : 60
-        default:
-            return 0
-        }
-
-    }
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        
+//        if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 0 {
+//            switch indexPath.section {
+//            case 0:
+//                return indexPath.row == 0 ? 40 : 80
+//            case 1:
+//                return indexPath.row == 0 ? 40 : 60
+//            default:
+//                return 0
+//            }
+//        } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 1 {
+//            return 100
+//        }
+//        return 0
+//
+//    }
     
     //MARK: - segemented views
     

@@ -22,6 +22,11 @@ struct Comment {
     var batsmanId: NSNumber = 0
     var bowlerId: NSNumber = 0
     var offStrikeBatsmanId: NSNumber = 0
+    var overNumber: NSNumber = 0
+    var deliveryNumber: NSNumber = 0
+    var result: String = ""
+    var deliveryNumRep = "0.0"
+    
     
     init(id: NSNumber, ballType: String) {
         self.id = id
@@ -29,7 +34,7 @@ struct Comment {
     }
     
     
-    static func commentsFromArray(comments: [[String: AnyObject]]) -> [Comment] {
+    static func commentsFromArray(overNumber: NSNumber, deliveryNumber: NSNumber, result: String, comments: [[String: AnyObject]]) -> [Comment] {
         var commentsArray = [Comment]()
     
         commentsArray.removeAll()
@@ -55,6 +60,13 @@ struct Comment {
                 newComment.runs = runs
                 newComment.text = text
                 newComment.wickets = wickets
+                
+                newComment.overNumber = overNumber
+                newComment.deliveryNumber = deliveryNumber
+                
+                newComment.deliveryNumRep = "\(overNumber).\(deliveryNumber)"
+                
+                newComment.result = result
                 
                 commentsArray.append(newComment)
         

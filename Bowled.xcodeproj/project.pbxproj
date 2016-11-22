@@ -53,6 +53,7 @@
 		63970B961DDC34A100D171C9 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63970B951DDC34A100D171C9 /* SideMenuController.swift */; };
 		63970B981DDC34C200D171C9 /* FilterMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63970B971DDC34C200D171C9 /* FilterMenuController.swift */; };
 		63970B9C1DDC37F800D171C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63970B9B1DDC37F800D171C9 /* Main.storyboard */; };
+		63A3D0EF1DE4A04300F5B1F5 /* CommentaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A3D0EE1DE4A04300F5B1F5 /* CommentaryCell.swift */; };
 		63B38E521C903C9D0078C018 /* menu_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B38E511C903C9D0078C018 /* menu_down.png */; };
 		63B38E541C903CCC0078C018 /* menu_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B38E531C903CCC0078C018 /* menu_up.png */; };
 		63B38E561C903E290078C018 /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B38E551C903E290078C018 /* clear.png */; };
@@ -195,6 +196,7 @@
 		63970B951DDC34A100D171C9 /* SideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		63970B971DDC34C200D171C9 /* FilterMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterMenuController.swift; sourceTree = "<group>"; };
 		63970B9B1DDC37F800D171C9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		63A3D0EE1DE4A04300F5B1F5 /* CommentaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentaryCell.swift; sourceTree = "<group>"; };
 		63B38E511C903C9D0078C018 /* menu_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_down.png; sourceTree = "<group>"; };
 		63B38E531C903CCC0078C018 /* menu_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_up.png; sourceTree = "<group>"; };
 		63B38E551C903E290078C018 /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear.png; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 				6307423C1DDDCC3B008F86CF /* TopMatchCell.swift */,
 				6379F3E41DE2D8140024FC07 /* BatsmanRecordCell.swift */,
 				6379F3E81DE2DB470024FC07 /* BowlerRecordCell.swift */,
+				63A3D0EE1DE4A04300F5B1F5 /* CommentaryCell.swift */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
@@ -914,6 +917,7 @@
 				6379F3DB1DE1964A0024FC07 /* Scorecard.swift in Sources */,
 				63B5E1E91DDC694800C1A63D /* Match.swift in Sources */,
 				6308465F1BD0B1A60019AD3F /* AppDelegate.swift in Sources */,
+				63A3D0EF1DE4A04300F5B1F5 /* CommentaryCell.swift in Sources */,
 				6379F3E91DE2DB470024FC07 /* BowlerRecordCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

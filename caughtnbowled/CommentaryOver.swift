@@ -30,7 +30,7 @@ struct CommentaryOver {
             if let id = item["id"] as? NSNumber, let uniqueOverId = item["uniqueOverId"] as? String, let overNumber = item["number"] as? NSNumber, let deliveries = item["balls"] as? [[String: AnyObject]] {
                 var newCommentaryOver = CommentaryOver(id: id, overNumber: overNumber, uniqueOverId: uniqueOverId)
                
-                newCommentaryOver.deliveries = Delivery.deliveriesFromArray(deliveries: deliveries)
+                newCommentaryOver.deliveries = Delivery.deliveriesFromArray(overNumber: overNumber, deliveries: deliveries)
                 overArray.append(newCommentaryOver)
             }
         }
