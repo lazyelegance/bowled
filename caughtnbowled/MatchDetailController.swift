@@ -46,6 +46,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
 
         headerView = tableView.tableHeaderView
         headerView.frame.size.height = kHeaderHeight
+        headerView.backgroundColor = mainColor
         
         tableView.tableHeaderView = nil
         tableView.addSubview(headerView)
@@ -55,6 +56,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.backgroundColor = mainColor
         prepareHeaderView()
         prepareMainMenu()
         
@@ -71,6 +73,9 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     // MARK: - Header View
     
     func prepareHeaderView() {
+        
+        
+        
         series.text = match.seriesName
         teamOneName.text = match.hometeamName
         teamOneScore.text = match.homeScore
@@ -148,26 +153,90 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
-        
-        return 1
+        if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 0 {
+            return 2
+        }
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 10
+        
+        if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 0 {
+            switch section {
+            case 0:
+                return self.scorecard.innings[self.subMenu.selectedSegmentIndex].batsmen.count + 1
+            case 1:
+                return self.scorecard.innings[self.subMenu.selectedSegmentIndex].bowlers.count + 1
+            default:
+                break
+            }
+        }
+        return 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-        cell.textLabel?.text = "one"
-
+        
+        switch indexPath.section {
+        case 0:
+            let batsmanRecordCell = tableView.dequeueReusableCell(withIdentifier: "batsmanRecordCell", for: indexPath) as! BatsmanRecordCell
+            if indexPath.row == 0 {
+                var dummybatsman = Batsman(id: 0, name: "", runsScored: "Rs", ballsFaced: "Bs")
+                dummybatsman.sixesHit = "6s"
+                dummybatsman.foursHit = "4s"
+                dummybatsman.strikeRate = "S/R"
+                dummybatsman.howOut = ""
+                batsmanRecordCell.batsman = dummybatsman
+                
+                batsmanRecordCell.strikeRate.font = RobotoFont.bold(with: 15)
+                batsmanRecordCell.ballsFaced.font = RobotoFont.bold(with: 15)
+                batsmanRecordCell.fours.font = RobotoFont.bold(with: 15)
+                batsmanRecordCell.sixes.font = RobotoFont.bold(with: 15)
+                batsmanRecordCell.contentView.backgroundColor = mainColor
+            } else if let batsman = self.scorecard.innings[self.subMenu.selectedSegmentIndex].batsmen[indexPath.row - 1] as Batsman? {
+                batsmanRecordCell.batsman = batsman
+                batsmanRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? mainColor : Color.indigo.darken1
+            }
+            
+            
+            return batsmanRecordCell
+        case 1:
+            let bowlerRecordCell = tableView.dequeueReusableCell(withIdentifier: "bolwerRecordCell", for: indexPath) as! BowlerRecordCell
+            if indexPath.row == 0 {
+                bowlerRecordCell.bowler = Bowler(id: 0, name: "", overs: "O", maidens: "M", runsConceded: "R", wickets: "W", economy: "econ.")
+                bowlerRecordCell.overs.font = RobotoFont.bold(with: 15)
+                bowlerRecordCell.maidens.font = RobotoFont.bold(with: 15)
+                bowlerRecordCell.runsConceded.font = RobotoFont.bold(with: 15)
+                bowlerRecordCell.ecomony.font = RobotoFont.bold(with: 15)
+                bowlerRecordCell.contentView.backgroundColor = mainColor
+            } else if let bowler = self.scorecard.innings[self.subMenu.selectedSegmentIndex].bowlers[indexPath.row - 1] as Bowler? {
+                bowlerRecordCell.bowler = bowler
+                bowlerRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? mainColor : Color.indigo.darken1
+            }
+            
+            return bowlerRecordCell
+        default:
+            break
+        }
+        
+        //WHY?
+        let cell = tableView.dequeueReusableCell(withIdentifier: "batsmanRecordCell", for: indexPath)
         return cell
+        
     }
  
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        switch indexPath.section {
+        case 0:
+            return indexPath.row == 0 ? 40 : 80
+        case 1:
+            return indexPath.row == 0 ? 40 : 60
+        default:
+            return 0
+        }
+
+    }
     
     //MARK: - segemented views
     
@@ -228,7 +297,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                                 self.subMenu.removeFromSuperview()
                             }
                             
-                            self.subMenu = HMSegmentedControl(sectionTitles: self.scorecard?.inningsNamesArray)
+                            self.subMenu = HMSegmentedControl(sectionTitles: self.scorecard?.innings.map{ $0.name })
                             
                             self.subMenu.addTarget(self, action: #selector(MatchDetailController.subMenuChangedValue(_:)), for: UIControlEvents.valueChanged)
                             self.subMenu.frame.size.height = 30
@@ -244,19 +313,16 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                             
                             self.subMenu.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown
                             
-                            self.subMenu.selectionIndicatorColor = whitecolor
-                            //                self.subMenu.layer.cornerRadius = 5
-                            //                self.subMenu.layer.masksToBounds = true
-                            
+                            self.subMenu.selectionIndicatorColor = whitecolor                            
                             self.subMenu.backgroundColor = self.headerView.backgroundColor
                             self.subMenu.titleTextAttributes = [NSForegroundColorAttributeName: whitecolor , NSFontAttributeName: UIFont.systemFont(ofSize: 10)]
                             self.headerView.addSubview(self.subMenu)
                             self.hasSubMenu = true
                             
                             
-                            for i in 1..<(self.scorecard?.inningsNamesArray.count)! {
-//                                self.bowledServiceAPI.getPartnerships(self.matchId, seriesid: self.seriesId, inniid: i)
-                            }
+//                            for i in 1..<(self.scorecard?.inningsNamesArray.count)! {
+////                                self.bowledServiceAPI.getPartnerships(self.matchId, seriesid: self.seriesId, inniid: i)
+//                            }
                         }
                         self.mainMenu.alpha = 1
                         SwiftLoader.hide()
@@ -334,8 +400,6 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                     
                     self.commentary = commentaryfromresults
                     //self.activityIndicator.stopAnimation()
-                    
-                    print(self.commentary)
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
                     DispatchQueue.main.async(execute: {

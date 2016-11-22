@@ -44,8 +44,10 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = true
+        
+        view.backgroundColor = mainColor
 
-        self.updateTableHeight()
+//        self.updateTableHeight()
         
         //get match list
         bowledServiceAPI = BowledService(delegate: self)
@@ -110,12 +112,12 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         if requestType == .matches {
             if let resultsArray = results as? [AnyObject] {
                 DispatchQueue.main.async(execute: {
-                    
+                    print(results)
                     (self.topMatches, self.liveMatches, self.completedMatches, self.upcomingMatches) = Match.topMatchesFromAPI(results: resultsArray, internationalOnly: true)
 //                    self.prepareTableViewData()
 //                    self.prepareMenuData()
-                    print(self.liveMatches.count)
-                    self.updateTableHeight()
+//                    print(self.liveMatches.count)
+//                    self.updateTableHeight()
                     self.topMatchesTableView.reloadData()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 })
