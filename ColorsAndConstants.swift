@@ -10,7 +10,7 @@ import Foundation
 
 
 import UIKit
-
+import Material
 
 let kMatchListHeaderHeight: CGFloat = 90
 var kTableHeaderHeight: CGFloat = 80
@@ -44,6 +44,9 @@ var clearcolor = UIColor.clear //
 var navBarColor = UIColor(red: 41/255, green: 128/255, blue: 185/255, alpha: 1)
 var txtColor = UIColor(red: 41/255, green: 128/255, blue: 185/255, alpha: 1)
 let whitecolor = UIColor.white
+
+
+let mainColor = Color.indigo.base
 
 
 let favoriteTeamsList = ["INDIA", "AUSTRALIA", "Sri Lanka"]

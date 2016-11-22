@@ -210,13 +210,7 @@ open class BowledService {
     }
     
     open func getScoreCard(_ matchid: NSNumber, seriesid: NSNumber ) {
-        /* Configure session, choose between:
-        * defaultSessionConfiguration
-        * ephemeralSessionConfiguration
-        * backgroundSessionConfigurationWithIdentifier:
-        And set session-wide properties, such as: HTTPAdditionalHeaders,
-        HTTPCookieAcceptPolicy, requestCachePolicy or timeoutIntervalForRequest.
-        */
+
         let sessionConfig = URLSessionConfiguration.default
         
         /* Create session, and optionally set a NSURLSessionDelegate. */
