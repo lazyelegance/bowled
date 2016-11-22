@@ -424,6 +424,14 @@
                                     <outlet property="wickets" destination="q5Y-nN-34b" id="8fH-Fx-2qL"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentaryCell" rowHeight="80" id="lpV-UG-Omc" customClass="BowlerRecordCell" customModule="Bowled" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="332" width="375" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lpV-UG-Omc" id="gWa-Ph-kTM">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="79"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="ec0-cq-nYp" id="uGg-Vx-Bn9"/>

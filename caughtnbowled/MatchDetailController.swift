@@ -155,6 +155,8 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     override func numberOfSections(in tableView: UITableView) -> Int {
         if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 0 {
             return 2
+        } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 1 {
+            return 1
         }
         return 0
     }
@@ -170,6 +172,11 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
             default:
                 break
             }
+        } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 1 {
+            
+//            self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }.count
+            
+            return self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }.count
         }
         return 0
     }
@@ -177,50 +184,63 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.section {
-        case 0:
-            let batsmanRecordCell = tableView.dequeueReusableCell(withIdentifier: "batsmanRecordCell", for: indexPath) as! BatsmanRecordCell
-            if indexPath.row == 0 {
-                var dummybatsman = Batsman(id: 0, name: "", runsScored: "Rs", ballsFaced: "Bs")
-                dummybatsman.sixesHit = "6s"
-                dummybatsman.foursHit = "4s"
-                dummybatsman.strikeRate = "S/R"
-                dummybatsman.howOut = ""
-                batsmanRecordCell.batsman = dummybatsman
+        if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 0 {
+            switch indexPath.section {
+            case 0:
+                let batsmanRecordCell = tableView.dequeueReusableCell(withIdentifier: "batsmanRecordCell", for: indexPath) as! BatsmanRecordCell
+                if indexPath.row == 0 {
+                    var dummybatsman = Batsman(id: 0, name: "", runsScored: "Rs", ballsFaced: "Bs")
+                    dummybatsman.sixesHit = "6s"
+                    dummybatsman.foursHit = "4s"
+                    dummybatsman.strikeRate = "S/R"
+                    dummybatsman.howOut = ""
+                    batsmanRecordCell.batsman = dummybatsman
+                    
+                    batsmanRecordCell.strikeRate.font = RobotoFont.bold(with: 15)
+                    batsmanRecordCell.ballsFaced.font = RobotoFont.bold(with: 15)
+                    batsmanRecordCell.fours.font = RobotoFont.bold(with: 15)
+                    batsmanRecordCell.sixes.font = RobotoFont.bold(with: 15)
+                    batsmanRecordCell.contentView.backgroundColor = mainColor
+                } else if let batsman = self.scorecard.innings[self.subMenu.selectedSegmentIndex].batsmen[indexPath.row - 1] as Batsman? {
+                    batsmanRecordCell.batsman = batsman
+                    batsmanRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? mainColor : Color.indigo.darken1
+                }
                 
-                batsmanRecordCell.strikeRate.font = RobotoFont.bold(with: 15)
-                batsmanRecordCell.ballsFaced.font = RobotoFont.bold(with: 15)
-                batsmanRecordCell.fours.font = RobotoFont.bold(with: 15)
-                batsmanRecordCell.sixes.font = RobotoFont.bold(with: 15)
-                batsmanRecordCell.contentView.backgroundColor = mainColor
-            } else if let batsman = self.scorecard.innings[self.subMenu.selectedSegmentIndex].batsmen[indexPath.row - 1] as Batsman? {
-                batsmanRecordCell.batsman = batsman
-                batsmanRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? mainColor : Color.indigo.darken1
+                
+                return batsmanRecordCell
+            case 1:
+                let bowlerRecordCell = tableView.dequeueReusableCell(withIdentifier: "bolwerRecordCell", for: indexPath) as! BowlerRecordCell
+                if indexPath.row == 0 {
+                    bowlerRecordCell.bowler = Bowler(id: 0, name: "", overs: "O", maidens: "M", runsConceded: "R", wickets: "W", economy: "econ.")
+                    bowlerRecordCell.overs.font = RobotoFont.bold(with: 15)
+                    bowlerRecordCell.maidens.font = RobotoFont.bold(with: 15)
+                    bowlerRecordCell.runsConceded.font = RobotoFont.bold(with: 15)
+                    bowlerRecordCell.ecomony.font = RobotoFont.bold(with: 15)
+                    bowlerRecordCell.contentView.backgroundColor = mainColor
+                } else if let bowler = self.scorecard.innings[self.subMenu.selectedSegmentIndex].bowlers[indexPath.row - 1] as Bowler? {
+                    bowlerRecordCell.bowler = bowler
+                    bowlerRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? mainColor : Color.indigo.darken1
+                }
+                
+                return bowlerRecordCell
+            default:
+                break
             }
+        } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "commentaryCell", for: indexPath)
+            let comments = self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 } as! [Comment]
             
             
-            return batsmanRecordCell
-        case 1:
-            let bowlerRecordCell = tableView.dequeueReusableCell(withIdentifier: "bolwerRecordCell", for: indexPath) as! BowlerRecordCell
-            if indexPath.row == 0 {
-                bowlerRecordCell.bowler = Bowler(id: 0, name: "", overs: "O", maidens: "M", runsConceded: "R", wickets: "W", economy: "econ.")
-                bowlerRecordCell.overs.font = RobotoFont.bold(with: 15)
-                bowlerRecordCell.maidens.font = RobotoFont.bold(with: 15)
-                bowlerRecordCell.runsConceded.font = RobotoFont.bold(with: 15)
-                bowlerRecordCell.ecomony.font = RobotoFont.bold(with: 15)
-                bowlerRecordCell.contentView.backgroundColor = mainColor
-            } else if let bowler = self.scorecard.innings[self.subMenu.selectedSegmentIndex].bowlers[indexPath.row - 1] as Bowler? {
-                bowlerRecordCell.bowler = bowler
-                bowlerRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? mainColor : Color.indigo.darken1
-            }
-            
-            return bowlerRecordCell
-        default:
-            break
+            cell.textLabel?.text = comments[indexPath.row].text
+            return cell
         }
         
+        
+        
         //WHY?
-        let cell = tableView.dequeueReusableCell(withIdentifier: "batsmanRecordCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "commentaryCell", for: indexPath)
+//        cell.textLabel?.text = self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers[indexPath.row].uniqueOverId
+        
         return cell
         
     }
@@ -242,20 +262,20 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     
     func mainMenuChangedValue(_ mainMenu: HMSegmentedControl) {
         print("main menu value chnaged")
-//        switch mainMenu.selectedSegmentIndex {
-//        case 0:
-//            self.subMenu.sectionTitles = self.scorecard?.inningsNamesArray
-//        case 1:
-//            self.subMenu.sectionTitles = self.commentary?.inningsNamesArray
-//        case 2:
-//            self.subMenu.sectionTitles = self.scorecard?.inningsNamesArray.reversed()
-//        default:
-//            self.subMenu.sectionTitles = ["three", "four"]
-//        }
-//        
-//        self.subMenu.setSelectedSegmentIndex(0, animated: true)
-//        self.subMenu.reloadInputViews()
-//        self.tableView.reloadData()
+        switch mainMenu.selectedSegmentIndex {
+        case 0:
+            self.subMenu.sectionTitles = self.scorecard?.innings.map { $0.name }
+        case 1:
+            self.subMenu.sectionTitles = self.commentary?.commentaryInnings.map { $0.name }
+        case 2:
+            self.subMenu.sectionTitles = self.scorecard?.innings.reversed().map { $0.name }
+        default:
+            self.subMenu.sectionTitles = ["three", "four"]
+        }
+        
+        self.subMenu.setSelectedSegmentIndex(0, animated: true)
+        self.subMenu.reloadInputViews()
+        self.tableView.reloadData()
     }
     
     func subMenuChangedValue(_ subMenu: HMSegmentedControl) {
@@ -399,6 +419,8 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                     //let scorecardkeyfromresult = ScorecardKey(matchid: matchid, seriesid: seriesid)
                     
                     self.commentary = commentaryfromresults
+                    print("HEEEEEEREEEEE")
+//                    print(self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers.map { $0.deliveries }.flatMap { $0 })
                     //self.activityIndicator.stopAnimation()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     

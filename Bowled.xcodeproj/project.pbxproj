@@ -44,6 +44,10 @@
 		6379F3EB1DE2DB6A0024FC07 /* Batsman.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3EA1DE2DB6A0024FC07 /* Batsman.swift */; };
 		6379F3ED1DE2DEC90024FC07 /* Bowler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3EC1DE2DEC90024FC07 /* Bowler.swift */; };
 		6379F3EF1DE2FD620024FC07 /* Innings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3EE1DE2FD620024FC07 /* Innings.swift */; };
+		6379F3F11DE47CF30024FC07 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3F01DE47CF30024FC07 /* Comment.swift */; };
+		6379F3F31DE47E5A0024FC07 /* Delivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3F21DE47E5A0024FC07 /* Delivery.swift */; };
+		6379F3F51DE47F2F0024FC07 /* CommentaryOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3F41DE47F2F0024FC07 /* CommentaryOver.swift */; };
+		6379F3F71DE47FCD0024FC07 /* CommentaryInnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3F61DE47FCD0024FC07 /* CommentaryInnings.swift */; };
 		63970B921DDC33F100D171C9 /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63970B911DDC33F100D171C9 /* keys.plist */; };
 		63970B941DDC342C00D171C9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63970B931DDC342C00D171C9 /* MainViewController.swift */; };
 		63970B961DDC34A100D171C9 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63970B951DDC34A100D171C9 /* SideMenuController.swift */; };
@@ -182,6 +186,10 @@
 		6379F3EA1DE2DB6A0024FC07 /* Batsman.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Batsman.swift; sourceTree = "<group>"; };
 		6379F3EC1DE2DEC90024FC07 /* Bowler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bowler.swift; sourceTree = "<group>"; };
 		6379F3EE1DE2FD620024FC07 /* Innings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Innings.swift; sourceTree = "<group>"; };
+		6379F3F01DE47CF30024FC07 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		6379F3F21DE47E5A0024FC07 /* Delivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Delivery.swift; sourceTree = "<group>"; };
+		6379F3F41DE47F2F0024FC07 /* CommentaryOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentaryOver.swift; sourceTree = "<group>"; };
+		6379F3F61DE47FCD0024FC07 /* CommentaryInnings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentaryInnings.swift; sourceTree = "<group>"; };
 		63970B911DDC33F100D171C9 /* keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		63970B931DDC342C00D171C9 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		63970B951DDC34A100D171C9 /* SideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
@@ -389,14 +397,10 @@
 			isa = PBXGroup;
 			children = (
 				6379F3E01DE2D5BF0024FC07 /* Partnerships.swift */,
-				6379F3EE1DE2FD620024FC07 /* Innings.swift */,
-				6379F3EA1DE2DB6A0024FC07 /* Batsman.swift */,
-				6379F3EC1DE2DEC90024FC07 /* Bowler.swift */,
+				6379F3F91DE4808C0024FC07 /* Scorecard */,
+				6379F3F81DE4806F0024FC07 /* Commentary */,
 				63B5E1E71DDC694800C1A63D /* Match.swift */,
 				63B5E1E81DDC694800C1A63D /* Series.swift */,
-				6379F3DA1DE1964A0024FC07 /* Scorecard.swift */,
-				6379F3DE1DE2D36A0024FC07 /* Commentary.swift */,
-				6379F3DC1DE1968D0024FC07 /* FallOfWicket.swift */,
 			);
 			name = Structs;
 			sourceTree = "<group>";
@@ -409,6 +413,30 @@
 				6379F3E81DE2DB470024FC07 /* BowlerRecordCell.swift */,
 			);
 			name = TableCells;
+			sourceTree = "<group>";
+		};
+		6379F3F81DE4806F0024FC07 /* Commentary */ = {
+			isa = PBXGroup;
+			children = (
+				6379F3F01DE47CF30024FC07 /* Comment.swift */,
+				6379F3F21DE47E5A0024FC07 /* Delivery.swift */,
+				6379F3F41DE47F2F0024FC07 /* CommentaryOver.swift */,
+				6379F3F61DE47FCD0024FC07 /* CommentaryInnings.swift */,
+				6379F3DE1DE2D36A0024FC07 /* Commentary.swift */,
+			);
+			name = Commentary;
+			sourceTree = "<group>";
+		};
+		6379F3F91DE4808C0024FC07 /* Scorecard */ = {
+			isa = PBXGroup;
+			children = (
+				6379F3EE1DE2FD620024FC07 /* Innings.swift */,
+				6379F3EA1DE2DB6A0024FC07 /* Batsman.swift */,
+				6379F3EC1DE2DEC90024FC07 /* Bowler.swift */,
+				6379F3DA1DE1964A0024FC07 /* Scorecard.swift */,
+				6379F3DC1DE1968D0024FC07 /* FallOfWicket.swift */,
+			);
+			name = Scorecard;
 			sourceTree = "<group>";
 		};
 		6384CD691C57F9EE00041956 /* Frameworks */ = {
@@ -865,12 +893,15 @@
 				6379F3E11DE2D5BF0024FC07 /* Partnerships.swift in Sources */,
 				6379F3EB1DE2DB6A0024FC07 /* Batsman.swift in Sources */,
 				6379F3E51DE2D8140024FC07 /* BatsmanRecordCell.swift in Sources */,
+				6379F3F31DE47E5A0024FC07 /* Delivery.swift in Sources */,
 				6379F3DD1DE1968D0024FC07 /* FallOfWicket.swift in Sources */,
 				6327B3121BD29DC800B0EB23 /* HMSegmentedControl.m in Sources */,
 				6379F3EF1DE2FD620024FC07 /* Innings.swift in Sources */,
 				63970B981DDC34C200D171C9 /* FilterMenuController.swift in Sources */,
+				6379F3F71DE47FCD0024FC07 /* CommentaryInnings.swift in Sources */,
 				630846B81BD0BBE50019AD3F /* ContainerViewController.swift in Sources */,
 				63EDF8FB1BD8EA2600634500 /* ColorsAndConstants.swift in Sources */,
+				6379F3F51DE47F2F0024FC07 /* CommentaryOver.swift in Sources */,
 				6307423F1DDDCF71008F86CF /* BowledTableViewController.swift in Sources */,
 				6379F3D91DE193FA0024FC07 /* Reach.swift in Sources */,
 				63B5E1EA1DDC694800C1A63D /* Series.swift in Sources */,
@@ -879,6 +910,7 @@
 				6379F3D11DE1844F0024FC07 /* MatchHeaderView.swift in Sources */,
 				6379F3ED1DE2DEC90024FC07 /* Bowler.swift in Sources */,
 				6379F3DF1DE2D36A0024FC07 /* Commentary.swift in Sources */,
+				6379F3F11DE47CF30024FC07 /* Comment.swift in Sources */,
 				6379F3DB1DE1964A0024FC07 /* Scorecard.swift in Sources */,
 				63B5E1E91DDC694800C1A63D /* Match.swift in Sources */,
 				6308465F1BD0B1A60019AD3F /* AppDelegate.swift in Sources */,
