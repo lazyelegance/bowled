@@ -26,7 +26,8 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     var match: Match!
     var scorecard: Scorecard!
     var commentary: Commentary!
-    var partnerships = [NSNumber: NSArray]()
+    
+    var partnerships = [Partnerships]()
     
     var matchId: NSNumber!
     var seriesId: NSNumber!

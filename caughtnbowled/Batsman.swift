@@ -23,12 +23,26 @@ struct Batsman {
     var fowOrder: NSNumber = 2
     var howOut = "Not Out"
     var isTopScorer = false
+    var indexForPartnership: NSNumber = 0
     
     init(id: NSNumber, name: String, runsScored: String, ballsFaced: String) {
         self.id = id
         self.name = name
         self.runsScored = runsScored
         self.ballsFaced = ballsFaced
+    }
+    
+    static func batsmanFromDictionary(batsmanDictionary: [String: AnyObject]) -> Batsman {
+        
+        if let playerId = batsmanDictionary["playerId"] as? NSNumber, let playerIndex = batsmanDictionary["playerIndex"] as? NSNumber, let name = batsmanDictionary["name"] as? String, let runs = batsmanDictionary["runs"] as? NSNumber, let balls = batsmanDictionary["balls"] as? NSNumber, let fours = batsmanDictionary["fours"] as? NSNumber, let sixes = batsmanDictionary["sixes"] as? NSNumber  {
+            var newBatsman = Batsman(id: playerId, name: name, runsScored: String(describing: runs), ballsFaced: String(describing: balls))
+            newBatsman.indexForPartnership = playerIndex
+            newBatsman.foursHit = String(describing: fours)
+            newBatsman.sixesHit = String(describing: sixes)
+            return newBatsman
+        }
+        
+        return Batsman(id: 0, name: "", runsScored: "0", ballsFaced: "0")
     }
     
     static func batsmanFromArray(batsmenArray: [[String: AnyObject]]) -> [Batsman] {

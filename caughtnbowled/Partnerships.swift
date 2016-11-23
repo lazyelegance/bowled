@@ -9,27 +9,30 @@
 import Foundation
 
 struct Partnerships {
-    var partners = NSArray()
-    var inningsid = NSNumber()
+    var isValid: Bool = false
+    var name: String
+    var partnerships: [Partnership]
     
-    
-    init(partners: NSArray, inningsid: NSNumber ) {
-        self.partners  = partners
-        self.inningsid = inningsid
+    init(name: String, partnerships: [Partnership]) {
+        self.name = name
+        self.partnerships = partnerships
     }
     
-    static func partnershipsFromAPI(_ results: NSDictionary) -> Partnerships {
-        let defPartnerships = Partnerships(partners: [], inningsid: -1)
+    static func partnershipsFromAPI(name: String, results: NSDictionary) -> Partnerships {
+        
         if results.count > 0 {
             if let meta = results["meta"] as? NSDictionary {
                 if let inningsid = meta["inningId"] as? NSNumber {
-                    if let partners = results["partners"] as? NSArray {
-                        let partnerships = Partnerships(partners: partners, inningsid: inningsid)
-                        return partnerships
+                    if let partners = results["partners"] as? [[String: AnyObject]] {
+                        let partnerships = Partnership.partnershipsFromAray(partnerships: partners)
+                        return Partnerships(name: name, partnerships: partnerships)
                     }
                 }
             }
         }
-        return defPartnerships
+        var dummyBatsman = Batsman(id: 0, name: "", runsScored: "", ballsFaced: "")
+        var partnership = Partnership(firstBatsman: dummyBatsman, secondBatsman: dummyBatsman)
+        return Partnerships(name: "", partnerships: [partnership])
     }
+    
 }
