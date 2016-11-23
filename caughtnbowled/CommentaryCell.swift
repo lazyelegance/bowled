@@ -29,7 +29,7 @@ class CommentaryCell: UITableViewCell {
                 deliveryNumber.text = comment?.deliveryNumRep
                 commentLabel.text = comment?.text
                 
-                resultLabel.textColor = Color.white
+                
                 deliveryNumber.textColor = Color.white
                 commentLabel.textColor = Color.white
                 
@@ -40,15 +40,24 @@ class CommentaryCell: UITableViewCell {
                 self.contentView.backgroundColor = mainColor
                 
                 deliverNumberWidth.constant = 40
-                resultWidth.constant = 20
+                resultWidth.constant = 40
+                
+                resultLabel.backgroundColor = Color.white
+                resultLabel.textColor = mainColor
+                resultLabel.layer.masksToBounds = true
+                resultLabel.layer.cornerRadius = 5
+                
+                if comment?.result == "W" {
+                    resultLabel.textColor = Color.red
+                } else if comment?.result == "6" || comment?.result == "4" {
+                    resultLabel.textColor = Color.green
+                }
                 
                 if comment?.ballType == "NonBallComment" {
                     commentLabel.font = RobotoFont.bold(with: 15)
                     deliverNumberWidth.constant = 0
                     resultWidth.constant = 0
                     self.contentView.backgroundColor = Color.indigo.darken1
-                } else {
-                    
                 }
             }
         }

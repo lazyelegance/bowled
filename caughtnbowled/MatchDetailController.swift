@@ -50,15 +50,14 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         
         tableView.tableHeaderView = nil
         tableView.addSubview(headerView)
-        
+        prepareHeaderView()
+        prepareMainMenu()
         tableView.contentInset = UIEdgeInsets(top: kHeaderHeight, left: 0, bottom: 0, right: 0)
         tableView.contentOffset = CGPoint(x: 0, y: -kHeaderHeight)
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.backgroundColor = mainColor
-        prepareHeaderView()
-        prepareMainMenu()
         
         
         
@@ -103,11 +102,11 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         }
         
         headerView.frame = headerRect
-////        mainMenu.frame.origin.y = headerRect.size.height - 70
-//        
-//        if self.subMenu != nil {
-//            self.subMenu.frame.origin.y = headerRect.size.height - 30
-//        }
+        mainMenu.frame.origin.y = headerRect.size.height - 70
+        
+        if self.subMenu != nil {
+            self.subMenu.frame.origin.y = headerRect.size.height - 30
+        }
 
     }
     
@@ -173,8 +172,6 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                 break
             }
         } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 1 {
-            
-//            self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }.count
             
             return self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }.count
         }
