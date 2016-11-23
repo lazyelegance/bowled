@@ -66,7 +66,16 @@ struct Comment {
                 
                 newComment.deliveryNumRep = "\(overNumber).\(deliveryNumber)"
                 
-                newComment.result = result
+                
+                switch ballType {
+                case "Wide":
+                    newComment.result = isFallOfWicket ? "W" : result + "wd"
+                default:
+                    newComment.result = isFallOfWicket ? "W" : result
+                }
+                
+                
+                
                 
                 commentsArray.append(newComment)
         
