@@ -27,6 +27,8 @@ struct Comment {
     var result: String = ""
     var deliveryNumRep = "0.0"
     
+    var isHighlight = false
+    
     
     init(id: NSNumber, ballType: String) {
         self.id = id
@@ -64,7 +66,9 @@ struct Comment {
                 newComment.overNumber = overNumber
                 newComment.deliveryNumber = deliveryNumber
                 
-                newComment.deliveryNumRep = "\(overNumber).\(deliveryNumber)"
+                
+                
+                newComment.deliveryNumRep = "\((overNumber as Int) - 1).\(deliveryNumber)"
                 
                 
                 switch ballType {
@@ -74,7 +78,9 @@ struct Comment {
                     newComment.result = isFallOfWicket ? "W" : result
                 }
                 
-                
+                if isFallOfWicket || result == "4" || result == "6" || ballType == "NonBallComment"{
+                    newComment.isHighlight = true
+                }
                 
                 
                 commentsArray.append(newComment)

@@ -113,7 +113,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     
     
     func prepareMainMenu() {
-        mainMenu = HMSegmentedControl(sectionTitles: ["SCORECARD", "COMMENTARY", "PARTNERSHIPS"])
+        mainMenu = HMSegmentedControl(sectionTitles: ["SCORECARD", "COMMENTARY", "PARTNERSHIPS", "HIGHLIGHTS"])
         
         mainMenu.addTarget(self, action: #selector(mainMenuChangedValue(_:)), for: UIControlEvents.valueChanged)
         mainMenu.frame.size.height = 40
@@ -183,6 +183,8 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
             } else {
                 return 0
             }
+        } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 3 {
+            return self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }.filter { $0.isHighlight }.count
         }
         return 0
     }
@@ -242,35 +244,21 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
             partnershipCell.partnership = self.partnerships[NSNumber(integerLiteral: (self.subMenu.sectionTitles.count - self.subMenu.selectedSegmentIndex))]?[indexPath.row]
             
             return partnershipCell
+        } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 3 {
+            let commentaryCell = tableView.dequeueReusableCell(withIdentifier: "commentaryCell", for: indexPath) as! CommentaryCell
+            let comments = self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }.filter { $0.isHighlight }
+            
+            commentaryCell.comment = comments[indexPath.row]
+            return commentaryCell
         }
-        
-        
         
         //WHY?
         let cell = tableView.dequeueReusableCell(withIdentifier: "commentaryCell", for: indexPath)
-//        cell.textLabel?.text = self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers[indexPath.row].uniqueOverId
-        
         return cell
         
     }
  
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        
-//        if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 0 {
-//            switch indexPath.section {
-//            case 0:
-//                return indexPath.row == 0 ? 40 : 80
-//            case 1:
-//                return indexPath.row == 0 ? 40 : 60
-//            default:
-//                return 0
-//            }
-//        } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 1 {
-//            return 100
-//        }
-//        return 0
-//
-//    }
+
     
     //MARK: - segemented views
     
@@ -279,7 +267,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         switch mainMenu.selectedSegmentIndex {
         case 0:
             self.subMenu.sectionTitles = self.scorecard?.innings.map { $0.name }
-        case 1:
+        case 1,3:
             self.subMenu.sectionTitles = self.commentary?.commentaryInnings.map { $0.name }
         case 2:
             self.subMenu.sectionTitles = self.scorecard?.innings.map { $0.name }
