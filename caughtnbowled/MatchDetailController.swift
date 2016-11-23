@@ -27,7 +27,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     var scorecard: Scorecard!
     var commentary: Commentary!
     
-    var partnerships = [Partnerships]()
+    var partnerships = [NSNumber: [Partnership]]()
     
     var matchId: NSNumber!
     var seriesId: NSNumber!
@@ -155,7 +155,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     override func numberOfSections(in tableView: UITableView) -> Int {
         if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 0 {
             return 2
-        } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 1 {
+        } else if self.subMenu != nil {
             return 1
         }
         return 0
@@ -175,6 +175,14 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 1 {
             
             return self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }.count
+        } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 2 {
+            
+            
+            if self.partnerships[NSNumber(integerLiteral: (self.subMenu.sectionTitles.count - self.subMenu.selectedSegmentIndex))] != nil {
+                return self.partnerships[NSNumber(integerLiteral: (self.subMenu.sectionTitles.count - self.subMenu.selectedSegmentIndex))]!.count
+            } else {
+                return 0
+            }
         }
         return 0
     }
@@ -203,8 +211,6 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                     batsmanRecordCell.batsman = batsman
                     batsmanRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? mainColor : Color.indigo.darken1
                 }
-                
-                
                 return batsmanRecordCell
             case 1:
                 let bowlerRecordCell = tableView.dequeueReusableCell(withIdentifier: "bolwerRecordCell", for: indexPath) as! BowlerRecordCell
@@ -227,9 +233,15 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 1 {
             let commentaryCell = tableView.dequeueReusableCell(withIdentifier: "commentaryCell", for: indexPath) as! CommentaryCell
             let comments = self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }
-            print(comments[indexPath.row])
+            
             commentaryCell.comment = comments[indexPath.row]
             return commentaryCell
+        } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 2 {
+            let partnershipCell = tableView.dequeueReusableCell(withIdentifier: "partnershipCell", for: indexPath) as! PartnershipCell
+            
+            partnershipCell.partnership = self.partnerships[NSNumber(integerLiteral: (self.subMenu.sectionTitles.count - self.subMenu.selectedSegmentIndex))]?[indexPath.row]
+            
+            return partnershipCell
         }
         
         
@@ -270,7 +282,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         case 1:
             self.subMenu.sectionTitles = self.commentary?.commentaryInnings.map { $0.name }
         case 2:
-            self.subMenu.sectionTitles = self.scorecard?.innings.reversed().map { $0.name }
+            self.subMenu.sectionTitles = self.scorecard?.innings.map { $0.name }
         default:
             self.subMenu.sectionTitles = ["three", "four"]
         }
@@ -341,10 +353,9 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                             self.headerView.addSubview(self.subMenu)
                             self.hasSubMenu = true
                             
-                            
-//                            for i in 1..<(self.scorecard?.inningsNamesArray.count)! {
-////                                self.bowledServiceAPI.getPartnerships(self.matchId, seriesid: self.seriesId, inniid: i)
-//                            }
+                            for inningsId in (self.scorecard?.innings.map{ $0.id })! {
+                                self.bowledServiceAPI.getPartnerships(self.match.matchId, seriesid: self.match.seriesId, inniid: inningsId)
+                            }
                         }
                         self.mainMenu.alpha = 1
                         SwiftLoader.hide()
@@ -440,11 +451,9 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
             partnershipsQueue.async { () -> Void in
                 
                 if let resultsDictionary = results as? NSDictionary {
-                    let partnershipsfromresults = Partnerships.partnershipsFromAPI(resultsDictionary)
-                    //let scorecardkeyfromresult = ScorecardKey(matchid: matchid, seriesid: seriesid)
-                    
-                    self.partnerships[partnershipsfromresults.inningsid] = partnershipsfromresults.partners
-                    
+                    let partnershipsfromresults = Partnerships.partnershipsFromAPI(results: resultsDictionary)
+                    self.partnerships[partnershipsfromresults.inningsid] = partnershipsfromresults.partnerships
+                    print(self.partnerships)
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
                     DispatchQueue.main.async(execute: {
@@ -452,8 +461,6 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                         //Loading.stop()
                     })
                 }
-                
-                
             }
         } else if requestType == .matchDetail {
 //            let partnershipsQueue = DispatchQueue(label: "matchDetailQueue", attributes: [])

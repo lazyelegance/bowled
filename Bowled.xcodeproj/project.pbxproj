@@ -76,6 +76,7 @@
 		63C0B1A71BD4BED600CE198A /* team16.png in Resources */ = {isa = PBXBuildFile; fileRef = 63C0B19A1BD4BED600CE198A /* team16.png */; };
 		63C0B1AA1BD4C26900CE198A /* team95.png in Resources */ = {isa = PBXBuildFile; fileRef = 63C0B1A91BD4C26900CE198A /* team95.png */; };
 		63C0EA511DE5757F00BAC52E /* Partnership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0EA501DE5757F00BAC52E /* Partnership.swift */; };
+		63C0EA531DE60BFF00BAC52E /* PartnershipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0EA521DE60BFF00BAC52E /* PartnershipCell.swift */; };
 		63EDF8FB1BD8EA2600634500 /* ColorsAndConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EDF8FA1BD8EA2600634500 /* ColorsAndConstants.swift */; };
 		63F5DC5D1CB651DD00E0DDDD /* bowled_white_20.png in Resources */ = {isa = PBXBuildFile; fileRef = 63F5DC5C1CB651DD00E0DDDD /* bowled_white_20.png */; };
 		63F5DC5F1CB6532700E0DDDD /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 63F5DC5E1CB6532700E0DDDD /* Icon-Small.png */; };
@@ -221,6 +222,7 @@
 		63C0B19A1BD4BED600CE198A /* team16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = team16.png; sourceTree = "<group>"; };
 		63C0B1A91BD4C26900CE198A /* team95.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = team95.png; sourceTree = "<group>"; };
 		63C0EA501DE5757F00BAC52E /* Partnership.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Partnership.swift; sourceTree = "<group>"; };
+		63C0EA521DE60BFF00BAC52E /* PartnershipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartnershipCell.swift; sourceTree = "<group>"; };
 		63EDF8FA1BD8EA2600634500 /* ColorsAndConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorsAndConstants.swift; sourceTree = "<group>"; };
 		63F5DC5C1CB651DD00E0DDDD /* bowled_white_20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bowled_white_20.png; sourceTree = "<group>"; };
 		63F5DC5E1CB6532700E0DDDD /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 			isa = PBXGroup;
 			children = (
 				6307423C1DDDCC3B008F86CF /* TopMatchCell.swift */,
+				63C0EA521DE60BFF00BAC52E /* PartnershipCell.swift */,
 				6379F3E41DE2D8140024FC07 /* BatsmanRecordCell.swift */,
 				6379F3E81DE2DB470024FC07 /* BowlerRecordCell.swift */,
 				63A3D0EE1DE4A04300F5B1F5 /* CommentaryCell.swift */,
@@ -892,6 +895,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63C0EA531DE60BFF00BAC52E /* PartnershipCell.swift in Sources */,
 				63970B941DDC342C00D171C9 /* MainViewController.swift in Sources */,
 				6307423D1DDDCC3B008F86CF /* TopMatchCell.swift in Sources */,
 				63970B961DDC34A100D171C9 /* SideMenuController.swift in Sources */,
