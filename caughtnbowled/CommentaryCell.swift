@@ -35,7 +35,7 @@ class CommentaryCell: UITableViewCell {
                 
                 deliveryNumber.font = RobotoFont.medium(with: 15)
                 commentLabel.font = RobotoFont.regular(with: 15)
-                resultLabel.font = RobotoFont.bold(with: 15)
+                resultLabel.font = RobotoFont.bold(with: 35)
                 
                 self.contentView.backgroundColor = mainColor
                 

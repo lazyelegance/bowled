@@ -11,25 +11,41 @@ import  Material
 class PartnershipCell: UITableViewCell {
 
 
+    @IBOutlet weak var totalRuns: UILabel!
     
     @IBOutlet weak var fbRunsScored: UILabel!
     @IBOutlet weak var fbBallsFaced: UILabel!
     @IBOutlet weak var fbName: UILabel!
     
+    @IBOutlet weak var fbViewWidth: NSLayoutConstraint!
+    
+    
+    @IBOutlet weak var fbAspectRatio: NSLayoutConstraint!
+    
+    
     @IBOutlet weak var sbRunsScored: UILabel!
     @IBOutlet weak var sbBallsFaced: UILabel!
     @IBOutlet weak var sbName: UILabel!
     
+    @IBOutlet weak var sbViewWidth: NSLayoutConstraint!
+    
+    @IBOutlet weak var sbAspectRatio: NSLayoutConstraint!
+    
+    
     var partnership: Partnership? {
         didSet {
             if partnership != nil {
+                totalRuns.text = "\(partnership!.totalRuns)"
+                totalRuns.textColor = Color.white
+                totalRuns.font = RobotoFont.bold(with: 35)
+                
                 fbName.text = partnership?.firstBatsman.name
                 fbRunsScored.text = partnership?.firstBatsman.runsScored
-                fbBallsFaced.text = partnership?.firstBatsman.ballsFaced
+                fbBallsFaced.text = "( " + (partnership?.firstBatsman.ballsFaced)! + " )"
                 
                 sbName.text = partnership?.secondBatsman.name
                 sbRunsScored.text = partnership?.secondBatsman.runsScored
-                sbBallsFaced.text = partnership?.secondBatsman.ballsFaced
+                sbBallsFaced.text = "( " + (partnership?.secondBatsman.ballsFaced)! + " )"
                 
                 self.contentView.backgroundColor = mainColor
                 
@@ -42,12 +58,18 @@ class PartnershipCell: UITableViewCell {
                 sbRunsScored.textColor = Color.white
                 
                 fbName.font = RobotoFont.medium(with: 15)
-                fbRunsScored.font = RobotoFont.regular(with: 15)
+                fbRunsScored.font = RobotoFont.bold(with: 15)
                 fbBallsFaced.font = RobotoFont.regular(with: 15)
                 
                 sbName.font = RobotoFont.medium(with: 15)
-                sbRunsScored.font = RobotoFont.regular(with: 15)
+                sbRunsScored.font = RobotoFont.bold(with: 15)
                 sbBallsFaced.font = RobotoFont.regular(with: 15)
+
+                fbViewWidth.constant = (self.frame.size.width / 4) * CGFloat((partnership?.firstBatsmanContrib)!)
+                sbViewWidth.constant = (self.frame.size.width / 4) * CGFloat((partnership?.secondBatsmanContrib)!)
+                
+                print(fbViewWidth.constant)
+                
             }
         }
     }
