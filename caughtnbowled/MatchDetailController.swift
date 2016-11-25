@@ -23,6 +23,13 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     @IBOutlet weak var teamTwoScore: UILabel!
     @IBOutlet weak var matchStatus: UILabel!
     
+    @IBOutlet weak var backButton: FlatButton!
+    
+    @IBAction func backToMain(_ sender: Any) {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    
     var match: Match!
     var scorecard: Scorecard!
     var commentary: Commentary!
@@ -84,6 +91,19 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         matchStatus.text = match.matchSummaryText
         matchId = match.matchId
         seriesId = match.seriesId
+        
+        
+        teamOneName.textColor = mainColor
+        teamOneName.font = RobotoFont.bold
+        
+        teamOneScore.textColor = mainColor
+        teamOneScore.font = RobotoFont.light
+        
+        teamTwoName.textColor = mainColor
+        teamTwoName.font = RobotoFont.bold
+        
+        teamTwoScore.textColor = mainColor
+        teamTwoScore.font = RobotoFont.light
         
         // MOVE FROM HERE
         bowledServiceAPI = BowledService(delegate: self)

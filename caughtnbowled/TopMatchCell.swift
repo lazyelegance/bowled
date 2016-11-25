@@ -12,6 +12,7 @@ import Material
 class TopMatchCell: UITableViewCell {
     
     
+    @IBOutlet weak var pulseView: PulseView!
     @IBOutlet weak var series: UILabel!
     @IBOutlet weak var matchStatus: UILabel!
     
@@ -27,16 +28,36 @@ class TopMatchCell: UITableViewCell {
         didSet {
             if match != nil {
                 teamOneName.text = match?.hometeamName
+                teamOneName.textColor = mainColor
+                teamOneName.font = RobotoFont.bold
+                
+                
+            
+        
                 teamOneScore.text = match?.homeScore
+                teamOneScore.textColor = mainColor
+                teamOneScore.font = RobotoFont.light
                 
                 teamTwoName.text = match?.awayteamName
+                teamTwoName.textColor = mainColor
+                teamTwoName.font = RobotoFont.bold
+                
                 teamTwoScore.text = match?.awayScore
+                teamTwoScore.textColor = mainColor
+                teamTwoScore.font = RobotoFont.light
                 
                 series.text = match?.seriesName.uppercased()
                 matchStatus.text = match?.matchSummaryText.uppercased()
                 
-                self.contentView.backgroundColor = Color.clear
+                series.font = RobotoFont.light(with: 10)
+                series.textColor = mainColor
+                matchStatus.font = RobotoFont.light(with: 10)
+                matchStatus.textColor = mainColor
+                
                 self.backgroundColor = Color.clear
+                self.contentView.backgroundColor = mainColor
+                pulseView.backgroundColor = Color.white
+                
             }
         }
     }
