@@ -118,15 +118,15 @@ struct Match {
         
         
         
-        if upcomingMatches.count > 0 {
-            var i = 0
-            for match in upcomingMatches {
-                if match.hasRelDate && i < 2 {
-                    topMatches.append(match)
-                    i += 1
-                }
-            }
-        }
+//        if upcomingMatches.count > 0 {
+//            var i = 0
+//            for match in upcomingMatches {
+//                if match.hasRelDate && i < 2 && match.hometeamName != "To Be Decided" && match.awayteamName != "To Be Decided" {
+//                    topMatches.append(match)
+//                    i += 1
+//                }
+//            }
+//        }
         
         
 

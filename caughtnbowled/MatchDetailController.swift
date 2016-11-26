@@ -23,11 +23,26 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     @IBOutlet weak var teamTwoScore: UILabel!
     @IBOutlet weak var matchStatus: UILabel!
     
+    @IBOutlet weak var motmTitle: UILabel!
+    
+    @IBOutlet weak var motmName: UILabel!
+    
+    @IBOutlet weak var motmStats: UILabel!
+    
+    
     @IBOutlet weak var backButton: FlatButton!
     
     @IBAction func backToMain(_ sender: Any) {
         self.navigationController?.popToRootViewController(animated: true)
     }
+    
+    
+    @IBOutlet weak var awardsView: PulseView!
+    @IBOutlet weak var battingView: PulseView!
+    
+    
+    @IBOutlet weak var awardsViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var battingViewHeight: NSLayoutConstraint!
     
     
     var match: Match!
@@ -42,7 +57,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     var awayTeamId: NSNumber!
     
     var kTableHeaderHeight: CGFloat = 240
-    let kHeaderHeight: CGFloat = 300
+    let kHeaderHeight: CGFloat = 350
     
     var mainMenu: HMSegmentedControl!
     var subMenu: HMSegmentedControl!
@@ -66,10 +81,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.backgroundColor = mainColor
-        
-        
-        
-        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -89,9 +101,12 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         teamTwoName.text = match.awayteamName
         teamTwoScore.text = match.awayScore
         matchStatus.text = match.matchSummaryText
-        matchId = match.matchId
-        seriesId = match.seriesId
+
         
+        series.textColor = mainColor
+//        series.font = RobotoFont.bold
+        matchStatus.textColor = mainColor
+//        matchStatus.font = RobotoFont
         
         teamOneName.textColor = mainColor
         teamOneName.font = RobotoFont.bold
@@ -104,6 +119,9 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         
         teamTwoScore.textColor = mainColor
         teamTwoScore.font = RobotoFont.light
+        
+        self.awardsViewHeight.constant = 0
+        self.battingViewHeight.constant = 0 
         
         // MOVE FROM HERE
         bowledServiceAPI = BowledService(delegate: self)
@@ -131,6 +149,50 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
 
     }
     
+    
+    func updateSecondaryViews() {
+        if match.status == .completed && scorecard.hasMotM {
+            self.awardsViewHeight.constant = 100
+            
+            
+            
+            motmTitle.text = "Player Of The Match"
+            motmName.text = scorecard.motm.name.uppercased()
+            
+            if scorecard.motm.hasBatting && scorecard.motm.hasBowling {
+                motmStats.text = scorecard.motm.batting + " " + scorecard.motm.bowling
+            } else if scorecard.motm.hasBatting {
+                motmStats.text = scorecard.motm.batting
+            } else if scorecard.motm.hasBowling {
+                motmStats.text = scorecard.motm.bowling
+            } else {
+                motmStats.text = ""
+            }
+            
+            motmTitle.textColor = Color.white
+            motmTitle.font = RobotoFont.light
+            
+            motmName.textColor = Color.white
+            motmName.font = RobotoFont.bold
+            
+            motmStats.textColor = Color.white
+            motmStats.font = RobotoFont.medium
+            
+            motmTitle.alpha = 1
+            motmName.alpha = 1
+            motmStats.alpha = 1
+            
+            awardsView.backgroundColor = mainColor
+            
+        }
+        
+    
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        })
+        
+    }
     
     func prepareMainMenu() {
         mainMenu = HMSegmentedControl(sectionTitles: ["SCORECARD", "COMMENTARY", "PARTNERSHIPS", "HIGHLIGHTS"])
@@ -364,6 +426,8 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                             for inningsId in (self.scorecard?.innings.map{ $0.id })! {
                                 self.bowledServiceAPI.getPartnerships(self.match.matchId, seriesid: self.match.seriesId, inniid: inningsId)
                             }
+                            
+                            self.updateSecondaryViews()
                         }
                         self.mainMenu.alpha = 1
                         SwiftLoader.hide()
