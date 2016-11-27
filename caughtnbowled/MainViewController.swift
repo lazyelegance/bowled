@@ -116,13 +116,11 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         if requestType == .matches {
             if let resultsArray = results as? [AnyObject] {
                 DispatchQueue.main.async(execute: {
-                    print(results)
                     (self.topMatches, self.liveMatches, self.completedMatches, self.upcomingMatches) = Match.topMatchesFromAPI(results: resultsArray, internationalOnly: true)
 //                    self.prepareTableViewData()
 //                    self.prepareMenuData()
 //                    print(self.liveMatches.count)
 //                    self.updateTableHeight()
-                    print(self.topMatches.count)
                     self.topMatchesTableView.reloadData()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 })
