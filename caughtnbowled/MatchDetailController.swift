@@ -44,6 +44,31 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     @IBOutlet weak var awardsViewHeight: NSLayoutConstraint!
     @IBOutlet weak var battingViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var strikerName: UILabel!
+    @IBOutlet weak var strikerRunsScored: UILabel!
+    @IBOutlet weak var strikerBallsFaced: UILabel!
+    @IBOutlet weak var strikerFours: UILabel!
+    @IBOutlet weak var strikerSixes: UILabel!
+    @IBOutlet weak var strikerSR: UILabel!
+    
+    @IBOutlet weak var nonstrikerName: UILabel!
+    @IBOutlet weak var nonstrikerRunsScored: UILabel!
+    @IBOutlet weak var nonstrikerBallsFaced: UILabel!
+    @IBOutlet weak var nonstrikerFours: UILabel!
+    @IBOutlet weak var nonstrikerSixes: UILabel!
+    @IBOutlet weak var nonstrikerSR: UILabel!
+    
+    @IBOutlet weak var bowlerName: UILabel!
+    @IBOutlet weak var bowlerOvers: UILabel!
+    @IBOutlet weak var bowlerMaidens: UILabel!
+    @IBOutlet weak var bowlerRunsConceded: UILabel!
+    @IBOutlet weak var bowlerWickets: UILabel!
+    @IBOutlet weak var bowlerEcomony: UILabel!
+    
+    
+    
+    
+    
     
     var match: Match!
     var scorecard: Scorecard!
@@ -121,7 +146,9 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         teamTwoScore.font = RobotoFont.light
         
         self.awardsViewHeight.constant = 0
-        self.battingViewHeight.constant = 0 
+        self.battingViewHeight.constant = 0
+        
+        battingView.alpha = 0
         
         // MOVE FROM HERE
         bowledServiceAPI = BowledService(delegate: self)
@@ -153,6 +180,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     func updateSecondaryViews() {
         if match.status == .completed && scorecard.hasMotM {
             self.awardsViewHeight.constant = 100
+            self.battingViewHeight.constant = 0
             
             
             
@@ -184,6 +212,89 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
             
             awardsView.backgroundColor = mainColor
             
+        } else if match.status == .live && scorecard != nil && commentary != nil {
+            self.awardsViewHeight.constant = 0
+            self.battingViewHeight.constant = 100
+            
+            self.battingView.alpha = 1
+            self.battingView.backgroundColor = mainColor
+            
+            strikerName.textColor = Color.white
+            strikerSR.textColor = Color.white
+            strikerSixes.textColor = Color.white
+            strikerFours.textColor = Color.white
+            strikerRunsScored.textColor = Color.white
+            strikerBallsFaced.textColor = Color.white
+            
+            nonstrikerName.textColor = Color.white
+            nonstrikerSR.textColor = Color.white
+            nonstrikerSixes.textColor = Color.white
+            nonstrikerFours.textColor = Color.white
+            nonstrikerRunsScored.textColor = Color.white
+            nonstrikerBallsFaced.textColor = Color.white
+            
+            bowlerName.textColor = Color.white
+            bowlerOvers.textColor = Color.white
+            bowlerRunsConceded.textColor = Color.white
+            bowlerWickets.textColor = Color.white
+            bowlerMaidens.textColor = Color.white
+            bowlerEcomony.textColor = Color.white
+            
+            strikerName.font = RobotoFont.bold
+            strikerSR.font = RobotoFont.medium
+            strikerSixes.font = RobotoFont.medium
+            strikerFours.font = RobotoFont.medium
+            strikerRunsScored.font = RobotoFont.bold
+            strikerBallsFaced.font = RobotoFont.medium
+            
+            nonstrikerName.font = RobotoFont.bold
+            nonstrikerSR.font = RobotoFont.medium
+            nonstrikerSixes.font = RobotoFont.medium
+            nonstrikerFours.font = RobotoFont.medium
+            nonstrikerRunsScored.font = RobotoFont.bold
+            nonstrikerBallsFaced.font = RobotoFont.medium
+            
+            bowlerName.font = RobotoFont.bold
+            bowlerOvers.font = RobotoFont.medium
+            bowlerRunsConceded.font = RobotoFont.medium
+            bowlerWickets.font = RobotoFont.bold
+            bowlerMaidens.font = RobotoFont.medium
+            bowlerEcomony.font = RobotoFont.medium
+            
+            
+            
+            let comment = commentary.commentaryInnings[0].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }[0]
+            let batsmen = scorecard.innings.map { $0.batsmen }.flatMap { $0 }
+            let bowlers = scorecard.innings.map { $0.bowlers }.flatMap { $0 }
+            
+            for batsman in batsmen {
+                if comment.batsmanId == batsman.id {
+                    strikerName.text = batsman.name
+                    strikerBallsFaced.text = batsman.ballsFaced
+                    strikerRunsScored.text = batsman.runsScored
+                    strikerFours.text = batsman.foursHit
+                    strikerSixes.text = batsman.sixesHit
+                    strikerSR.text = batsman.strikeRate
+                } else if comment.offStrikeBatsmanId == batsman.id {
+                    nonstrikerName.text = batsman.name
+                    nonstrikerBallsFaced.text = batsman.ballsFaced
+                    nonstrikerRunsScored.text = batsman.runsScored
+                    nonstrikerFours.text = batsman.foursHit
+                    nonstrikerSixes.text = batsman.sixesHit
+                    nonstrikerSR.text = batsman.strikeRate
+                }
+            }
+            
+            for bowler in bowlers {
+                if comment.bowlerId == bowler.id {
+                    bowlerName.text = bowler.name
+                    bowlerOvers.text = bowler.overs
+                    bowlerEcomony.text = bowler.ecomony
+                    bowlerMaidens.text = bowler.maidens
+                    bowlerWickets.text = bowler.wickets
+                    bowlerRunsConceded.text = bowler.runsConceded
+                }
+            }
         }
         
     
@@ -505,11 +616,12 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                     
                     self.commentary = commentaryfromresults
                     print("HEEEEEEREEEEE")
-//                    print(self.commentary.commentaryInnings[self.subMenu.selectedSegmentIndex].commentaryOvers.map { $0.deliveries }.flatMap { $0 })
+                    print(self.commentary.commentaryInnings[0].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }[0])
                     //self.activityIndicator.stopAnimation()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
                     DispatchQueue.main.async(execute: {
+                        self.updateSecondaryViews()
                         //self.updateMatchDetails()
                         //Loading.stop()
                     })
@@ -525,7 +637,6 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                 if let resultsDictionary = results as? NSDictionary {
                     let partnershipsfromresults = Partnerships.partnershipsFromAPI(results: resultsDictionary)
                     self.partnerships[partnershipsfromresults.inningsid] = partnershipsfromresults.partnerships
-                    print(self.partnerships)
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
                     DispatchQueue.main.async(execute: {
