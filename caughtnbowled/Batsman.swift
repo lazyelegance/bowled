@@ -25,6 +25,11 @@ struct Batsman {
     var isTopScorer = false
     var indexForPartnership: NSNumber = 0
     
+    var runs: Int = 0
+    var balls: Int = 0
+    var fours: Int = 0
+    var sixes: Int = 0
+    
     init(id: NSNumber, name: String, runsScored: String, ballsFaced: String) {
         self.id = id
         self.name = name
@@ -37,8 +42,10 @@ struct Batsman {
         if let playerId = batsmanDictionary["playerId"] as? NSNumber, let playerIndex = batsmanDictionary["playerIndex"] as? NSNumber, let name = batsmanDictionary["name"] as? String, let runs = batsmanDictionary["runs"] as? NSNumber, let balls = batsmanDictionary["balls"] as? NSNumber, let fours = batsmanDictionary["fours"] as? NSNumber, let sixes = batsmanDictionary["sixes"] as? NSNumber  {
             var newBatsman = Batsman(id: playerId, name: name, runsScored: String(describing: runs), ballsFaced: String(describing: balls))
             newBatsman.indexForPartnership = playerIndex
-            newBatsman.foursHit = String(describing: fours)
-            newBatsman.sixesHit = String(describing: sixes)
+            newBatsman.fours = Int(fours)
+            newBatsman.sixes = Int(sixes)
+            newBatsman.runs = Int(runs)
+            
             return newBatsman
         }
         

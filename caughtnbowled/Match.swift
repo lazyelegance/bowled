@@ -107,63 +107,29 @@ struct Match {
         }
         
         if completedMatches.count > 0 {
-            var i = 0
+//            var i = 0
             for match in completedMatches {
-                if match.hasRelDate && i < 2 {
+                if match.hasRelDate {
                     topMatches.append(match)
-                    i += 1
+//                    i += 1
                 }
             }
         }
         
         
         
-        if upcomingMatches.count > 0 {
-            var i = 0
-            for match in upcomingMatches {
-                if match.hasRelDate && i < 2 {
-                    topMatches.append(match)
-                    i += 1
-                }
-            }
-        }
-        
-        
-        
-//        if completedMatches.count >= 4 {
-//
-//            for i in 0..<4 {
-//                if let match = completedMatches[i] as? Match {
-//                    if !(match.hasRelDate) || i > 1 {
-//                        topMatches.append(match)
-//                    }
+//        if upcomingMatches.count > 0 {
+//            var i = 0
+//            for match in upcomingMatches {
+//                if match.hasRelDate && i < 2 && match.hometeamName != "To Be Decided" && match.awayteamName != "To Be Decided" {
+//                    topMatches.append(match)
+//                    i += 1
 //                }
-//            }
-//            topMatches.append(Match(matchId: 0, seriesId: 0, status: .dummy_completed))
-//        } else if completedMatches.count < 4 && completedMatches.count > 0 {
-//            for (i in 0..< completedMatches.count) {
-//                topMatches.append(completedMatches[i])
-//            }
-//        }
-//        
-//        
-//        if upcomingMatches.count >= 4 {
-//            for i in 0..<4 {
-//                if let match = upcomingMatches[i] as? Match {
-//                    if !(match.hasRelDate) || i > 1 {
-//                        topMatches.append(match)
-//                    }
-//                }
-//                
-//                
-//            }
-//            topMatches.append(Match(matchId: 0, seriesId: 0, status: .dummy_upcoming))
-//        } else if upcomingMatches.count < 4 && completedMatches.count > 0 {
-//            for i in 0..< upcomingMatches.count {
-//                topMatches.append(upcomingMatches[i])
 //            }
 //        }
         
+        
+
         
         return (topMatches, liveMatches, completedMatches, upcomingMatches)
     }
@@ -173,7 +139,6 @@ struct Match {
         var liveMatches = [Match]()
         var completedMatches = [Match]()
         var upcomingMatches = [Match]()
-        var topMatches = [Match]()
         let matches = self.matchesFromAPI(results: results)
         
         if internationalOnly {
@@ -202,31 +167,6 @@ struct Match {
             }
         }
         
-        if liveMatches.count > 0 {
-            topMatches = liveMatches
-        }
-        
-        if completedMatches.count > 0 {
-            var i = 0
-            for match in completedMatches {
-                if match.hasRelDate && i < 2 {
-                    topMatches.append(match)
-                    i += 1
-                }
-            }
-        }
-        
-        
-        
-        if upcomingMatches.count > 0 {
-            var i = 0
-            for match in upcomingMatches {
-                if match.hasRelDate && i < 2 {
-                    topMatches.append(match)
-                    i += 1
-                }
-            }
-        }
 
         return (self.sortMatches(matches: liveMatches), self.sortMatches(matches: completedMatches), self.sortMatches(matches: upcomingMatches))
     }
@@ -466,8 +406,8 @@ struct Match {
                 let currentDateComponents = (Calendar.current as NSCalendar).components([NSCalendar.Unit.year, NSCalendar.Unit.month, NSCalendar.Unit.day, NSCalendar.Unit.hour, NSCalendar.Unit.minute, NSCalendar.Unit.second], from: Date() )
                 let matchStartDateComponents = (Calendar.current as NSCalendar).components([NSCalendar.Unit.year, NSCalendar.Unit.month, NSCalendar.Unit.day, NSCalendar.Unit.hour, NSCalendar.Unit.minute, NSCalendar.Unit.second], from: newMatch.startDateTimeUTCDateFormat)
                 
-                _ = (Calendar.current as NSCalendar).components(.day, from: Date(), to: newMatch.startDateTimeUTCDateFormat, options: NSCalendar.Options.init(rawValue: 0))
 
+                
                 
                 if diffDateComponents.year == 0 && diffDateComponents.month == 0 {
                     if diffDateComponents.day == 0 {
@@ -500,8 +440,13 @@ struct Match {
                             newMatch.relStartDate = "STARTed YESterday, \(outFormat.string(from: startUTC!))"
                         }
                         
+                    } else if newMatch.isMultiDay && diffDateComponents.day! > -5 {
+                        newMatch.hasRelDate = true
+                        outFormat.dateFormat = "MMM d hh:mm aaa"
+                        newMatch.relStartDate = "\(outFormat.string(from: startUTC!))"
                     }
                 }
+                print(newMatch.hasRelDate)
                 
                 
                 

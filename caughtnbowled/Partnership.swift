@@ -12,10 +12,23 @@ import Foundation
 struct Partnership {
     var firstBatsman: Batsman
     var secondBatsman: Batsman
+    var totalRuns: Int
+    var firstBatsmanContrib: Float
+    var secondBatsmanContrib: Float
     
     init(firstBatsman: Batsman, secondBatsman: Batsman) {
         self.firstBatsman = firstBatsman
         self.secondBatsman = secondBatsman
+        
+        if (firstBatsman.runs + secondBatsman.runs) != 0 {
+            self.totalRuns = firstBatsman.runs + secondBatsman.runs
+            self.firstBatsmanContrib = Float(firstBatsman.runs) * 2 / Float(firstBatsman.runs + secondBatsman.runs)
+            self.secondBatsmanContrib = Float(secondBatsman.runs) * 2 / Float(firstBatsman.runs + secondBatsman.runs)
+        } else {
+            self.totalRuns = 0
+            self.firstBatsmanContrib = 0.0
+            self.secondBatsmanContrib = 0.0
+        }
     }
     
     static func partnershipsFromAray(partnerships: [[String: AnyObject]]) -> [Partnership] {

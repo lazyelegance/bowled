@@ -8,6 +8,41 @@
 
 import Foundation
 
+struct ManOfTheMatch {
+    var id: NSNumber
+    var name: String
+    var batting: String = "0 (0)"
+    var bowling: String = "0/0"
+    var hasBatting = false
+    var hasBowling = false
+    
+    init(id: NSNumber, name: String) {
+        self.id = id
+        self.name = name
+    }
+}
+
+struct TopBatsman {
+    var id: NSNumber
+    var name: String
+    var batting: String = "0 (0)"
+    
+    init(id: NSNumber, name: String) {
+        self.id = id
+        self.name = name
+    }
+}
+
+struct TopBowler {
+    var id: NSNumber
+    var name: String
+    var bowling: String = "0/0"
+    
+    init(id: NSNumber, name: String) {
+        self.id = id
+        self.name = name
+    }
+}
 
 struct Scorecard {
     let status: String
@@ -19,13 +54,16 @@ struct Scorecard {
     var manOfTheMatchName = String()
     var fowDict = [NSNumber: [FallOfWicket]]()
     
-    
     var innings = [Innings]()
+    
+    var hasMotM = false
+    
+    var motm = ManOfTheMatch(id: 0, name: "")
+//    var topBatsman = TopBatsman()
+//    var topBowler = TopBowler()
     
     
     var poweredBy = String()
-    
-    
     
     init(status: String ) {
         self.status = status
@@ -40,7 +78,38 @@ struct Scorecard {
                 var newScorecard = Scorecard(status: "\(status)")
                 if let fullScorecardAwards = results["fullScorecardAwards"] as? NSDictionary {
                     newScorecard.fullScorecardAwards = fullScorecardAwards
-                    
+                    if let manOfTheMatchId = fullScorecardAwards["manOfTheMatchId"] as? NSNumber, let motmBattingResults = fullScorecardAwards["manOfMatchBattingResults"] as? [[String : AnyObject]]  , let motmBowlingResults = fullScorecardAwards["manOfMatchBowlngResults"] as? [[String : AnyObject]]  , let mostRunsResults = fullScorecardAwards["mostRunsAwardPlayerResults"] as? [[String : AnyObject]], let mostWicketsResults = fullScorecardAwards["mostRunsAwardPlayerResults"] as? [[String : AnyObject]]  {
+                        
+                        if (manOfTheMatchId != -1) {
+                            newScorecard.hasMotM = true
+                            var motm = ManOfTheMatch(id: 0, name: "")
+                            if motmBattingResults.count > 0 {
+                                for motmBattingResult in motmBattingResults {
+                                    if let id = motmBattingResult["id"] as? NSNumber, let name = motmBattingResult["name"] as? String, let runs = motmBattingResult["runs"] as? String, let balls = motmBattingResult["balls"] as? String {
+                                        motm.id = id
+                                        motm.name = name
+                                        
+                                        if runs != "" {
+                                            motm.batting = motm.batting == "0 (0)" ? runs + " (" + balls + ") " : motm.batting + " & " + runs + " (" + balls + ") "
+                                            motm.hasBatting = true
+                                        }
+                
+                                    }
+                                }
+                            }
+                            if motmBowlingResults.count > 0 {
+                                for motmBowlingResult in motmBowlingResults {
+                                    if let id = motmBowlingResult["id"] as? NSNumber, let name = motmBowlingResult["name"] as? String, let runs = motmBowlingResult["runsConceded"] as? String, let wickets = motmBowlingResult["wickets"] as? String {
+                                        motm.id = id
+                                        motm.name = name
+                                        motm.bowling = motm.bowling == "0/0" ? runs + "/" + wickets : motm.bowling + " & " + runs + "/" + wickets
+                                        motm.hasBowling = true
+                                    }
+                                }
+                            }
+                            newScorecard.motm = motm
+                        }
+                    }
                 }
                 if let fullScorecard = results["fullScorecard"] as? NSDictionary {
                     newScorecard.fullScorecard = fullScorecard
