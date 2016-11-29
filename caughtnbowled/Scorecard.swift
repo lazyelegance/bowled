@@ -88,8 +88,12 @@ struct Scorecard {
                                     if let id = motmBattingResult["id"] as? NSNumber, let name = motmBattingResult["name"] as? String, let runs = motmBattingResult["runs"] as? String, let balls = motmBattingResult["balls"] as? String {
                                         motm.id = id
                                         motm.name = name
-                                        motm.batting = motm.batting == "0 (0)" ? runs + " (" + balls + ") " : motm.batting + " & " + runs + " (" + balls + ") "
-                                        motm.hasBatting = true
+                                        
+                                        if runs != "" {
+                                            motm.batting = motm.batting == "0 (0)" ? runs + " (" + balls + ") " : motm.batting + " & " + runs + " (" + balls + ") "
+                                            motm.hasBatting = true
+                                        }
+                
                                     }
                                 }
                             }
@@ -105,10 +109,7 @@ struct Scorecard {
                             }
                             newScorecard.motm = motm
                         }
-
-                        
                     }
-                    
                 }
                 if let fullScorecard = results["fullScorecard"] as? NSDictionary {
                     newScorecard.fullScorecard = fullScorecard

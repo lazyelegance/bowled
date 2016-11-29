@@ -107,11 +107,11 @@ struct Match {
         }
         
         if completedMatches.count > 0 {
-            var i = 0
+//            var i = 0
             for match in completedMatches {
-                if match.hasRelDate && i < 2 {
+                if match.hasRelDate {
                     topMatches.append(match)
-                    i += 1
+//                    i += 1
                 }
             }
         }
@@ -406,8 +406,8 @@ struct Match {
                 let currentDateComponents = (Calendar.current as NSCalendar).components([NSCalendar.Unit.year, NSCalendar.Unit.month, NSCalendar.Unit.day, NSCalendar.Unit.hour, NSCalendar.Unit.minute, NSCalendar.Unit.second], from: Date() )
                 let matchStartDateComponents = (Calendar.current as NSCalendar).components([NSCalendar.Unit.year, NSCalendar.Unit.month, NSCalendar.Unit.day, NSCalendar.Unit.hour, NSCalendar.Unit.minute, NSCalendar.Unit.second], from: newMatch.startDateTimeUTCDateFormat)
                 
-                _ = (Calendar.current as NSCalendar).components(.day, from: Date(), to: newMatch.startDateTimeUTCDateFormat, options: NSCalendar.Options.init(rawValue: 0))
 
+                
                 
                 if diffDateComponents.year == 0 && diffDateComponents.month == 0 {
                     if diffDateComponents.day == 0 {
@@ -440,8 +440,13 @@ struct Match {
                             newMatch.relStartDate = "STARTed YESterday, \(outFormat.string(from: startUTC!))"
                         }
                         
+                    } else if newMatch.isMultiDay && diffDateComponents.day! > -5 {
+                        newMatch.hasRelDate = true
+                        outFormat.dateFormat = "MMM d hh:mm aaa"
+                        newMatch.relStartDate = "\(outFormat.string(from: startUTC!))"
                     }
                 }
+                print(newMatch.hasRelDate)
                 
                 
                 
