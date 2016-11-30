@@ -118,15 +118,23 @@ struct Match {
         
         
         
-//        if upcomingMatches.count > 0 {
-//            var i = 0
-//            for match in upcomingMatches {
-//                if match.hasRelDate && i < 2 && match.hometeamName != "To Be Decided" && match.awayteamName != "To Be Decided" {
-//                    topMatches.append(match)
-//                    i += 1
-//                }
-//            }
-//        }
+        if upcomingMatches.count > 0 {
+            var i = 0
+            for match in upcomingMatches {
+                if match.hasRelDate && i < 2 && match.hometeamName != "To Be Decided" && match.awayteamName != "To Be Decided" {
+                    topMatches.append(match)
+                    i += 1
+                }
+            }
+        }
+        
+        if topMatches.count > 0 {
+            let series = topMatches[0].seriesId
+            var dummy = Match(matchId: 0, seriesId: series, status: .dummy_series)
+            dummy.seriesName = topMatches[0].seriesName
+            topMatches.insert(dummy, at: 1)
+        }
+        
         
         
 
