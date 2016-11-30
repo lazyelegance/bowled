@@ -12,7 +12,7 @@ import Material
 
 class CellWithButtons: UITableViewCell {
 
-    @IBOutlet weak var btn1: FlatButton!
+    @IBOutlet weak var btn1: RaisedButton!
     
     
     override func awakeFromNib() {

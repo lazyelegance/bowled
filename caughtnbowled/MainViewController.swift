@@ -104,9 +104,9 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
             if match.status == .dummy_series {
                 let dummyCell = topMatchesTableView.dequeueReusableCell(withIdentifier: "dummyMatchCell", for: indexPath) as! CellWithButtons
 
-                dummyCell.btn1.setTitle("show more \(match.seriesName)".uppercased(), for: .normal)
-                dummyCell.btn1.titleColor = Color.white
-                
+                dummyCell.btn1.setTitle(match.seriesName.uppercased(), for: .normal)
+                dummyCell.btn1.titleColor = secondaryColor
+                dummyCell.btn1.backgroundColor = mainColor
                 dummyCell.contentView.backgroundColor = mainColor
                 
                 return dummyCell

@@ -56,7 +56,7 @@ class TopMatchCell: UITableViewCell {
                 
                 self.backgroundColor = Color.clear
                 self.contentView.backgroundColor = mainColor
-                pulseView.backgroundColor = Color.white
+                pulseView.backgroundColor = secondaryColor
                 
             }
         }
