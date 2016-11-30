@@ -12,11 +12,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Roboto-Bold.ttf">
+            <string>Roboto-Bold</string>
+        </array>
         <array key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
-        </array>
-        <array key="Roboto-Regular.ttf">
-            <string>Roboto-Regular</string>
         </array>
         <array key="Roboto-Thin.ttf">
             <string>Roboto-Thin</string>
@@ -144,24 +144,24 @@
                                                     <outlet property="teamTwoScore" destination="BMH-Kq-e8a" id="ASF-3C-NvQ"/>
                                                 </connections>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="dummyMatchCell" rowHeight="150" id="u26-q0-3fI" customClass="CellWithButtons" customModule="Bowled" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="178" width="375" height="150"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="dummyMatchCell" rowHeight="50" id="u26-q0-3fI" customClass="CellWithButtons" customModule="Bowled" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="178" width="375" height="50"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u26-q0-3fI" id="VnZ-Qm-BrH">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XKU-Hb-6MN" customClass="FlatButton" customModule="Material">
-                                                            <rect key="frame" x="18" y="62" width="339" height="26"/>
-                                                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="10"/>
-                                                            <inset key="titleEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="XKU-Hb-6MN" customClass="RaisedButton" customModule="Material">
+                                                            <rect key="frame" x="38" y="9" width="319" height="32"/>
+                                                            <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="15"/>
+                                                            <inset key="titleEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                                             <state key="normal" title="Button"/>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="trailingMargin" secondItem="XKU-Hb-6MN" secondAttribute="trailing" constant="10" id="G8b-qd-ySA"/>
-                                                        <constraint firstItem="XKU-Hb-6MN" firstAttribute="centerY" secondItem="VnZ-Qm-BrH" secondAttribute="centerY" id="J2M-7y-XiS"/>
-                                                        <constraint firstItem="XKU-Hb-6MN" firstAttribute="leading" secondItem="VnZ-Qm-BrH" secondAttribute="leadingMargin" constant="10" id="VlB-8F-v48"/>
+                                                        <constraint firstItem="XKU-Hb-6MN" firstAttribute="leading" secondItem="VnZ-Qm-BrH" secondAttribute="leadingMargin" constant="30" id="Rkf-33-hEV"/>
+                                                        <constraint firstItem="XKU-Hb-6MN" firstAttribute="centerY" secondItem="VnZ-Qm-BrH" secondAttribute="centerY" id="WQ6-Ww-Sze"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="XKU-Hb-6MN" secondAttribute="trailing" constant="10" id="Yeo-gN-pYg"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>

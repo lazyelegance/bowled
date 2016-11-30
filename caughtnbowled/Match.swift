@@ -128,12 +128,12 @@ struct Match {
             }
         }
         
-        if topMatches.count > 0 {
-            let series = topMatches[0].seriesId
-            var dummy = Match(matchId: 0, seriesId: series, status: .dummy_series)
-            dummy.seriesName = topMatches[0].seriesName
-            topMatches.insert(dummy, at: 1)
-        }
+//        if topMatches.count > 0 {
+//            let series = topMatches[0].seriesId
+//            var dummy = Match(matchId: 0, seriesId: series, status: .dummy_series)
+//            dummy.seriesName = topMatches[0].seriesName
+//            topMatches.insert(dummy, at: 1)
+//        }
         
         
         
@@ -413,8 +413,7 @@ struct Match {
                 
                 let currentDateComponents = (Calendar.current as NSCalendar).components([NSCalendar.Unit.year, NSCalendar.Unit.month, NSCalendar.Unit.day, NSCalendar.Unit.hour, NSCalendar.Unit.minute, NSCalendar.Unit.second], from: Date() )
                 let matchStartDateComponents = (Calendar.current as NSCalendar).components([NSCalendar.Unit.year, NSCalendar.Unit.month, NSCalendar.Unit.day, NSCalendar.Unit.hour, NSCalendar.Unit.minute, NSCalendar.Unit.second], from: newMatch.startDateTimeUTCDateFormat)
-                
-
+         
                 
                 
                 if diffDateComponents.year == 0 && diffDateComponents.month == 0 {
@@ -448,13 +447,13 @@ struct Match {
                             newMatch.relStartDate = "STARTed YESterday, \(outFormat.string(from: startUTC!))"
                         }
                         
-                    } else if newMatch.isMultiDay && diffDateComponents.day! > -5 {
+                    } else if newMatch.isMultiDay && diffDateComponents.day! >=  -10 {
                         newMatch.hasRelDate = true
                         outFormat.dateFormat = "MMM d hh:mm aaa"
                         newMatch.relStartDate = "\(outFormat.string(from: startUTC!))"
                     }
                 }
-                print(newMatch.hasRelDate)
+
                 
                 
                 

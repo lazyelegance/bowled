@@ -47,6 +47,8 @@ let whitecolor = UIColor.white
 
 
 let mainColor = Color.indigo.base
+let secondaryColor = Color.white
+
 
 
 let favoriteTeamsList = ["INDIA", "AUSTRALIA", "Sri Lanka"]
