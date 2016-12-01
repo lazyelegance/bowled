@@ -32,6 +32,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     var topMatchCellheight = 150
     
+    @IBOutlet weak var menuButton: FlatButton!
     
     
 
@@ -50,7 +51,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         view.backgroundColor = mainColor
         topMatchesView.backgroundColor = mainColor
 
-        topMatchesTableView.backgroundColor = Color.clear
+        topMatchesTableView.backgroundColor = mainColor
         topMatchesTableView.estimatedRowHeight = 100
         topMatchesTableView.rowHeight = UITableViewAutomaticDimension
 //        topMatchesTableView.indi
@@ -59,6 +60,11 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         //get match list
         bowledServiceAPI = BowledService(delegate: self)
         bowledServiceAPI.getMatches()
+        
+        //prepare menu
+        
+
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -97,29 +103,54 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = topMatchesTableView.dequeueReusableCell(withIdentifier: "topMatchCell", for: indexPath) as! TopMatchCell
-        
-        
         if let match = topMatches[indexPath.row] as Match? {
+            
             if match.status == .dummy_series {
                 let dummyCell = topMatchesTableView.dequeueReusableCell(withIdentifier: "dummyMatchCell", for: indexPath) as! CellWithButtons
 
                 dummyCell.btn1.setTitle(match.seriesName.uppercased(), for: .normal)
-                dummyCell.btn1.titleColor = secondaryColor
-                dummyCell.btn1.backgroundColor = mainColor
+                dummyCell.btn2.setTitle("More Matches".uppercased(), for: .normal)
+                dummyCell.btn3.setTitle("Fixtures".uppercased(), for: .normal)
                 dummyCell.contentView.backgroundColor = mainColor
                 
                 return dummyCell
+            } else if match.status == .upcoming {
+                let cell = topMatchesTableView.dequeueReusableCell(withIdentifier: "upcomingMatchCell", for: indexPath) as! TopMatchCell
+                cell.match = match
+                return cell
+            } else {
+                let cell = topMatchesTableView.dequeueReusableCell(withIdentifier: "topMatchCell", for: indexPath) as! TopMatchCell
+                cell.match = match
+                return cell
             }
-            cell.match = match
+            
             
         }
         
-
-        return cell
+        // :o
+        return topMatchesTableView.dequeueReusableCell(withIdentifier: "topMatchCell", for: indexPath)
     }
     
     
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        
+//        let sectionHeader = View(frame: CGRect(x: 0, y: 0, width: topMatchesTableView.bounds.width, height: 40))
+//        sectionHeader.backgroundColor = mainColor
+//        
+//        let sectionTitle = UILabel(frame: CGRect(x: 10, y: 5, width: sectionHeader.bounds.width, height: 30))
+//        sectionTitle.text = "TOP MATCHES"
+//        sectionTitle.font = RobotoFont.bold
+//        sectionTitle.textColor = secondaryColor
+//        
+//        sectionHeader.addSubview(sectionTitle)
+//        
+//        return sectionHeader
+//    }
+//    
+//    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 40
+//    }
     
     
 

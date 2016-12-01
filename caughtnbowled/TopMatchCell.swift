@@ -31,20 +31,26 @@ class TopMatchCell: UITableViewCell {
                 teamOneName.textColor = mainColor
                 teamOneName.font = RobotoFont.bold
                 
-                
-            
-        
-                teamOneScore.text = match?.homeScore
-                teamOneScore.textColor = mainColor
-                teamOneScore.font = RobotoFont.light
-                
                 teamTwoName.text = match?.awayteamName
                 teamTwoName.textColor = mainColor
                 teamTwoName.font = RobotoFont.bold
                 
-                teamTwoScore.text = match?.awayScore
-                teamTwoScore.textColor = mainColor
-                teamTwoScore.font = RobotoFont.light
+                
+                if match?.status == .live || match?.status == .completed {
+                    teamOneScore.text = match?.homeScore
+                    teamOneScore.textColor = mainColor
+                    teamOneScore.font = RobotoFont.light
+                    
+                    teamTwoScore.text = match?.awayScore
+                    teamTwoScore.textColor = mainColor
+                    teamTwoScore.font = RobotoFont.light
+                }
+            
+        
+                
+                
+                
+                
                 
                 series.text = match?.seriesName.uppercased()
                 matchStatus.text = match?.status == .upcoming ? match?.relStartDate.uppercased() : match?.matchSummaryText.uppercased()
