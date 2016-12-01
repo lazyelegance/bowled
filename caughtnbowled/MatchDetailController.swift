@@ -33,7 +33,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     @IBOutlet weak var backButton: FlatButton!
     
     @IBAction func backToMain(_ sender: Any) {
-        self.navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     
