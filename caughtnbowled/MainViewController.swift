@@ -26,7 +26,9 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     var liveMatches = [Match]()
     var completedMatches = [Match]()
     var upcomingMatches = [Match]()
-    var topMatches = [Match]()
+    var matchList = [Match]()
+    
+    var isMainViewController = true
     
     var selectedSeriesStanding: Series?
     
@@ -58,11 +60,16 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
 //        self.updateTableHeight()
         
         //get match list
-        bowledServiceAPI = BowledService(delegate: self)
-        bowledServiceAPI.getMatches()
+        
+        if isMainViewController {
+            bowledServiceAPI = BowledService(delegate: self)
+            bowledServiceAPI.getMatches()
+        }
+        
         
         //prepare menu
         
+        menuButton.image = isMainViewController ? UIImage(named: "ic_menu_white") : UIImage(named: "ic_arrow_back_white")
 
         
     }
@@ -82,7 +89,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     // MARK: - Navigation
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let match = topMatches[indexPath.row] as Match? {
+        if let match = matchList[indexPath.row] as Match? {
             if let matchDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "MatchDetailController") as? MatchDetailController {
                 matchDetailViewController.match = match
                 self.navigationController?.pushViewController(matchDetailViewController, animated: true)
@@ -92,31 +99,55 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     @IBAction func unwindToMainController(_ segue: UIStoryboardSegue) {
     }
+    
+    
+    func showFixtures() {
+        showSelectedMatches(matchList: self.upcomingMatches)
+    }
+    
+    
+    func showSelectedMatches(matchList: [Match]) {
+        if let selectedMatchListVC = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
+            selectedMatchListVC.isMainViewController = false
+            selectedMatchListVC.matchList = matchList
+            self.navigationController?.pushViewController(selectedMatchListVC, animated: true)
+        }
+    }
 
  
+    @IBAction func menuButtonAction(_ sender: Any) {
+        if !(isMainViewController) {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
     
     // MARK: - TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return topMatches.count
+        return matchList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let match = topMatches[indexPath.row] as Match? {
+        if let match = matchList[indexPath.row] as Match? {
             
             if match.status == .dummy_series {
                 let dummyCell = topMatchesTableView.dequeueReusableCell(withIdentifier: "dummyMatchCell", for: indexPath) as! CellWithButtons
 
                 dummyCell.btn1.setTitle(match.seriesName.uppercased(), for: .normal)
                 dummyCell.btn2.setTitle("More Matches".uppercased(), for: .normal)
+                
+                
+                
                 dummyCell.btn3.setTitle("Fixtures".uppercased(), for: .normal)
+                dummyCell.btn3.addTarget(self, action: #selector(showFixtures), for: .touchUpInside)
                 dummyCell.contentView.backgroundColor = mainColor
                 
                 return dummyCell
             } else if match.status == .upcoming {
                 let cell = topMatchesTableView.dequeueReusableCell(withIdentifier: "upcomingMatchCell", for: indexPath) as! TopMatchCell
                 cell.match = match
+                cell.isUserInteractionEnabled = false
                 return cell
             } else {
                 let cell = topMatchesTableView.dequeueReusableCell(withIdentifier: "topMatchCell", for: indexPath) as! TopMatchCell
@@ -132,34 +163,13 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     }
     
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        
-//        let sectionHeader = View(frame: CGRect(x: 0, y: 0, width: topMatchesTableView.bounds.width, height: 40))
-//        sectionHeader.backgroundColor = mainColor
-//        
-//        let sectionTitle = UILabel(frame: CGRect(x: 10, y: 5, width: sectionHeader.bounds.width, height: 30))
-//        sectionTitle.text = "TOP MATCHES"
-//        sectionTitle.font = RobotoFont.bold
-//        sectionTitle.textColor = secondaryColor
-//        
-//        sectionHeader.addSubview(sectionTitle)
-//        
-//        return sectionHeader
-//    }
-//    
-//    
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 40
-//    }
-    
-    
 
     // MARK: - Bowled Service
     func didReceiveResults(_ requestType: RequestType, results: NSObject) {
         if requestType == .matches {
             if let resultsArray = results as? [AnyObject] {
                 DispatchQueue.main.async(execute: {
-                    (self.topMatches, self.liveMatches, self.completedMatches, self.upcomingMatches) = Match.topMatchesFromAPI(results: resultsArray, internationalOnly: true)
+                    (self.matchList, self.liveMatches, self.completedMatches, self.upcomingMatches) = Match.topMatchesFromAPI(results: resultsArray, internationalOnly: true)
 //                    self.prepareTableViewData()
 //                    self.prepareMenuData()
 //                    print(self.liveMatches.count)
@@ -184,7 +194,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     }
     
     func updateTableHeight() {
-        self.topTableViewHeightConstraint.constant = CGFloat(topMatchCellheight * topMatches.count + 50)
+        self.topTableViewHeightConstraint.constant = CGFloat(topMatchCellheight * matchList.count + 50)
     }
     
     
