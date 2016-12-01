@@ -48,6 +48,8 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         self.navigationController?.isNavigationBarHidden = true
         
         view.backgroundColor = mainColor
@@ -101,6 +103,16 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     }
     
     
+    func showSelectedSeries() {
+        showSelectedMatches(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.seriesId == matchList.filter { $0.status == .dummy_series }[0].seriesId })
+    }
+    
+    func showFavoriteTeamMatches() {
+        if let fav_team = defaults?.value(forKey: "favoriteTeamName") as? String {
+            showSelectedMatches(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.hometeamName == fav_team || $0.awayteamName == fav_team })
+        }
+    }
+    
     func showFixtures() {
         showSelectedMatches(matchList: self.upcomingMatches)
     }
@@ -135,9 +147,12 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
                 let dummyCell = topMatchesTableView.dequeueReusableCell(withIdentifier: "dummyMatchCell", for: indexPath) as! CellWithButtons
 
                 dummyCell.btn1.setTitle(match.seriesName.uppercased(), for: .normal)
-                dummyCell.btn2.setTitle("More Matches".uppercased(), for: .normal)
+                dummyCell.btn1.addTarget(self, action: #selector(showSelectedSeries), for: .touchUpInside)
                 
-                
+                if let fav_team_name = defaults?.value(forKey: "favoriteTeamName") as? String {
+                    dummyCell.btn2.setTitle("⭐️ team: \(fav_team_name)".uppercased(), for: .normal)
+                    dummyCell.btn2.addTarget(self, action: #selector(showFavoriteTeamMatches), for: .touchUpInside)
+                }
                 
                 dummyCell.btn3.setTitle("Fixtures".uppercased(), for: .normal)
                 dummyCell.btn3.addTarget(self, action: #selector(showFixtures), for: .touchUpInside)

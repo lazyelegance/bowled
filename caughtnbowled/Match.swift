@@ -493,7 +493,8 @@ struct Match {
                     
                 }
                 
-                
+//                print("\(newMatch.hometeamId) : \(newMatch.hometeamName)")
+//                print("\(newMatch.awayteamId) : \(newMatch.awayteamName)")
                 
                 matches.append(newMatch)
             }

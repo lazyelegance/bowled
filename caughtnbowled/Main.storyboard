@@ -68,7 +68,7 @@
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                                            <color key="value" red="1" green="0.079434540982217361" blue="0.13546194482418117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </button>
@@ -81,7 +81,7 @@
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                                            <color key="value" red="0.072009167498754079" green="0.2612966887738295" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </button>
@@ -94,7 +94,7 @@
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                                            <color key="value" red="0.092201001942157745" green="0.81200635433197021" blue="0.2763628363609314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </button>
