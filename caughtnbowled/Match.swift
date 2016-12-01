@@ -274,14 +274,12 @@ struct Match {
                     
                     let hometeamId = homeTeam["id"] as! NSNumber
                 
-                    let hometeamLogoString = "team\(hometeamId).png"
+                    
+                    
                     newMatch.hometeamId = hometeamId
                     
-                    if let hometeamLogo = UIImage(named: hometeamLogoString) {
-                        newMatch.hometeamLogo = hometeamLogo
-                    }
                     
-                    
+                
                     
                     let hometeamName = homeTeam["name"] as! String
                     
@@ -298,12 +296,15 @@ struct Match {
                         
                         newMatch.hometeamColor = hometeamColor
                         
-                        let URLParams = [
-                            "imageurl": hometeamLogoURL
-                        ]
-                        if let logoURL = NSURLByAppendingQueryParameters(resoursesURL, queryParameters: URLParams) as? URL {
-                            newMatch.hometeamLogoURL = logoURL
-                        }
+                        newMatch.hometeamLogoURL = URL(string: hometeamLogoURL)
+                        
+//                        let URLParams = [
+//                            "imageurl": hometeamLogoURL
+//                        ]
+                        
+//                        if let logoURL = NSURLByAppendingQueryParameters(resoursesURL, queryParameters: URLParams) as? URL {
+//                            newMatch.hometeamLogoURL = logoURL
+//                        }
                         
                     } else {
                         newMatch.hometeamSName = newMatch.hometeamName
@@ -333,12 +334,14 @@ struct Match {
                         newMatch.awayteamSName = hometeamSName
                         newMatch.awayteamColor = hometeamColor
                         
-                        let URLParams = [
-                            "imageurl": hometeamLogoURL
-                        ]
-                        if let logoURL = NSURLByAppendingQueryParameters(resoursesURL, queryParameters: URLParams) as? URL {
-                            newMatch.awayteamLogoURL = logoURL
-                        }
+                        newMatch.awayteamLogoURL = URL(string: hometeamLogoURL)
+                        
+//                        let URLParams = [
+//                            "imageurl": hometeamLogoURL
+//                        ]
+//                        if let logoURL = NSURLByAppendingQueryParameters(resoursesURL, queryParameters: URLParams) as? URL {
+//                            newMatch.awayteamLogoURL = logoURL
+//                        }
                         
                     } else {
                         newMatch.awayteamSName = newMatch.awayteamName
