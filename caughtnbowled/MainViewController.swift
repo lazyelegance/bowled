@@ -12,7 +12,7 @@ import Material
 
 
 protocol MainViewControllerDelegate {
-    func toggleLeftPanel(_ seriesList: [MenuItem], teamsList: [MenuItem], matchTypesList: [MenuItem])
+    func toggleLeftPanel()
     //func toggleRightPanel(seriesList: [MenuItem], teamsList: [MenuItem], matchTypesList: [MenuItem])
     func collapseSidePanels()
 }
@@ -20,7 +20,7 @@ protocol MainViewControllerDelegate {
 
 class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDelegate, UITableViewDataSource {
     
-    var delegate: MainViewControllerDelegate?
+    
     var bowledServiceAPI: BowledService!
 
     var liveMatches = [Match]()
@@ -29,6 +29,10 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     var matchList = [Match]()
     
     var isMainViewController = true
+    
+    var menuExpanded = false
+    var delegate: MainViewControllerDelegate?
+    
     
     var selectedSeriesStanding: Series?
     
@@ -71,7 +75,9 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         
         //prepare menu
         
-        menuButton.image = isMainViewController ? UIImage(named: "ic_menu_white") : UIImage(named: "ic_arrow_back_white")
+        menuButton.image = isMainViewController ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "ic_arrow_back_white")
+        
+        
 
         
     }
@@ -130,6 +136,14 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     @IBAction func menuButtonAction(_ sender: Any) {
         if !(isMainViewController) {
             self.navigationController?.popViewController(animated: true)
+        } else if !menuExpanded {
+            menuButton.image = UIImage(named: "cm_arrow_upward_white")
+            menuExpanded = !menuExpanded
+            delegate?.toggleLeftPanel()
+        } else {
+            menuButton.image = UIImage(named: "cm_arrow_downward_white")
+            menuExpanded = !menuExpanded
+            delegate?.collapseSidePanels()
         }
     }
     
