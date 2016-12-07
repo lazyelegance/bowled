@@ -13,6 +13,8 @@ import Material
 class CellWithButtons: UITableViewCell {
 
     @IBOutlet weak var btn1: FlatButton!
+    @IBOutlet weak var btn2: FlatButton!
+    @IBOutlet weak var btn3: FlatButton!
     
     
     override func awakeFromNib() {

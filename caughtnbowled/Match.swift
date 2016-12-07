@@ -128,11 +128,11 @@ struct Match {
             }
         }
         
-        if topMatches.count > 0 {
-            let series = topMatches[0].seriesId
+        if topMatches.count > 1 {
+            let series = topMatches[1].seriesId
             var dummy = Match(matchId: 0, seriesId: series, status: .dummy_series)
-            dummy.seriesName = topMatches[0].seriesName
-            topMatches.insert(dummy, at: 1)
+            dummy.seriesName = topMatches[1].seriesName
+            topMatches.insert(dummy, at: 2)
         }
         
         
@@ -274,14 +274,12 @@ struct Match {
                     
                     let hometeamId = homeTeam["id"] as! NSNumber
                 
-                    let hometeamLogoString = "team\(hometeamId).png"
+                    
+                    
                     newMatch.hometeamId = hometeamId
                     
-                    if let hometeamLogo = UIImage(named: hometeamLogoString) {
-                        newMatch.hometeamLogo = hometeamLogo
-                    }
                     
-                    
+                
                     
                     let hometeamName = homeTeam["name"] as! String
                     
@@ -298,12 +296,15 @@ struct Match {
                         
                         newMatch.hometeamColor = hometeamColor
                         
-                        let URLParams = [
-                            "imageurl": hometeamLogoURL
-                        ]
-                        if let logoURL = NSURLByAppendingQueryParameters(resoursesURL, queryParameters: URLParams) as? URL {
-                            newMatch.hometeamLogoURL = logoURL
-                        }
+                        newMatch.hometeamLogoURL = URL(string: hometeamLogoURL)
+                        
+//                        let URLParams = [
+//                            "imageurl": hometeamLogoURL
+//                        ]
+                        
+//                        if let logoURL = NSURLByAppendingQueryParameters(resoursesURL, queryParameters: URLParams) as? URL {
+//                            newMatch.hometeamLogoURL = logoURL
+//                        }
                         
                     } else {
                         newMatch.hometeamSName = newMatch.hometeamName
@@ -333,12 +334,14 @@ struct Match {
                         newMatch.awayteamSName = hometeamSName
                         newMatch.awayteamColor = hometeamColor
                         
-                        let URLParams = [
-                            "imageurl": hometeamLogoURL
-                        ]
-                        if let logoURL = NSURLByAppendingQueryParameters(resoursesURL, queryParameters: URLParams) as? URL {
-                            newMatch.awayteamLogoURL = logoURL
-                        }
+                        newMatch.awayteamLogoURL = URL(string: hometeamLogoURL)
+                        
+//                        let URLParams = [
+//                            "imageurl": hometeamLogoURL
+//                        ]
+//                        if let logoURL = NSURLByAppendingQueryParameters(resoursesURL, queryParameters: URLParams) as? URL {
+//                            newMatch.awayteamLogoURL = logoURL
+//                        }
                         
                     } else {
                         newMatch.awayteamSName = newMatch.awayteamName
@@ -413,8 +416,7 @@ struct Match {
                 
                 let currentDateComponents = (Calendar.current as NSCalendar).components([NSCalendar.Unit.year, NSCalendar.Unit.month, NSCalendar.Unit.day, NSCalendar.Unit.hour, NSCalendar.Unit.minute, NSCalendar.Unit.second], from: Date() )
                 let matchStartDateComponents = (Calendar.current as NSCalendar).components([NSCalendar.Unit.year, NSCalendar.Unit.month, NSCalendar.Unit.day, NSCalendar.Unit.hour, NSCalendar.Unit.minute, NSCalendar.Unit.second], from: newMatch.startDateTimeUTCDateFormat)
-                
-
+         
                 
                 
                 if diffDateComponents.year == 0 && diffDateComponents.month == 0 {
@@ -448,13 +450,13 @@ struct Match {
                             newMatch.relStartDate = "STARTed YESterday, \(outFormat.string(from: startUTC!))"
                         }
                         
-                    } else if newMatch.isMultiDay && diffDateComponents.day! > -5 {
+                    } else if newMatch.isMultiDay && diffDateComponents.day! >=  -10 {
                         newMatch.hasRelDate = true
                         outFormat.dateFormat = "MMM d hh:mm aaa"
                         newMatch.relStartDate = "\(outFormat.string(from: startUTC!))"
                     }
                 }
-                print(newMatch.hasRelDate)
+
                 
                 
                 
@@ -491,7 +493,8 @@ struct Match {
                     
                 }
                 
-                
+//                print("\(newMatch.hometeamId) : \(newMatch.hometeamName)")
+//                print("\(newMatch.awayteamId) : \(newMatch.awayteamName)")
                 
                 matches.append(newMatch)
             }

@@ -46,7 +46,9 @@ var txtColor = UIColor(red: 41/255, green: 128/255, blue: 185/255, alpha: 1)
 let whitecolor = UIColor.white
 
 
-let mainColor = Color.indigo.base
+var mainColor = Color.indigo.base
+let secondaryColor = Color.white
+
 
 
 let favoriteTeamsList = ["INDIA", "AUSTRALIA", "Sri Lanka"]
@@ -342,6 +344,8 @@ public enum SideMenuFilterItem {
     }
     
 }
+
+
 
 
 
