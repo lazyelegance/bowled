@@ -35,13 +35,13 @@ class BatsmanRecordCell: UITableViewCell {
                 howOut.text = batsman?.howOut
                 
                 
-                name.textColor = Color.white
-                runsScored.textColor = Color.white
-                ballsFaced.textColor = Color.white
-                fours.textColor = Color.white
-                sixes.textColor = Color.white
-                strikeRate.textColor = Color.white
-                howOut.textColor = Color.white
+                name.textColor = secondaryColor
+                runsScored.textColor = secondaryColor
+                ballsFaced.textColor = secondaryColor
+                fours.textColor = secondaryColor
+                sixes.textColor = secondaryColor
+                strikeRate.textColor = secondaryColor
+                howOut.textColor = secondaryColor
                 
                 
                 name.font = RobotoFont.bold(with: 18)
