@@ -36,7 +36,7 @@ class PartnershipCell: UITableViewCell {
         didSet {
             if partnership != nil {
                 totalRuns.text = "\(partnership!.totalRuns)"
-                totalRuns.textColor = Color.white
+                totalRuns.textColor = secondaryColor
                 totalRuns.font = RobotoFont.bold(with: 35)
                 
                 fbName.text = partnership?.firstBatsman.name
@@ -49,13 +49,13 @@ class PartnershipCell: UITableViewCell {
                 
                 self.contentView.backgroundColor = mainColor
                 
-                fbName.textColor = Color.white
-                fbBallsFaced.textColor = Color.white
-                fbRunsScored.textColor = Color.white
+                fbName.textColor = secondaryColor
+                fbBallsFaced.textColor = secondaryColor
+                fbRunsScored.textColor = secondaryColor
                 
-                sbName.textColor = Color.white
-                sbBallsFaced.textColor = Color.white
-                sbRunsScored.textColor = Color.white
+                sbName.textColor = secondaryColor
+                sbBallsFaced.textColor = secondaryColor
+                sbRunsScored.textColor = secondaryColor
                 
                 fbName.font = RobotoFont.medium(with: 15)
                 fbRunsScored.font = RobotoFont.bold(with: 15)

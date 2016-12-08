@@ -30,8 +30,8 @@ class CommentaryCell: UITableViewCell {
                 commentLabel.text = comment?.text
                 
                 
-                deliveryNumber.textColor = Color.white
-                commentLabel.textColor = Color.white
+                deliveryNumber.textColor = secondaryColor
+                commentLabel.textColor = secondaryColor
                 
                 deliveryNumber.font = RobotoFont.medium(with: 15)
                 commentLabel.font = RobotoFont.regular(with: 15)
@@ -42,7 +42,7 @@ class CommentaryCell: UITableViewCell {
                 deliverNumberWidth.constant = 40
                 resultWidth.constant = 40
                 
-                resultLabel.backgroundColor = Color.white
+                resultLabel.backgroundColor = secondaryColor
                 resultLabel.textColor = mainColor
                 resultLabel.layer.masksToBounds = true
                 resultLabel.layer.cornerRadius = 5

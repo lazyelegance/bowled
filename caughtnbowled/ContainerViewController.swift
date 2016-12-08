@@ -69,7 +69,7 @@ class ContainerViewController: UIViewController, MainViewControllerDelegate {
         return UIStatusBarStyle.lightContent
     }
     
-    func toggleLeftPanel() {
+    func toggleLeftPanel(matchList: [Match]) {
 
     
         
@@ -81,6 +81,7 @@ class ContainerViewController: UIViewController, MainViewControllerDelegate {
 
             if (leftViewController == nil) {
                 leftViewController = UIStoryboard.leftViewController()
+                leftViewController?.matches = matchList
                 //*TODO
 //                leftViewController?.teamsList = teamsList
 //                leftViewController?.seriesList = seriesList
@@ -224,7 +225,7 @@ class ContainerViewController: UIViewController, MainViewControllerDelegate {
     func collapseSidePanels() {
         
         if leftPanelState == .leftPanelExpanded {
-            toggleLeftPanel()
+            toggleLeftPanel(matchList: [])
         }
         
         if topPanelState == .topPanelExpanded {

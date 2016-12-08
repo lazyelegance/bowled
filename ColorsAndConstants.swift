@@ -149,7 +149,7 @@ extension String {
 }
 
 
-public enum MenuType {
+public enum MenuItemType {
     
     
     case team
@@ -207,23 +207,23 @@ public enum MenuType {
     
 }
 
-public struct MenuItem {
-    var id: NSNumber?
-    var name: String?
-    var logoUrl: URL?
-    var type: MenuType
-    var isInternational: Bool?
-    
-    init(id: NSNumber, name: String, type: MenuType, logoUrl: URL, isInternational: Bool) {
-        self.id = id
-        self.name = name
-        self.type = type
-        self.logoUrl = logoUrl
-        self.isInternational = isInternational
-    }
-    
-
-}
+//public struct MenuItem {
+//    var id: NSNumber?
+//    var name: String?
+//    var logoUrl: URL?
+//    var type: MenuType
+//    var isInternational: Bool?
+//    
+//    init(id: NSNumber, name: String, type: MenuType, logoUrl: URL, isInternational: Bool) {
+//        self.id = id
+//        self.name = name
+//        self.type = type
+//        self.logoUrl = logoUrl
+//        self.isInternational = isInternational
+//    }
+//    
+//
+//}
 
 public enum MatchStatus {
     case live

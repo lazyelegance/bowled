@@ -197,13 +197,13 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                 motmStats.text = ""
             }
             
-            motmTitle.textColor = Color.white
+            motmTitle.textColor = secondaryColor
             motmTitle.font = RobotoFont.light
             
-            motmName.textColor = Color.white
+            motmName.textColor = secondaryColor
             motmName.font = RobotoFont.bold
             
-            motmStats.textColor = Color.white
+            motmStats.textColor = secondaryColor
             motmStats.font = RobotoFont.medium
             
             motmTitle.alpha = 1
@@ -219,26 +219,26 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
             self.battingView.alpha = 1
             self.battingView.backgroundColor = mainColor
             
-            strikerName.textColor = Color.white
-            strikerSR.textColor = Color.white
-            strikerSixes.textColor = Color.white
-            strikerFours.textColor = Color.white
-            strikerRunsScored.textColor = Color.white
-            strikerBallsFaced.textColor = Color.white
+            strikerName.textColor = secondaryColor
+            strikerSR.textColor = secondaryColor
+            strikerSixes.textColor = secondaryColor
+            strikerFours.textColor = secondaryColor
+            strikerRunsScored.textColor = secondaryColor
+            strikerBallsFaced.textColor = secondaryColor
             
-            nonstrikerName.textColor = Color.white
-            nonstrikerSR.textColor = Color.white
-            nonstrikerSixes.textColor = Color.white
-            nonstrikerFours.textColor = Color.white
-            nonstrikerRunsScored.textColor = Color.white
-            nonstrikerBallsFaced.textColor = Color.white
+            nonstrikerName.textColor = secondaryColor
+            nonstrikerSR.textColor = secondaryColor
+            nonstrikerSixes.textColor = secondaryColor
+            nonstrikerFours.textColor = secondaryColor
+            nonstrikerRunsScored.textColor = secondaryColor
+            nonstrikerBallsFaced.textColor = secondaryColor
             
-            bowlerName.textColor = Color.white
-            bowlerOvers.textColor = Color.white
-            bowlerRunsConceded.textColor = Color.white
-            bowlerWickets.textColor = Color.white
-            bowlerMaidens.textColor = Color.white
-            bowlerEcomony.textColor = Color.white
+            bowlerName.textColor = secondaryColor
+            bowlerOvers.textColor = secondaryColor
+            bowlerRunsConceded.textColor = secondaryColor
+            bowlerWickets.textColor = secondaryColor
+            bowlerMaidens.textColor = secondaryColor
+            bowlerEcomony.textColor = secondaryColor
             
             strikerName.font = RobotoFont.bold
             strikerSR.font = RobotoFont.medium

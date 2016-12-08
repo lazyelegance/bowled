@@ -12,13 +12,13 @@ import Material
 
 
 protocol MainViewControllerDelegate {
-    func toggleLeftPanel()
+    func toggleLeftPanel(matchList: [Match])
     //func toggleRightPanel(seriesList: [MenuItem], teamsList: [MenuItem], matchTypesList: [MenuItem])
     func collapseSidePanels()
 }
 
 
-class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDelegate, UITableViewDataSource {
+class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDelegate, UITableViewDataSource, MenuControllerDelegate {
     
     
     var bowledServiceAPI: BowledService!
@@ -139,12 +139,31 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         } else if !menuExpanded {
             menuButton.image = UIImage(named: "cm_arrow_upward_white")
             menuExpanded = !menuExpanded
-            delegate?.toggleLeftPanel()
+            delegate?.toggleLeftPanel(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 })
         } else {
             menuButton.image = UIImage(named: "cm_arrow_downward_white")
             menuExpanded = !menuExpanded
             delegate?.collapseSidePanels()
         }
+    }
+    
+    
+    func menuItemSelected(item: String, type: MenuItemType) {
+        print("..................")
+        menuExpanded = !menuExpanded
+        menuButton.image = menuExpanded ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "cm_arrow_upward_white")
+        let allMatches = [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }
+        
+        switch type {
+        case .team:
+            print(allMatches.filter { $0.hometeamName == item || $0.awayteamName == item }.count)
+        case .series:
+            print(allMatches.filter { $0.seriesName == item }.count) 
+        default:
+            break
+        }
+        delegate?.collapseSidePanels()
+        
     }
     
     // MARK: - TableView
