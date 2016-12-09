@@ -150,15 +150,20 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     func menuItemSelected(item: String, type: MenuItemType) {
         print("..................")
+        print(menuExpanded)
         menuExpanded = !menuExpanded
-        menuButton.image = menuExpanded ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "cm_arrow_upward_white")
+        menuButton.image = !menuExpanded ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "cm_arrow_upward_white")
         let allMatches = [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }
         
         switch type {
         case .team:
             print(allMatches.filter { $0.hometeamName == item || $0.awayteamName == item }.count)
+            showSelectedMatches(matchList: allMatches.filter { $0.hometeamName == item || $0.awayteamName == item })
         case .series:
-            print(allMatches.filter { $0.seriesName == item }.count) 
+            print(allMatches.filter { $0.seriesName == item }.count)
+            showSelectedMatches(matchList: allMatches.filter { $0.seriesName == item })
+        case .matchType:
+            showSelectedMatches(matchList: allMatches.filter { $0.cmsMatchType == item })
         default:
             break
         }

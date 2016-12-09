@@ -139,7 +139,7 @@ class ContainerViewController: UIViewController, MainViewControllerDelegate {
     func addChildSidePanelController(_ sidePanelController: SideMenuController) {
         
         //*TODO
-//        sidePanelController.delegate = centerVC
+        sidePanelController.delegate = centerVC
         
         view.insertSubview(sidePanelController.view, at: 0)
         
