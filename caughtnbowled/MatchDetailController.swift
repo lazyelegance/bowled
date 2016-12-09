@@ -15,6 +15,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     var bowledServiceAPI: BowledService!
     
     
+    @IBOutlet weak var pulseView: PulseView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var series: UILabel!
     @IBOutlet weak var teamOneName: UILabel!
@@ -95,6 +96,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         headerView = tableView.tableHeaderView
         headerView.frame.size.height = kHeaderHeight
         headerView.backgroundColor = mainColor
+        pulseView.backgroundColor = secondaryColor
         
         tableView.tableHeaderView = nil
         tableView.addSubview(headerView)
@@ -128,21 +130,21 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         matchStatus.text = match.matchSummaryText
 
         
-        series.textColor = mainColor
+        series.textColor = txtColor
 //        series.font = RobotoFont.bold
-        matchStatus.textColor = mainColor
+        matchStatus.textColor = txtColor
 //        matchStatus.font = RobotoFont
         
-        teamOneName.textColor = mainColor
+        teamOneName.textColor = txtColor
         teamOneName.font = RobotoFont.bold
         
-        teamOneScore.textColor = mainColor
+        teamOneScore.textColor = txtColor
         teamOneScore.font = RobotoFont.light
         
-        teamTwoName.textColor = mainColor
+        teamTwoName.textColor = txtColor
         teamTwoName.font = RobotoFont.bold
         
-        teamTwoScore.textColor = mainColor
+        teamTwoScore.textColor = txtColor
         teamTwoScore.font = RobotoFont.light
         
         self.awardsViewHeight.constant = 0
@@ -197,13 +199,13 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                 motmStats.text = ""
             }
             
-            motmTitle.textColor = secondaryColor
+            motmTitle.textColor = txtColor
             motmTitle.font = RobotoFont.light
             
-            motmName.textColor = secondaryColor
+            motmName.textColor = txtColor
             motmName.font = RobotoFont.bold
             
-            motmStats.textColor = secondaryColor
+            motmStats.textColor = txtColor
             motmStats.font = RobotoFont.medium
             
             motmTitle.alpha = 1
@@ -219,26 +221,26 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
             self.battingView.alpha = 1
             self.battingView.backgroundColor = mainColor
             
-            strikerName.textColor = secondaryColor
-            strikerSR.textColor = secondaryColor
-            strikerSixes.textColor = secondaryColor
-            strikerFours.textColor = secondaryColor
-            strikerRunsScored.textColor = secondaryColor
-            strikerBallsFaced.textColor = secondaryColor
+            strikerName.textColor = txtColor
+            strikerSR.textColor = txtColor
+            strikerSixes.textColor = txtColor
+            strikerFours.textColor = txtColor
+            strikerRunsScored.textColor = txtColor
+            strikerBallsFaced.textColor = txtColor
             
-            nonstrikerName.textColor = secondaryColor
-            nonstrikerSR.textColor = secondaryColor
-            nonstrikerSixes.textColor = secondaryColor
-            nonstrikerFours.textColor = secondaryColor
-            nonstrikerRunsScored.textColor = secondaryColor
-            nonstrikerBallsFaced.textColor = secondaryColor
+            nonstrikerName.textColor = txtColor
+            nonstrikerSR.textColor = txtColor
+            nonstrikerSixes.textColor = txtColor
+            nonstrikerFours.textColor = txtColor
+            nonstrikerRunsScored.textColor = txtColor
+            nonstrikerBallsFaced.textColor = txtColor
             
-            bowlerName.textColor = secondaryColor
-            bowlerOvers.textColor = secondaryColor
-            bowlerRunsConceded.textColor = secondaryColor
-            bowlerWickets.textColor = secondaryColor
-            bowlerMaidens.textColor = secondaryColor
-            bowlerEcomony.textColor = secondaryColor
+            bowlerName.textColor = txtColor
+            bowlerOvers.textColor = txtColor
+            bowlerRunsConceded.textColor = txtColor
+            bowlerWickets.textColor = txtColor
+            bowlerMaidens.textColor = txtColor
+            bowlerEcomony.textColor = txtColor
             
             strikerName.font = RobotoFont.bold
             strikerSR.font = RobotoFont.medium
@@ -401,10 +403,10 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                     batsmanRecordCell.ballsFaced.font = RobotoFont.bold(with: 15)
                     batsmanRecordCell.fours.font = RobotoFont.bold(with: 15)
                     batsmanRecordCell.sixes.font = RobotoFont.bold(with: 15)
-                    batsmanRecordCell.contentView.backgroundColor = mainColor
+                    batsmanRecordCell.contentView.backgroundColor = secondaryColor
                 } else if let batsman = self.scorecard.innings[self.subMenu.selectedSegmentIndex].batsmen[indexPath.row - 1] as Batsman? {
                     batsmanRecordCell.batsman = batsman
-                    batsmanRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? mainColor : Color.indigo.darken1
+                    batsmanRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? secondaryColor : mainColor
                 }
                 return batsmanRecordCell
             case 1:
@@ -415,10 +417,10 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                     bowlerRecordCell.maidens.font = RobotoFont.bold(with: 15)
                     bowlerRecordCell.runsConceded.font = RobotoFont.bold(with: 15)
                     bowlerRecordCell.ecomony.font = RobotoFont.bold(with: 15)
-                    bowlerRecordCell.contentView.backgroundColor = mainColor
+                    bowlerRecordCell.contentView.backgroundColor = secondaryColor
                 } else if let bowler = self.scorecard.innings[self.subMenu.selectedSegmentIndex].bowlers[indexPath.row - 1] as Bowler? {
                     bowlerRecordCell.bowler = bowler
-                    bowlerRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? mainColor : Color.indigo.darken1
+                    bowlerRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? secondaryColor : mainColor
                 }
                 
                 return bowlerRecordCell
