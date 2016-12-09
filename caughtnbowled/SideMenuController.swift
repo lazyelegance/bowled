@@ -44,11 +44,12 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         mainMenu = HMSegmentedControl(sectionTitles: menuTitles)
         
         mainMenu.addTarget(self, action: #selector(SideMenuController.mainMenuChangedValue(_:)), for: UIControlEvents.valueChanged)
-        mainMenu.frame = CGRect(x: 10, y: 0, width: headerView.frame.width - 20, height: 40)
+        mainMenu.frame = CGRect(x: 10, y: 0, width: headerView.frame.width - 20, height: 30)
         mainMenu.autoresizingMask =  UIViewAutoresizing()
         
-        mainMenu.selectionIndicatorColor = secondaryColor
+        mainMenu.selectionIndicatorColor = txtColor
         mainMenu.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleDynamic
+        mainMenu.layer.cornerRadius = 2
         
         
         mainMenu.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe
@@ -56,8 +57,8 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         
         mainMenu.backgroundColor = mainColor
        
-        mainMenu.titleTextAttributes = [NSForegroundColorAttributeName: secondaryColor, NSFontAttributeName: RobotoFont.medium]
-        mainMenu.selectedTitleTextAttributes = [NSForegroundColorAttributeName: secondaryColor, NSFontAttributeName: RobotoFont.bold]
+        mainMenu.titleTextAttributes = [NSForegroundColorAttributeName: txtColor, NSFontAttributeName: RobotoFont.regular]
+        mainMenu.selectedTitleTextAttributes = [NSForegroundColorAttributeName: txtColor, NSFontAttributeName: RobotoFont.regular]
         mainMenu.selectedSegmentIndex = 0
         
         headerView.backgroundColor = mainColor
