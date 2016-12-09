@@ -403,10 +403,10 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                     batsmanRecordCell.ballsFaced.font = RobotoFont.bold(with: 15)
                     batsmanRecordCell.fours.font = RobotoFont.bold(with: 15)
                     batsmanRecordCell.sixes.font = RobotoFont.bold(with: 15)
-                    batsmanRecordCell.contentView.backgroundColor = secondaryColor
+                    batsmanRecordCell.contentView.backgroundColor = mainColor
                 } else if let batsman = self.scorecard.innings[self.subMenu.selectedSegmentIndex].batsmen[indexPath.row - 1] as Batsman? {
                     batsmanRecordCell.batsman = batsman
-                    batsmanRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? secondaryColor : mainColor
+                    batsmanRecordCell.contentView.backgroundColor = secondaryColor
                 }
                 return batsmanRecordCell
             case 1:
@@ -417,10 +417,10 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                     bowlerRecordCell.maidens.font = RobotoFont.bold(with: 15)
                     bowlerRecordCell.runsConceded.font = RobotoFont.bold(with: 15)
                     bowlerRecordCell.ecomony.font = RobotoFont.bold(with: 15)
-                    bowlerRecordCell.contentView.backgroundColor = secondaryColor
+                    bowlerRecordCell.contentView.backgroundColor = mainColor
                 } else if let bowler = self.scorecard.innings[self.subMenu.selectedSegmentIndex].bowlers[indexPath.row - 1] as Bowler? {
                     bowlerRecordCell.bowler = bowler
-                    bowlerRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? secondaryColor : mainColor
+                    bowlerRecordCell.contentView.backgroundColor = secondaryColor
                 }
                 
                 return bowlerRecordCell
@@ -506,6 +506,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                 if let resultsDictionary = results as? NSDictionary {
                     let scorecardfromresults = Scorecard.scorecardFromAPI(resultsDictionary)
                     self.scorecard = scorecardfromresults
+//                    print(self.scorecard.innings[0])
                     DispatchQueue.main.async(execute: {
                         
                         if self.scorecard.status != "no results" {
