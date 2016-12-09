@@ -235,19 +235,13 @@
                                                                     <rect key="frame" x="30" y="30.5" width="295" height="79"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGy-ZR-H8P">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="295" height="31.5"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="295" height="39.5"/>
                                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Wj-8X-Qck">
-                                                                            <rect key="frame" x="0.0" y="31.5" width="295" height="16"/>
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                                            <color key="textColor" red="0.17614561319351196" green="0.064153008162975311" blue="0.87151104211807251" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                        </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjO-6A-Ktn">
-                                                                            <rect key="frame" x="0.0" y="47.5" width="295" height="31.5"/>
+                                                                            <rect key="frame" x="0.0" y="39.5" width="295" height="39.5"/>
                                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -1066,6 +1060,7 @@
                         <outlet property="nonstrikerRunsScored" destination="6ZU-0K-iVC" id="DUB-2P-eFN"/>
                         <outlet property="nonstrikerSR" destination="aJf-dd-I66" id="jW1-H6-fKn"/>
                         <outlet property="nonstrikerSixes" destination="fpy-RO-aeT" id="qms-kp-VRA"/>
+                        <outlet property="pulseView" destination="JOk-se-jhb" id="W0x-xK-nUV"/>
                         <outlet property="series" destination="LUF-Di-yly" id="diV-SB-wce"/>
                         <outlet property="strikerBallsFaced" destination="yuO-Ye-YBg" id="gmL-ji-DeT"/>
                         <outlet property="strikerFours" destination="NC2-7w-F0n" id="LC4-Yw-TJn"/>
@@ -1160,10 +1155,10 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OHp-1V-JrY" customClass="PulseView" customModule="Material">
-                                                            <rect key="frame" x="5" y="5" width="333" height="33.5"/>
+                                                            <rect key="frame" x="5" y="5" width="62" height="33.5"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QxP-xj-OQk">
-                                                                    <rect key="frame" x="3" y="0.0" width="42" height="30.5"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QxP-xj-OQk">
+                                                                    <rect key="frame" x="10" y="5" width="42" height="23.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -1171,20 +1166,20 @@
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
-                                                                <constraint firstItem="QxP-xj-OQk" firstAttribute="leading" secondItem="OHp-1V-JrY" secondAttribute="leading" constant="5" id="g3W-dR-vgi"/>
+                                                                <constraint firstAttribute="trailing" secondItem="QxP-xj-OQk" secondAttribute="trailing" constant="10" id="Air-EG-1Cv"/>
+                                                                <constraint firstItem="QxP-xj-OQk" firstAttribute="leading" secondItem="OHp-1V-JrY" secondAttribute="leading" constant="10" id="g3W-dR-vgi"/>
                                                                 <constraint firstAttribute="bottom" secondItem="QxP-xj-OQk" secondAttribute="bottom" constant="5" id="icS-5t-bsI"/>
                                                                 <constraint firstItem="QxP-xj-OQk" firstAttribute="top" secondItem="OHp-1V-JrY" secondAttribute="top" constant="5" id="wHl-89-3ui"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                                    <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                    <color key="value" red="0.19698071479797363" green="0.2770063579082489" blue="0.36018550395965576" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="OHp-1V-JrY" firstAttribute="top" secondItem="AqR-ie-cSM" secondAttribute="top" constant="5" id="PjL-Z3-fUG"/>
-                                                        <constraint firstAttribute="trailing" secondItem="OHp-1V-JrY" secondAttribute="trailing" constant="5" id="QbS-Je-HrT"/>
                                                         <constraint firstAttribute="bottom" secondItem="OHp-1V-JrY" secondAttribute="bottom" constant="5" id="e2n-qS-28C"/>
                                                         <constraint firstItem="OHp-1V-JrY" firstAttribute="leading" secondItem="AqR-ie-cSM" secondAttribute="leading" constant="5" id="k7k-e8-h73"/>
                                                     </constraints>
