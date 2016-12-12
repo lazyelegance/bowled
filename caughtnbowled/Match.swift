@@ -259,9 +259,11 @@ struct Match {
 
                 
                 if let venue = result["venue"] as? NSDictionary {
+
     
-                    newMatch.venueName = venue["name"] as! String
-                    if let venueSName = venue["location"] as? String {
+                    
+                    if let venueName = venue["name"] as? String, let venueSName = venue["location"] as? String {
+                        newMatch.venueName = venueName
                         newMatch.venueSName = venueSName
                     } else if let venueSName = venue["shortName"] as? String {
                         newMatch.venueSName = venueSName
@@ -492,10 +494,7 @@ struct Match {
                     }
                     
                 }
-                
-//                print("\(newMatch.hometeamId) : \(newMatch.hometeamName)")
-//                print("\(newMatch.awayteamId) : \(newMatch.awayteamName)")
-                
+
                 matches.append(newMatch)
             }
             

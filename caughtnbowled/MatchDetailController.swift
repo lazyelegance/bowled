@@ -74,6 +74,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     var match: Match!
     var scorecard: Scorecard!
     var commentary: Commentary!
+    var players = [Player]()
     
     var partnerships = [NSNumber: [Partnership]]()
     
@@ -156,6 +157,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         bowledServiceAPI = BowledService(delegate: self)
         bowledServiceAPI.getScoreCard(match.matchId, seriesid: match.seriesId)
         bowledServiceAPI.getCommentary(match.matchId, seriesid: match.seriesId)
+        bowledServiceAPI.getMatchPlayers(match.matchId, seriesid: match.seriesId)
         //refreshLiveMatchData()
         
     }
@@ -458,7 +460,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     //MARK: - segemented views
     
     func mainMenuChangedValue(_ mainMenu: HMSegmentedControl) {
-        print("main menu value chnaged")
+        
         switch mainMenu.selectedSegmentIndex {
         case 0:
             self.subMenu.sectionTitles = self.scorecard?.innings.map { $0.name }
@@ -486,16 +488,16 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     
     func refreshLiveMatchData() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        let status = Reach().connectionStatus()
-        switch status {
-        case .unknown, .offline:
-            print("Not connected")
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        case .online(.wwan), .online(.wiFi):
-            print(match)
-//            bowledServiceAPI.getScoreCard(match.matchId, seriesid: match.seriesId)
-//            bowledServiceAPI.getCommentary(match.matchId, seriesid: match.seriesId)
-        }
+//        let status = Reach().connectionStatus()
+//        switch status {
+//        case .unknown, .offline:
+//            print("Not connected")
+//            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//        case .online(.wwan), .online(.wiFi): {
+//            
+////            bowledServiceAPI.getScoreCard(match.matchId, seriesid: match.seriesId)
+////            bowledServiceAPI.getCommentary(match.matchId, seriesid: match.seriesId)
+//        }
     }
     
     // MARK: - Bowled Service
@@ -552,59 +554,24 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                 }
             })
         } else if requestType == .matchPlayers {
-//            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
-//                if let resultsDictionary = results as? NSDictionary {
-//                    
-//                    
-//                    self.matchPlayers.removeAll()
-//                    
-//                    //self.matchPlayers = CBPlayer.matchPlayersFromResults(resultsDictionary)
-//                    
-//                    if let homeTeam = resultsDictionary["homeTeam"] as? NSDictionary {
-//                        if let team = homeTeam["team"] as? NSDictionary {
-//                            if let teamId = team["id"] as? NSNumber {
-//                                if let players = homeTeam["players"] as? NSArray {
-//                                    for i in 0 ..< players.count += 1 {
-//                                        if let playerDict = players[i] as? NSDictionary {
-//                                            if let playerId = playerDict["playerId"] as? NSNumber {
-//                                                self.matchPlayers[playerId] = CBPlayer.playerFromResults(team, results: playerDict)
-//                                            }
-//                                            
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                    
-//                    if let awayTeam = resultsDictionary["awayTeam"] as? NSDictionary {
-//                        if let team = awayTeam["team"] as? NSDictionary {
-//                            if let teamId = team["id"] as? NSNumber {
-//                                if let players = awayTeam["players"] as? NSArray {
-//                                    for i in 0 ..< players.count += 1 {
-//                                        if let playerDict = players[i] as? NSDictionary {
-//                                            if let playerId = playerDict["playerId"] as? NSNumber {
-//                                                self.matchPlayers[playerId] = CBPlayer.playerFromResults(team, results: playerDict)
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                    
-//                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//                    
-//                    DispatchQueue.main.async(execute: {
-//                        
-//                        
-//                        self.tableView.reloadData()
-//                        
-//                  })
-//                }
-//                
-//                
-//            })
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                if let resultsDictionary = results as? [String: AnyObject] {
+//                    self.players
+                    print("..getting match players... 1.5 ..")
+                    self.players = Player.playersFromResults(results: resultsDictionary)
+                    
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    
+                    DispatchQueue.main.async(execute: {
+                        
+                        
+                        self.tableView.reloadData()
+                        
+                  })
+                }
+                
+                
+            })
             
         } else if requestType == .commentary {
             let commentaryQueue = DispatchQueue(label: "commentaryQueue", attributes: [])
@@ -618,8 +585,6 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                     //let scorecardkeyfromresult = ScorecardKey(matchid: matchid, seriesid: seriesid)
                     
                     self.commentary = commentaryfromresults
-                    print("HEEEEEEREEEEE")
-                    print(self.commentary.commentaryInnings[0].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }[0])
                     //self.activityIndicator.stopAnimation()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
