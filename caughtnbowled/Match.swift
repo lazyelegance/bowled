@@ -361,11 +361,14 @@ struct Match {
                 if let cmsMatchType = result["cmsMatchType"] as? String {
                     
                     newMatch.cmsMatchType = cmsMatchType
-                    newMatch.cmsMatchAssociatedType = result["cmsMatchAssociatedType"] as! String
-                    
-                    if newMatch.cmsMatchType == "Ireland" && newMatch.cmsMatchAssociatedType == "ODI" {
-                        newMatch.cmsMatchType = "One-Day International"
+                    if let cmsMatchAssociatedType = result["cmsMatchAssociatedType"] as? String {
+                        newMatch.cmsMatchAssociatedType = cmsMatchAssociatedType
+                        if newMatch.cmsMatchType == "Ireland" && newMatch.cmsMatchAssociatedType == "ODI" {
+                            newMatch.cmsMatchType = "One-Day International"
+                        }
                     }
+                    
+                    
                     
                     if cmsMatchType == "One-Day International" || cmsMatchType == "T20 International" || cmsMatchType == "Test" {
                         newMatch.isInternational = true
