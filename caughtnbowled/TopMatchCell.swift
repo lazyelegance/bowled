@@ -28,21 +28,21 @@ class TopMatchCell: UITableViewCell {
         didSet {
             if match != nil {
                 teamOneName.text = match?.hometeamName
-                teamOneName.textColor = mainColor
+                teamOneName.textColor = txtColor
                 teamOneName.font = RobotoFont.bold
                 
                 teamTwoName.text = match?.awayteamName
-                teamTwoName.textColor = mainColor
+                teamTwoName.textColor = txtColor
                 teamTwoName.font = RobotoFont.bold
                 
                 
                 if match?.status == .live || match?.status == .completed {
                     teamOneScore.text = match?.homeScore
-                    teamOneScore.textColor = mainColor
+                    teamOneScore.textColor = txtColor
                     teamOneScore.font = RobotoFont.light
                     
                     teamTwoScore.text = match?.awayScore
-                    teamTwoScore.textColor = mainColor
+                    teamTwoScore.textColor = txtColor
                     teamTwoScore.font = RobotoFont.light
                 }
             
@@ -56,9 +56,9 @@ class TopMatchCell: UITableViewCell {
                 matchStatus.text = match?.status == .upcoming ? match?.relStartDate.uppercased() : match?.matchSummaryText.uppercased()
                 
                 series.font = RobotoFont.light(with: 10)
-                series.textColor = mainColor
+                series.textColor = txtColor
                 matchStatus.font = RobotoFont.light(with: 10)
-                matchStatus.textColor = mainColor
+                matchStatus.textColor = txtColor
                 
                 self.backgroundColor = Color.clear
                 self.contentView.backgroundColor = mainColor

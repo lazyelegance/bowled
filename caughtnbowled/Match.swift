@@ -259,9 +259,11 @@ struct Match {
 
                 
                 if let venue = result["venue"] as? NSDictionary {
+
     
-                    newMatch.venueName = venue["name"] as! String
-                    if let venueSName = venue["location"] as? String {
+                    
+                    if let venueName = venue["name"] as? String, let venueSName = venue["location"] as? String {
+                        newMatch.venueName = venueName
                         newMatch.venueSName = venueSName
                     } else if let venueSName = venue["shortName"] as? String {
                         newMatch.venueSName = venueSName
@@ -359,11 +361,14 @@ struct Match {
                 if let cmsMatchType = result["cmsMatchType"] as? String {
                     
                     newMatch.cmsMatchType = cmsMatchType
-                    newMatch.cmsMatchAssociatedType = result["cmsMatchAssociatedType"] as! String
-                    
-                    if newMatch.cmsMatchType == "Ireland" && newMatch.cmsMatchAssociatedType == "ODI" {
-                        newMatch.cmsMatchType = "One-Day International"
+                    if let cmsMatchAssociatedType = result["cmsMatchAssociatedType"] as? String {
+                        newMatch.cmsMatchAssociatedType = cmsMatchAssociatedType
+                        if newMatch.cmsMatchType == "Ireland" && newMatch.cmsMatchAssociatedType == "ODI" {
+                            newMatch.cmsMatchType = "One-Day International"
+                        }
                     }
+                    
+                    
                     
                     if cmsMatchType == "One-Day International" || cmsMatchType == "T20 International" || cmsMatchType == "Test" {
                         newMatch.isInternational = true
@@ -492,10 +497,7 @@ struct Match {
                     }
                     
                 }
-                
-//                print("\(newMatch.hometeamId) : \(newMatch.hometeamName)")
-//                print("\(newMatch.awayteamId) : \(newMatch.awayteamName)")
-                
+
                 matches.append(newMatch)
             }
             

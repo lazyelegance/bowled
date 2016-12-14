@@ -42,12 +42,15 @@ let silver = UIColor(red: 189.0/255.0, green: 195.0/255.0, blue: 199.0/255.0, al
 
 var clearcolor = UIColor.clear //
 var navBarColor = UIColor(red: 41/255, green: 128/255, blue: 185/255, alpha: 1)
-var txtColor = UIColor(red: 41/255, green: 128/255, blue: 185/255, alpha: 1)
+
+
+
 let whitecolor = UIColor.white
 
 
-var mainColor = Color.indigo.base
-let secondaryColor = Color.white
+let mainColor = UIColor(red: 44.0/255.0, green: 62.0/255.0, blue: 80.0/255.0, alpha: 1.0) //Color.indigo.base
+let secondaryColor = UIColor(red: 52.0/255.0, green: 73.0/255.0, blue: 94.0/255.0, alpha: 1.0)//rgba(52, 73, 94,1.0)// Color.darkGray
+let txtColor = Color.white
 
 
 
@@ -149,7 +152,7 @@ extension String {
 }
 
 
-public enum MenuType {
+public enum MenuItemType {
     
     
     case team
@@ -207,23 +210,23 @@ public enum MenuType {
     
 }
 
-public struct MenuItem {
-    var id: NSNumber?
-    var name: String?
-    var logoUrl: URL?
-    var type: MenuType
-    var isInternational: Bool?
-    
-    init(id: NSNumber, name: String, type: MenuType, logoUrl: URL, isInternational: Bool) {
-        self.id = id
-        self.name = name
-        self.type = type
-        self.logoUrl = logoUrl
-        self.isInternational = isInternational
-    }
-    
-
-}
+//public struct MenuItem {
+//    var id: NSNumber?
+//    var name: String?
+//    var logoUrl: URL?
+//    var type: MenuType
+//    var isInternational: Bool?
+//    
+//    init(id: NSNumber, name: String, type: MenuType, logoUrl: URL, isInternational: Bool) {
+//        self.id = id
+//        self.name = name
+//        self.type = type
+//        self.logoUrl = logoUrl
+//        self.isInternational = isInternational
+//    }
+//    
+//
+//}
 
 public enum MatchStatus {
     case live

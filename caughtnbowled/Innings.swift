@@ -28,6 +28,7 @@ struct Innings {
     
     var batsmen = [Batsman]()
     var bowlers = [Bowler]()
+    var batsmenToBat = [Batsman]()
     
     init(id: NSNumber, name: String, teamId: NSNumber, teamShortName: String) {
         self.id = id

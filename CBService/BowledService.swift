@@ -38,42 +38,29 @@ open class BowledService {
     
     
     open func getMatches() {
-        print("here")
+
         let httpHeaderValue = dictionary?.object(forKey: "X-Mashape-Key") as! String
         let HTTPAdditionalHeaders = ["X-Mashape-Key" : httpHeaderValue ]
         config.httpAdditionalHeaders = HTTPAdditionalHeaders
-        
-        
-        
         let liveURLString = dictionary?.object(forKey: "allMatchesURLString") as! String
         let liveMatchesURL = URL(string: liveURLString)
         let session = URLSession(configuration: config, delegate: nil, delegateQueue: OperationQueue.main)
-        
-        
         let task = session.dataTask(with: liveMatchesURL!, completionHandler: {data, response, error -> Void in
-            
             if(error != nil) {
-                
-//                print(error)
+                //TO DO
+                print(error?.localizedDescription)
             }
-            
-            
             do {
-                
                 if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
-                    
                     if let matchList: NSDictionary = jsonResult["matchList"] as? NSDictionary {
-                        
                         if let results: NSArray = matchList["matches"] as? NSArray {
                             self.delegate.didReceiveResults(.matches, results: results)
                         }
                     }
                 }
             } catch {
-//                print("error getting matches")
+                print("error getting matches")
             }
-            
-            
         })
         
         task.resume()
@@ -83,16 +70,10 @@ open class BowledService {
     
     open func getTeamPlayers(_ teamid: NSNumber ) {
 
-        
         let sessionConfig = URLSessionConfiguration.default
-        
-        /* Create session, and optionally set a NSURLSessionDelegate. */
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
-        
         let httpHeaderValue = dictionary?.object(forKey: "X-Mashape-Key") as! String
-        
         let teamPlayersURLString = dictionary?.object(forKey: "teamPlayersURLString") as! String
-        
         var URL = Foundation.URL(string: teamPlayersURLString)
         let URLParams = [
             "teamid": "\(teamid)",
@@ -100,14 +81,7 @@ open class BowledService {
         URL = self.NSURLByAppendingQueryParameters(URL, queryParameters: URLParams)
         var request = URLRequest(url: URL!)
         request.httpMethod = "GET"
-        
-        // Headers
-        
         request.addValue(httpHeaderValue, forHTTPHeaderField: "X-Mashape-Key")
-        
-        /* Start a new Task */
-        
-        
         
         let task = session.dataTask(with: request, completionHandler: {
             (data, response, error ) -> Void in
@@ -145,14 +119,10 @@ open class BowledService {
     
     open func getMatchPlayers(_ matchid: NSNumber, seriesid: NSNumber ) {
         
-        
+        print("..getting match players... 1 ..")
         let sessionConfig = URLSessionConfiguration.default
-        
-        /* Create session, and optionally set a NSURLSessionDelegate. */
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
-        
         let httpHeaderValue = dictionary?.object(forKey: "X-Mashape-Key") as! String
-        
         let teamPlayersURLString = dictionary?.object(forKey: "matchPlayersURLString") as! String
         
         var URL = Foundation.URL(string: teamPlayersURLString)
@@ -163,31 +133,19 @@ open class BowledService {
         URL = self.NSURLByAppendingQueryParameters(URL, queryParameters: URLParams)
         var request = URLRequest(url: URL!)
         request.httpMethod = "GET"
-        
-        // Headers
-        
         request.addValue(httpHeaderValue, forHTTPHeaderField: "X-Mashape-Key")
-        
-        /* Start a new Task */
-        
-        
         
         let task = session.dataTask(with: request, completionHandler: {
             (data, response, error ) -> Void in
             if (error == nil) {
                 // Success
                 let statusCode = (response as! HTTPURLResponse).statusCode
-
                 do {
-                    
-                    
                     if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
                         
                        
-                        if let teamPlayers: NSDictionary = jsonResult["playersInMatch"] as? NSDictionary {
-                            
-                            
-                            self.delegate.didReceiveResults(.matchPlayers, results: teamPlayers)
+                        if let matchPlayers = jsonResult["playersInMatch"] as? NSDictionary {
+                            self.delegate.didReceiveResults(.matchPlayers, results: matchPlayers)
                             
                            
                         }
@@ -212,12 +170,8 @@ open class BowledService {
     open func getScoreCard(_ matchid: NSNumber, seriesid: NSNumber ) {
 
         let sessionConfig = URLSessionConfiguration.default
-        
-        /* Create session, and optionally set a NSURLSessionDelegate. */
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
-        
         let httpHeaderValue = dictionary?.object(forKey: "X-Mashape-Key") as! String
-        
         let scorecardURLString = dictionary?.object(forKey: "scorecardURLString") as! String
         
         var URL = Foundation.URL(string: scorecardURLString)
@@ -228,14 +182,7 @@ open class BowledService {
         URL = self.NSURLByAppendingQueryParameters(URL, queryParameters: URLParams)
         var request = URLRequest(url: URL!)
         request.httpMethod = "GET"
-        
-        // Headers
-        
         request.addValue(httpHeaderValue, forHTTPHeaderField: "X-Mashape-Key")
-        
-        /* Start a new Task */
-        
-        
         
         let task = session.dataTask(with: request, completionHandler: {
             (data, response, error ) -> Void in
@@ -243,8 +190,6 @@ open class BowledService {
                 // Success
                 let statusCode = (response as! HTTPURLResponse).statusCode
                 do {
-                    
-                    
                     if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
                         
                         if let results: NSDictionary = jsonResult {

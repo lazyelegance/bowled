@@ -52,26 +52,36 @@ struct Batsman {
         return Batsman(id: 0, name: "", runsScored: "0", ballsFaced: "0")
     }
     
-    static func batsmanFromArray(batsmenArray: [[String: AnyObject]]) -> [Batsman] {
+    static func batsmanFromArray(batsmenArray: [[String: AnyObject]]) -> ([Batsman], [Batsman]) {
         var batsmanArray = [Batsman]()
+        var batsmanToBatArray = [Batsman]()
         
         for item in batsmenArray {
             if let id = item["id"] as? NSNumber, let name = item["name"] as? String, let runsScored = item["runs"] as? String, let ballsFaced = item["balls"] as? String {
                 var newBatsman = Batsman(id: id, name: name, runsScored: runsScored, ballsFaced: ballsFaced)
-                
-                if let fours = item["fours"] as? String, let sixes = item["sixes"] as? String, let strikeRate = item["strikeRate"] as? String, let howOut = item["howOut"] as? String, let fallOfWicket = item["fallOfWicket"] as? String, let fallOfWicketOver = item["fallOfWicketOver"] as? String, let fowOrder = item["fowOrder"] as? NSNumber {
-                    newBatsman.fallOfWicket = fallOfWicket
-                    newBatsman.fallOfWicketOver = fallOfWicketOver
-                    newBatsman.fowOrder = fowOrder
+               
+                if let fours = item["fours"] as? String, let sixes = item["sixes"] as? String, let strikeRate = item["strikeRate"] as? String {
+                    
                     newBatsman.foursHit = fours
                     newBatsman.sixesHit = sixes
                     newBatsman.strikeRate = strikeRate
-                    newBatsman.howOut = howOut
+                    
+                    
                 }
-                batsmanArray.append(newBatsman)
+                if let howOut = item["howOut"] as? String, let fallOfWicket = item["fallOfWicket"] as? String, let fallOfWicketOver = item["fallOfWicketOver"] as? String, let fowOrder = item["fowOrder"] as? NSNumber {
+                    newBatsman.howOut = howOut
+                    newBatsman.fallOfWicket = fallOfWicket
+                    newBatsman.fallOfWicketOver = fallOfWicketOver
+                    newBatsman.fowOrder = fowOrder
+                }
+                if newBatsman.strikeRate != "-" {
+                    batsmanArray.append(newBatsman)
+                } else {
+                    batsmanToBatArray.append(newBatsman)
+                }
             }
         }
         
-        return batsmanArray
+        return (batsmanArray, batsmanToBatArray)
     }
 }

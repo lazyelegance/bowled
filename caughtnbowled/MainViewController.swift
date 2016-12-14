@@ -12,13 +12,13 @@ import Material
 
 
 protocol MainViewControllerDelegate {
-    func toggleLeftPanel()
+    func toggleLeftPanel(matchList: [Match])
     //func toggleRightPanel(seriesList: [MenuItem], teamsList: [MenuItem], matchTypesList: [MenuItem])
     func collapseSidePanels()
 }
 
 
-class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDelegate, UITableViewDataSource {
+class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDelegate, UITableViewDataSource, MenuControllerDelegate {
     
     
     var bowledServiceAPI: BowledService!
@@ -41,6 +41,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     @IBOutlet weak var menuButton: FlatButton!
     
     
+    @IBOutlet weak var titleLabel: UILabel!
 
     @IBOutlet weak var topMatchesView: View!
     
@@ -77,7 +78,10 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         
         menuButton.image = isMainViewController ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "ic_arrow_back_white")
         
-        
+        //prepareTitle
+        titleLabel.font = RobotoFont.bold
+        titleLabel.textColor = txtColor
+        titleLabel.text = ""
 
         
     }
@@ -110,41 +114,67 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     
     func showSelectedSeries() {
-        showSelectedMatches(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.seriesId == matchList.filter { $0.status == .dummy_series }[0].seriesId })
+        showSelectedMatches(selectionTitle: matchList.filter { $0.status == .dummy_series }[0].seriesName, matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.seriesId == matchList.filter { $0.status == .dummy_series }[0].seriesId })
     }
     
     func showFavoriteTeamMatches() {
         if let fav_team = defaults?.value(forKey: "favoriteTeamName") as? String {
-            showSelectedMatches(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.hometeamName == fav_team || $0.awayteamName == fav_team })
+            showSelectedMatches(selectionTitle: fav_team, matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.hometeamName == fav_team || $0.awayteamName == fav_team })
         }
     }
     
     func showFixtures() {
-        showSelectedMatches(matchList: self.upcomingMatches)
+        showSelectedMatches(selectionTitle: "FIXTURES", matchList: self.upcomingMatches)
     }
     
     
-    func showSelectedMatches(matchList: [Match]) {
-        if let selectedMatchListVC = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
-            selectedMatchListVC.isMainViewController = false
-            selectedMatchListVC.matchList = matchList
-            self.navigationController?.pushViewController(selectedMatchListVC, animated: true)
-        }
+    func showSelectedMatches(selectionTitle: String, matchList: [Match]) {
+//        if let selectedMatchListVC = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
+//            selectedMatchListVC.isMainViewController = false
+//            selectedMatchListVC.matchList = matchList
+//            self.navigationController?.pushViewController(selectedMatchListVC, animated: true)
+//        }
+        
+        self.matchList = matchList
+        self.titleLabel.text = selectionTitle
+        self.isMainViewController = false
+        self.topMatchesTableView.reloadData()
     }
 
  
     @IBAction func menuButtonAction(_ sender: Any) {
-        if !(isMainViewController) {
-            self.navigationController?.popViewController(animated: true)
-        } else if !menuExpanded {
+        if !menuExpanded {
             menuButton.image = UIImage(named: "cm_arrow_upward_white")
             menuExpanded = !menuExpanded
-            delegate?.toggleLeftPanel()
+            delegate?.toggleLeftPanel(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 })
         } else {
             menuButton.image = UIImage(named: "cm_arrow_downward_white")
             menuExpanded = !menuExpanded
             delegate?.collapseSidePanels()
         }
+    }
+    
+    
+    func menuItemSelected(item: String, type: MenuItemType) {
+
+        menuExpanded = !menuExpanded
+        menuButton.image = !menuExpanded ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "cm_arrow_upward_white")
+        let allMatches = [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }
+        
+        switch type {
+        case .team:
+            print(allMatches.filter { $0.hometeamName == item || $0.awayteamName == item }.count)
+            showSelectedMatches(selectionTitle: item.uppercased(), matchList: allMatches.filter { $0.hometeamName == item || $0.awayteamName == item })
+        case .series:
+            print(allMatches.filter { $0.seriesName == item }.count)
+            showSelectedMatches(selectionTitle: item.uppercased(), matchList: allMatches.filter { $0.seriesName == item })
+        case .matchType:
+            showSelectedMatches(selectionTitle: item.uppercased(), matchList: allMatches.filter { $0.cmsMatchType == item })
+        default:
+            break
+        }
+        delegate?.collapseSidePanels()
+        
     }
     
     // MARK: - TableView

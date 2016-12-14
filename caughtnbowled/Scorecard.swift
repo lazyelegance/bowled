@@ -136,7 +136,7 @@ struct Scorecard {
                                 }
                                 
                                 if let batsmenArray = inn["batsmen"] as? [[String: AnyObject]], let bowlersArray = inn["bowlers"] as? [[String: AnyObject]] {
-                                    newInnings.batsmen = Batsman.batsmanFromArray(batsmenArray: batsmenArray)
+                                    (newInnings.batsmen, newInnings.batsmenToBat) = Batsman.batsmanFromArray(batsmenArray: batsmenArray)
                                     newInnings.bowlers = Bowler.bowlerFromArray(bowlersArray: bowlersArray)
                                 }
 

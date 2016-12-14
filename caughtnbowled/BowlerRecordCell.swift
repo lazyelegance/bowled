@@ -33,12 +33,12 @@ class BowlerRecordCell: UITableViewCell {
                 
 
                 
-                name.textColor = Color.white
-                overs.textColor = Color.white
-                maidens.textColor = Color.white
-                runsConceded.textColor = Color.white
-                wickets.textColor = Color.white
-                ecomony.textColor = Color.white
+                name.textColor = txtColor
+                overs.textColor = txtColor
+                maidens.textColor = txtColor
+                runsConceded.textColor = txtColor
+                wickets.textColor = txtColor
+                ecomony.textColor = txtColor
                 
                 
                 

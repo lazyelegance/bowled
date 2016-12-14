@@ -15,6 +15,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     var bowledServiceAPI: BowledService!
     
     
+    @IBOutlet weak var pulseView: PulseView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var series: UILabel!
     @IBOutlet weak var teamOneName: UILabel!
@@ -73,6 +74,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     var match: Match!
     var scorecard: Scorecard!
     var commentary: Commentary!
+    var players = [NSNumber: Player]()
     
     var partnerships = [NSNumber: [Partnership]]()
     
@@ -95,6 +97,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         headerView = tableView.tableHeaderView
         headerView.frame.size.height = kHeaderHeight
         headerView.backgroundColor = mainColor
+        pulseView.backgroundColor = secondaryColor
         
         tableView.tableHeaderView = nil
         tableView.addSubview(headerView)
@@ -128,21 +131,21 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         matchStatus.text = match.matchSummaryText
 
         
-        series.textColor = mainColor
+        series.textColor = txtColor
 //        series.font = RobotoFont.bold
-        matchStatus.textColor = mainColor
+        matchStatus.textColor = txtColor
 //        matchStatus.font = RobotoFont
         
-        teamOneName.textColor = mainColor
+        teamOneName.textColor = txtColor
         teamOneName.font = RobotoFont.bold
         
-        teamOneScore.textColor = mainColor
+        teamOneScore.textColor = txtColor
         teamOneScore.font = RobotoFont.light
         
-        teamTwoName.textColor = mainColor
+        teamTwoName.textColor = txtColor
         teamTwoName.font = RobotoFont.bold
         
-        teamTwoScore.textColor = mainColor
+        teamTwoScore.textColor = txtColor
         teamTwoScore.font = RobotoFont.light
         
         self.awardsViewHeight.constant = 0
@@ -154,6 +157,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         bowledServiceAPI = BowledService(delegate: self)
         bowledServiceAPI.getScoreCard(match.matchId, seriesid: match.seriesId)
         bowledServiceAPI.getCommentary(match.matchId, seriesid: match.seriesId)
+        bowledServiceAPI.getMatchPlayers(match.matchId, seriesid: match.seriesId)
         //refreshLiveMatchData()
         
     }
@@ -197,13 +201,13 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                 motmStats.text = ""
             }
             
-            motmTitle.textColor = Color.white
+            motmTitle.textColor = txtColor
             motmTitle.font = RobotoFont.light
             
-            motmName.textColor = Color.white
+            motmName.textColor = txtColor
             motmName.font = RobotoFont.bold
             
-            motmStats.textColor = Color.white
+            motmStats.textColor = txtColor
             motmStats.font = RobotoFont.medium
             
             motmTitle.alpha = 1
@@ -219,26 +223,26 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
             self.battingView.alpha = 1
             self.battingView.backgroundColor = mainColor
             
-            strikerName.textColor = Color.white
-            strikerSR.textColor = Color.white
-            strikerSixes.textColor = Color.white
-            strikerFours.textColor = Color.white
-            strikerRunsScored.textColor = Color.white
-            strikerBallsFaced.textColor = Color.white
+            strikerName.textColor = txtColor
+            strikerSR.textColor = txtColor
+            strikerSixes.textColor = txtColor
+            strikerFours.textColor = txtColor
+            strikerRunsScored.textColor = txtColor
+            strikerBallsFaced.textColor = txtColor
             
-            nonstrikerName.textColor = Color.white
-            nonstrikerSR.textColor = Color.white
-            nonstrikerSixes.textColor = Color.white
-            nonstrikerFours.textColor = Color.white
-            nonstrikerRunsScored.textColor = Color.white
-            nonstrikerBallsFaced.textColor = Color.white
+            nonstrikerName.textColor = txtColor
+            nonstrikerSR.textColor = txtColor
+            nonstrikerSixes.textColor = txtColor
+            nonstrikerFours.textColor = txtColor
+            nonstrikerRunsScored.textColor = txtColor
+            nonstrikerBallsFaced.textColor = txtColor
             
-            bowlerName.textColor = Color.white
-            bowlerOvers.textColor = Color.white
-            bowlerRunsConceded.textColor = Color.white
-            bowlerWickets.textColor = Color.white
-            bowlerMaidens.textColor = Color.white
-            bowlerEcomony.textColor = Color.white
+            bowlerName.textColor = txtColor
+            bowlerOvers.textColor = txtColor
+            bowlerRunsConceded.textColor = txtColor
+            bowlerWickets.textColor = txtColor
+            bowlerMaidens.textColor = txtColor
+            bowlerEcomony.textColor = txtColor
             
             strikerName.font = RobotoFont.bold
             strikerSR.font = RobotoFont.medium
@@ -402,9 +406,13 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                     batsmanRecordCell.fours.font = RobotoFont.bold(with: 15)
                     batsmanRecordCell.sixes.font = RobotoFont.bold(with: 15)
                     batsmanRecordCell.contentView.backgroundColor = mainColor
+                    batsmanRecordCell.isUserInteractionEnabled = false
                 } else if let batsman = self.scorecard.innings[self.subMenu.selectedSegmentIndex].batsmen[indexPath.row - 1] as Batsman? {
                     batsmanRecordCell.batsman = batsman
-                    batsmanRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? mainColor : Color.indigo.darken1
+                    batsmanRecordCell.contentView.backgroundColor = secondaryColor
+                    if let player = players[batsman.id] {
+                        batsmanRecordCell.name.text = player.fullName
+                    }
                 }
                 return batsmanRecordCell
             case 1:
@@ -416,9 +424,13 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                     bowlerRecordCell.runsConceded.font = RobotoFont.bold(with: 15)
                     bowlerRecordCell.ecomony.font = RobotoFont.bold(with: 15)
                     bowlerRecordCell.contentView.backgroundColor = mainColor
+                    bowlerRecordCell.isUserInteractionEnabled = false
                 } else if let bowler = self.scorecard.innings[self.subMenu.selectedSegmentIndex].bowlers[indexPath.row - 1] as Bowler? {
                     bowlerRecordCell.bowler = bowler
-                    bowlerRecordCell.contentView.backgroundColor = indexPath.row % 2 == 0 ? mainColor : Color.indigo.darken1
+                    bowlerRecordCell.contentView.backgroundColor = secondaryColor
+                    if let player = players[bowler.id] {
+                        bowlerRecordCell.name.text = player.fullName
+                    }
                 }
                 
                 return bowlerRecordCell
@@ -450,13 +462,44 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         return cell
         
     }
+    
+    
+    //MARK: - navigation
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //
+        if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 0 {
+            if indexPath.section == 0 && indexPath.row != 0 {
+                if let batsman = self.scorecard.innings[self.subMenu.selectedSegmentIndex].batsmen[indexPath.row - 1] as Batsman? {
+                    
+                    if let player = players[batsman.id] {
+                        if let ppvc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerProfileController") as? PlayerProfileController {
+                            ppvc.player = player
+                            self.navigationController?.pushViewController(ppvc, animated: true)
+                            
+                        }
+                    }
+
+                }
+            } else if indexPath.section == 1 && indexPath.row != 0 {
+                if let bowler = self.scorecard.innings[self.subMenu.selectedSegmentIndex].bowlers[indexPath.row - 1] as Bowler? {
+                    if let player = players[bowler.id] {
+                        if let ppvc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerProfileController") as? PlayerProfileController {
+                            ppvc.player = player
+                            self.navigationController?.pushViewController(ppvc, animated: true)
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
  
 
     
     //MARK: - segemented views
     
     func mainMenuChangedValue(_ mainMenu: HMSegmentedControl) {
-        print("main menu value chnaged")
+        
         switch mainMenu.selectedSegmentIndex {
         case 0:
             self.subMenu.sectionTitles = self.scorecard?.innings.map { $0.name }
@@ -484,16 +527,16 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     
     func refreshLiveMatchData() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        let status = Reach().connectionStatus()
-        switch status {
-        case .unknown, .offline:
-            print("Not connected")
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        case .online(.wwan), .online(.wiFi):
-            print(match)
-//            bowledServiceAPI.getScoreCard(match.matchId, seriesid: match.seriesId)
-//            bowledServiceAPI.getCommentary(match.matchId, seriesid: match.seriesId)
-        }
+//        let status = Reach().connectionStatus()
+//        switch status {
+//        case .unknown, .offline:
+//            print("Not connected")
+//            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//        case .online(.wwan), .online(.wiFi): {
+//            
+////            bowledServiceAPI.getScoreCard(match.matchId, seriesid: match.seriesId)
+////            bowledServiceAPI.getCommentary(match.matchId, seriesid: match.seriesId)
+//        }
     }
     
     // MARK: - Bowled Service
@@ -504,6 +547,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                 if let resultsDictionary = results as? NSDictionary {
                     let scorecardfromresults = Scorecard.scorecardFromAPI(resultsDictionary)
                     self.scorecard = scorecardfromresults
+//                    print(self.scorecard.innings[0])
                     DispatchQueue.main.async(execute: {
                         
                         if self.scorecard.status != "no results" {
@@ -549,59 +593,24 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                 }
             })
         } else if requestType == .matchPlayers {
-//            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
-//                if let resultsDictionary = results as? NSDictionary {
-//                    
-//                    
-//                    self.matchPlayers.removeAll()
-//                    
-//                    //self.matchPlayers = CBPlayer.matchPlayersFromResults(resultsDictionary)
-//                    
-//                    if let homeTeam = resultsDictionary["homeTeam"] as? NSDictionary {
-//                        if let team = homeTeam["team"] as? NSDictionary {
-//                            if let teamId = team["id"] as? NSNumber {
-//                                if let players = homeTeam["players"] as? NSArray {
-//                                    for i in 0 ..< players.count += 1 {
-//                                        if let playerDict = players[i] as? NSDictionary {
-//                                            if let playerId = playerDict["playerId"] as? NSNumber {
-//                                                self.matchPlayers[playerId] = CBPlayer.playerFromResults(team, results: playerDict)
-//                                            }
-//                                            
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                    
-//                    if let awayTeam = resultsDictionary["awayTeam"] as? NSDictionary {
-//                        if let team = awayTeam["team"] as? NSDictionary {
-//                            if let teamId = team["id"] as? NSNumber {
-//                                if let players = awayTeam["players"] as? NSArray {
-//                                    for i in 0 ..< players.count += 1 {
-//                                        if let playerDict = players[i] as? NSDictionary {
-//                                            if let playerId = playerDict["playerId"] as? NSNumber {
-//                                                self.matchPlayers[playerId] = CBPlayer.playerFromResults(team, results: playerDict)
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                    
-//                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//                    
-//                    DispatchQueue.main.async(execute: {
-//                        
-//                        
-//                        self.tableView.reloadData()
-//                        
-//                  })
-//                }
-//                
-//                
-//            })
+            DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
+                if let resultsDictionary = results as? [String: AnyObject] {
+//                    self.players
+                    print("..getting match players... 1.5 ..")
+                    self.players = Player.playersFromResults(results: resultsDictionary)
+                    
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    
+                    DispatchQueue.main.async(execute: {
+                        
+                        
+                        self.tableView.reloadData()
+                        
+                  })
+                }
+                
+                
+            })
             
         } else if requestType == .commentary {
             let commentaryQueue = DispatchQueue(label: "commentaryQueue", attributes: [])
@@ -615,8 +624,6 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                     //let scorecardkeyfromresult = ScorecardKey(matchid: matchid, seriesid: seriesid)
                     
                     self.commentary = commentaryfromresults
-                    print("HEEEEEEREEEEE")
-                    print(self.commentary.commentaryInnings[0].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }[0])
                     //self.activityIndicator.stopAnimation()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
