@@ -59,14 +59,14 @@ struct Batsman {
         for item in batsmenArray {
             if let id = item["id"] as? NSNumber, let name = item["name"] as? String, let runsScored = item["runs"] as? String, let ballsFaced = item["balls"] as? String {
                 var newBatsman = Batsman(id: id, name: name, runsScored: runsScored, ballsFaced: ballsFaced)
-                print(item)
+               
                 if let fours = item["fours"] as? String, let sixes = item["sixes"] as? String, let strikeRate = item["strikeRate"] as? String {
                     
                     newBatsman.foursHit = fours
                     newBatsman.sixesHit = sixes
                     newBatsman.strikeRate = strikeRate
                     
-                    print("\(newBatsman.name)...\(newBatsman.strikeRate)")
+                    
                 }
                 if let howOut = item["howOut"] as? String, let fallOfWicket = item["fallOfWicket"] as? String, let fallOfWicketOver = item["fallOfWicketOver"] as? String, let fowOrder = item["fowOrder"] as? NSNumber {
                     newBatsman.howOut = howOut
