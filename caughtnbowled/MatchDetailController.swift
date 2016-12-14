@@ -74,7 +74,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     var match: Match!
     var scorecard: Scorecard!
     var commentary: Commentary!
-    var players = [Player]()
+    var players = [NSNumber: Player]()
     
     var partnerships = [NSNumber: [Partnership]]()
     
@@ -410,6 +410,9 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                 } else if let batsman = self.scorecard.innings[self.subMenu.selectedSegmentIndex].batsmen[indexPath.row - 1] as Batsman? {
                     batsmanRecordCell.batsman = batsman
                     batsmanRecordCell.contentView.backgroundColor = secondaryColor
+                    if let player = players[batsman.id] {
+                        batsmanRecordCell.name.text = player.fullName
+                    }
                 }
                 return batsmanRecordCell
             case 1:
@@ -425,6 +428,9 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                 } else if let bowler = self.scorecard.innings[self.subMenu.selectedSegmentIndex].bowlers[indexPath.row - 1] as Bowler? {
                     bowlerRecordCell.bowler = bowler
                     bowlerRecordCell.contentView.backgroundColor = secondaryColor
+                    if let player = players[bowler.id] {
+                        bowlerRecordCell.name.text = player.fullName
+                    }
                 }
                 
                 return bowlerRecordCell
@@ -464,27 +470,23 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 0 {
             if indexPath.section == 0 && indexPath.row != 0 {
                 if let batsman = self.scorecard.innings[self.subMenu.selectedSegmentIndex].batsmen[indexPath.row - 1] as Batsman? {
-                    for player in players {
-                        if player.id == batsman.id {
-                            if let ppvc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerProfileController") as? PlayerProfileController {
-                                ppvc.player = player
-                                self.navigationController?.pushViewController(ppvc, animated: true)
-                                
-                            }
-                            print(player)
+                    
+                    if let player = players[batsman.id] {
+                        if let ppvc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerProfileController") as? PlayerProfileController {
+                            ppvc.player = player
+                            self.navigationController?.pushViewController(ppvc, animated: true)
+                            
                         }
                     }
+
                 }
             } else if indexPath.section == 1 && indexPath.row != 0 {
                 if let bowler = self.scorecard.innings[self.subMenu.selectedSegmentIndex].bowlers[indexPath.row - 1] as Bowler? {
-                    for player in players {
-                        if player.id == bowler.id {
-                            print(player)
-                            if let ppvc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerProfileController") as? PlayerProfileController {
-                                ppvc.player = player
-                                self.navigationController?.pushViewController(ppvc, animated: true)
-                                
-                            }
+                    if let player = players[bowler.id] {
+                        if let ppvc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerProfileController") as? PlayerProfileController {
+                            ppvc.player = player
+                            self.navigationController?.pushViewController(ppvc, animated: true)
+                            
                         }
                     }
                 }
@@ -596,7 +598,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
 //                    self.players
                     print("..getting match players... 1.5 ..")
                     self.players = Player.playersFromResults(results: resultsDictionary)
-                    print(self.players)
+                    
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
                     DispatchQueue.main.async(execute: {

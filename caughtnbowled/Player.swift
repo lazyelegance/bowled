@@ -37,10 +37,10 @@ struct Player {
         self.fullName = name
     }
     
-    static func playersFromResults(results: [String: AnyObject]) -> [Player] {
+    static func playersFromResults(results: [String: AnyObject]) -> [NSNumber: Player] {
         
-        var homeTeamPlayers = [Player]()
-        var awayTeamPlayers = [Player]()
+        var homeTeamPlayers = [NSNumber: Player]()
+        var awayTeamPlayers = [NSNumber: Player]()
         
         print("..getting match players... 2 ..")
     
@@ -56,11 +56,15 @@ struct Player {
             }
         }
         
-        return [homeTeamPlayers, awayTeamPlayers].flatMap{ $0 }
+        for one in awayTeamPlayers {
+            homeTeamPlayers[one.key] = one.value
+        }
+        
+        return homeTeamPlayers
     }
     
-    static func playersFromArray(playersArray: [[String: AnyObject]], team: [String: AnyObject]) -> [Player] {
-        var players = [Player]()
+    static func playersFromArray(playersArray: [[String: AnyObject]], team: [String: AnyObject]) -> [NSNumber: Player] {
+        var players = [NSNumber: Player]()
         for item in playersArray {
             if let id = item["playerId"] as? NSNumber, let name = item["fullName"] as? String {
                 var player = Player(id: id, name: name)
@@ -89,7 +93,7 @@ struct Player {
                     }
                 }
                 
-                players.append(player)
+                players[id] = player
             }
         }
         return players
