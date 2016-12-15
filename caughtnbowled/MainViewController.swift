@@ -26,6 +26,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     var liveMatches = [Match]()
     var completedMatches = [Match]()
     var upcomingMatches = [Match]()
+    var topMatches = [Match]()
     var matchList = [Match]()
     
     var isMainViewController = true
@@ -138,20 +139,30 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         self.matchList = matchList
         self.titleLabel.text = selectionTitle
         self.isMainViewController = false
+        menuButton.image = isMainViewController ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "ic_arrow_back_white")
         self.topMatchesTableView.reloadData()
     }
 
  
     @IBAction func menuButtonAction(_ sender: Any) {
-        if !menuExpanded {
-            menuButton.image = UIImage(named: "cm_arrow_upward_white")
-            menuExpanded = !menuExpanded
-            delegate?.toggleLeftPanel(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 })
+        if isMainViewController {
+            if !menuExpanded {
+                menuButton.image = UIImage(named: "cm_arrow_upward_white")
+                menuExpanded = !menuExpanded
+                delegate?.toggleLeftPanel(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 })
+            } else {
+                menuButton.image = UIImage(named: "cm_arrow_downward_white")
+                menuExpanded = !menuExpanded
+                delegate?.collapseSidePanels()
+            }
         } else {
-            menuButton.image = UIImage(named: "cm_arrow_downward_white")
-            menuExpanded = !menuExpanded
-            delegate?.collapseSidePanels()
+            self.matchList = self.topMatches
+            self.titleLabel.text = ""
+            self.isMainViewController = true
+            menuButton.image = isMainViewController ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "ic_arrow_back_white")
+            self.topMatchesTableView.reloadData()
         }
+        
     }
     
     
@@ -224,15 +235,18 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
 
     // MARK: - Bowled Service
-    func didReceiveResults(_ requestType: RequestType, results: NSObject) {
+    
+    
+    func didReceiveResults(_ requestType: RequestType, inningsId: NSNumber?, matchId: NSNumber?,  results: NSObject) {
         if requestType == .matches {
             if let resultsArray = results as? [AnyObject] {
                 DispatchQueue.main.async(execute: {
-                    (self.matchList, self.liveMatches, self.completedMatches, self.upcomingMatches) = Match.topMatchesFromAPI(results: resultsArray, internationalOnly: true)
+                    (self.topMatches, self.liveMatches, self.completedMatches, self.upcomingMatches) = Match.topMatchesFromAPI(results: resultsArray, internationalOnly: true)
 //                    self.prepareTableViewData()
 //                    self.prepareMenuData()
 //                    print(self.liveMatches.count)
 //                    self.updateTableHeight()
+                    self.matchList = self.topMatches
                     self.topMatchesTableView.reloadData()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 })
