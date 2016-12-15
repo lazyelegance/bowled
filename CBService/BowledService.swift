@@ -8,7 +8,8 @@
 
 import Foundation
 public protocol BowledServiceProtocol {
-    func didReceiveResults(_ requestType: RequestType, results: NSObject)
+//    func didReceiveResults(_ requestType: RequestType, results: NSObject)
+    func didReceiveResults(_ requestType: RequestType, inningsId: NSNumber?, matchId: NSNumber?, results: NSObject)
     func didReceiveImageResults(_ data: Data)
 }
 
@@ -23,6 +24,7 @@ public enum RequestType {
     case partnerships
     case imageResource
     case seriesStandings
+    case battingWheel
 }
 
 open class BowledService {
@@ -54,7 +56,7 @@ open class BowledService {
                 if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
                     if let matchList: NSDictionary = jsonResult["matchList"] as? NSDictionary {
                         if let results: NSArray = matchList["matches"] as? NSArray {
-                            self.delegate.didReceiveResults(.matches, results: results)
+                            self.delegate.didReceiveResults(.matches, inningsId: nil, matchId: nil,  results: results)
                         }
                     }
                 }
@@ -96,7 +98,7 @@ open class BowledService {
                         if let teamPlayers: NSDictionary = jsonResult["teamPlayers"] as? NSDictionary {
                             
                             if let results: NSArray = teamPlayers["players"] as? NSArray {
-                                self.delegate.didReceiveResults(.teamPlayers, results: results)
+                                self.delegate.didReceiveResults(.teamPlayers, inningsId: nil, matchId: nil,  results: results)
                             }
                         }
                         
@@ -145,7 +147,7 @@ open class BowledService {
                         
                        
                         if let matchPlayers = jsonResult["playersInMatch"] as? NSDictionary {
-                            self.delegate.didReceiveResults(.matchPlayers, results: matchPlayers)
+                            self.delegate.didReceiveResults(.matchPlayers, inningsId: nil, matchId: matchid,  results: matchPlayers)
                             
                            
                         }
@@ -194,7 +196,7 @@ open class BowledService {
                         
                         if let results: NSDictionary = jsonResult {
                             
-                            self.delegate.didReceiveResults(.scorecard, results: results)
+                            self.delegate.didReceiveResults(.scorecard, inningsId: nil, matchId: matchid,  results: results)
                         }
                     }
                 } catch {
@@ -259,7 +261,7 @@ open class BowledService {
                         
                         if let results: NSDictionary = jsonResult {
                             
-                            self.delegate.didReceiveResults(.seriesStandings, results: results)
+                            self.delegate.didReceiveResults(.seriesStandings, inningsId: nil, matchId: nil,  results: results)
                         }
                     }
                 } catch {
@@ -326,7 +328,7 @@ open class BowledService {
                         
                         if let results: NSDictionary = jsonResult {
                             
-                            self.delegate.didReceiveResults(.matchDetail, results: results)
+                            self.delegate.didReceiveResults(.matchDetail, inningsId: nil, matchId: matchid,  results: results)
                         }
                     }
                 } catch {
@@ -385,7 +387,7 @@ open class BowledService {
                         
                         if let results: NSDictionary = jsonResult {
                             
-                            self.delegate.didReceiveResults(.commentary, results: results)
+                            self.delegate.didReceiveResults(.commentary, inningsId: nil, matchId: matchid,  results: results)
                         }
                     }
                 } catch {
@@ -441,7 +443,7 @@ open class BowledService {
                         
                         if let results: NSDictionary = jsonResult {
                             
-                            self.delegate.didReceiveResults(.partnerships, results: results)
+                            self.delegate.didReceiveResults(.partnerships, inningsId: nil, matchId: matchid,  results: results)
                         }
                     }
                 } catch {
@@ -458,6 +460,59 @@ open class BowledService {
         task.resume()
         
         
+    }
+    
+    open func getBattingWheel(_ matchid: NSNumber, seriesid: NSNumber, inniid: NSNumber ) {
+        let sessionConfig = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
+        let httpHeaderValue = dictionary?.object(forKey: "X-Mashape-Key") as! String
+        let battingWheelURLString = dictionary?.object(forKey: "battingWheelURLString") as! String
+        
+        var URL = Foundation.URL(string: battingWheelURLString)
+        let URLParams = [
+            "matchid": "\(matchid)",
+            "seriesid": "\(seriesid)",
+            "innid": "\(inniid)"
+        ]
+        URL = self.NSURLByAppendingQueryParameters(URL, queryParameters: URLParams)
+        var request = URLRequest(url: URL!)
+        request.httpMethod = "GET"
+        
+        // Headers
+        
+        request.addValue(httpHeaderValue, forHTTPHeaderField: "X-Mashape-Key")
+        
+        /* Start a new Task */
+        
+        
+        
+        let task = session.dataTask(with: request, completionHandler: {
+            (data, response, error ) -> Void in
+            if (error == nil) {
+                // Success
+                let statusCode = (response as! HTTPURLResponse).statusCode
+                do {
+                    
+                    
+                    if let jsonResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
+                        
+                        if let results: NSDictionary = jsonResult {
+                            
+                            self.delegate.didReceiveResults(.battingWheel, inningsId: inniid, matchId: matchid,  results: results)
+                        }
+                    }
+                } catch {
+                    //                    print("error")
+                }
+            }
+            else {
+                // Failure
+                //                print("URL Session Task Failed: %@", error!.localizedDescription);
+            }
+        })
+        
+        
+        task.resume()
     }
     
     open func getImageResource(_ imageUrl: String) {
@@ -498,7 +553,7 @@ open class BowledService {
 //                    print("image....")
                 }
 //                print(data!)
-                self.delegate.didReceiveResults(.imageResource, results: data! as NSObject)
+                self.delegate.didReceiveResults(.imageResource, inningsId: nil, matchId: nil,  results: data! as NSObject)
             }
             else {
                 // Failure

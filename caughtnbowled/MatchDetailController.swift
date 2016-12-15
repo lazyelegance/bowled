@@ -75,6 +75,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     var scorecard: Scorecard!
     var commentary: Commentary!
     var players = [NSNumber: Player]()
+    var battingWheel = [NSNumber: BattingWheel]()
     
     var partnerships = [NSNumber: [Partnership]]()
     
@@ -540,7 +541,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     }
     
     // MARK: - Bowled Service
-    func didReceiveResults(_ requestType: RequestType, results: NSObject) {
+    func didReceiveResults(_ requestType: RequestType, inningsId: NSNumber?, matchId: NSNumber?, results: NSObject) {
         if requestType == .scorecard {
             DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                 
@@ -580,6 +581,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                             
                             for inningsId in (self.scorecard?.innings.map{ $0.id })! {
                                 self.bowledServiceAPI.getPartnerships(self.match.matchId, seriesid: self.match.seriesId, inniid: inningsId)
+                                self.bowledServiceAPI.getBattingWheel(self.match.matchId, seriesid: self.match.seriesId, inniid: inningsId)
                             }
                             
                             self.updateSecondaryViews()
@@ -664,6 +666,23 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
 //                }
 //                
 //            }
+        } else if requestType == .battingWheel {
+            let battingWheelQueue = DispatchQueue(label: "battingWheelQueue", attributes: [])
+            
+            battingWheelQueue.async { () -> Void in
+                
+                if results is NSDictionary {
+//                    var battingWheel = BattingWheel.battingWheelFromResults
+                    let bw = BattingWheel.battingWheelFromResults(matchId: matchId!, inningsId: inningsId!, results: results as! NSDictionary)
+                    self.battingWheel[bw.inningsId] = bw
+                    print(self.battingWheel.count)
+                    DispatchQueue.main.async(execute: {
+                        //                        self.updateMatchDetails()
+                        //Loading.stop()
+                    })
+                }
+            }
+            
         }
     }
     
