@@ -81,6 +81,7 @@
 		63C0EA531DE60BFF00BAC52E /* PartnershipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0EA521DE60BFF00BAC52E /* PartnershipCell.swift */; };
 		63D259F51E01DC2200B3F9D1 /* BattingWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D259F41E01DC2200B3F9D1 /* BattingWheel.swift */; };
 		63D259F71E01DC3500B3F9D1 /* Shot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D259F61E01DC3500B3F9D1 /* Shot.swift */; };
+		63D259F91E02B70F00B3F9D1 /* WheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D259F81E02B70F00B3F9D1 /* WheelView.swift */; };
 		63D50BDA1DF9528500894C2E /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D50BD91DF9528500894C2E /* MenuCell.swift */; };
 		63EDF8FB1BD8EA2600634500 /* ColorsAndConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EDF8FA1BD8EA2600634500 /* ColorsAndConstants.swift */; };
 		63F5DC5D1CB651DD00E0DDDD /* bowled_white_20.png in Resources */ = {isa = PBXBuildFile; fileRef = 63F5DC5C1CB651DD00E0DDDD /* bowled_white_20.png */; };
@@ -235,6 +236,7 @@
 		63C0EA521DE60BFF00BAC52E /* PartnershipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartnershipCell.swift; sourceTree = "<group>"; };
 		63D259F41E01DC2200B3F9D1 /* BattingWheel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattingWheel.swift; sourceTree = "<group>"; };
 		63D259F61E01DC3500B3F9D1 /* Shot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shot.swift; sourceTree = "<group>"; };
+		63D259F81E02B70F00B3F9D1 /* WheelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WheelView.swift; sourceTree = "<group>"; };
 		63D50BD91DF9528500894C2E /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		63EDF8FA1BD8EA2600634500 /* ColorsAndConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorsAndConstants.swift; sourceTree = "<group>"; };
 		63F5DC5C1CB651DD00E0DDDD /* bowled_white_20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bowled_white_20.png; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				63970B9B1DDC37F800D171C9 /* Main.storyboard */,
+				63D259F81E02B70F00B3F9D1 /* WheelView.swift */,
 				6379F3D01DE1844F0024FC07 /* MatchHeaderView.swift */,
 				63786EC61C980786007EF12D /* AsyncImageView.h */,
 				63786EC71C980786007EF12D /* AsyncImageView.m */,
@@ -1037,6 +1040,7 @@
 				63D259F71E01DC3500B3F9D1 /* Shot.swift in Sources */,
 				6308465F1BD0B1A60019AD3F /* AppDelegate.swift in Sources */,
 				63A3D0EF1DE4A04300F5B1F5 /* CommentaryCell.swift in Sources */,
+				63D259F91E02B70F00B3F9D1 /* WheelView.swift in Sources */,
 				63D50BDA1DF9528500894C2E /* MenuCell.swift in Sources */,
 				6379F3E91DE2DB470024FC07 /* BowlerRecordCell.swift in Sources */,
 			);
