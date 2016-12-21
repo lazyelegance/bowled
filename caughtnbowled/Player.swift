@@ -14,8 +14,8 @@ struct Player {
     var firstName = String()
     var lastName = String()
     var imageURL = URL(fileURLWithPath: Bundle.main.path(forResource: "playerdefault", ofType: "png")!)
-    var battingStyle = String()
-    var bowlingStyle = String()
+    var battingStyle = ""
+    var bowlingStyle = ""
     var playerType = String()
     var dateOfBirth = String()
     var testDebutDate = String()
@@ -68,21 +68,25 @@ struct Player {
         for item in playersArray {
             if let id = item["playerId"] as? NSNumber, let name = item["fullName"] as? String {
                 var player = Player(id: id, name: name)
-                if let  firstName = item["firstName"] as? String, let lastName = item["lastName"] as? String, let imageURLString = item["imageURL"] as? String, let battingStyle = item["battingStyle"] as? String, let bowlingStyle = item["bowlingStyle"] as? String, let playerType = item["playerType"] as? String, let dob = item["dob"] as? String, let testDebutDate = item["testDebutDate"] as? String, let odiDebutDate = item["odiDebutDate"] as? String, let t20DebutDate = item["t20DebutDate"] as? String, let height = item["height"] as? String {
-                    player.firstName = firstName
-                    player.lastName = lastName
+                
+                if let firstName = item["firstName"] as? String { player.firstName = firstName }
+                if let lastName = item["lastName"]as? String { player.lastName = lastName }
+                if let imageURLString = item["imageURL"] as? String {
                     if let imageURL = URL(string: imageURLString) {
                         player.imageURL = imageURL
                     }
-                    player.battingStyle = battingStyle
-                    player.bowlingStyle = bowlingStyle
-                    player.playerType = playerType
-                    player.dateOfBirth = dob
-                    player.testDebutDate = testDebutDate
-                    player.odiDebutDate = odiDebutDate
-                    player.t20DebutDate = t20DebutDate
-                    player.height = height
                 }
+                if let battingStyle = item["battingStyle"] as? String { player.battingStyle = battingStyle }
+                if let bowlingStyle = item["bowlingStyle"] as? String { player.bowlingStyle = bowlingStyle }
+                if let playerType = item["playerType"] as? String { player.playerType = playerType }
+                if let dob = item["dob"] as? String { player.dateOfBirth = dob }
+                if let testDebutDate = item["testDebutDate"] as? String { player.testDebutDate = testDebutDate }
+                if let odiDebutDate = item["odiDebutDate"] as? String { player.odiDebutDate = odiDebutDate }
+                if let t20DebutDate = item["t20DebutDate"] as? String { player.t20DebutDate = t20DebutDate }
+                if let height = item["height"] as? String { player.height = height }
+                if let bio = item["bio"] as? String { player.bio = bio.stripHTML().uppercased() }
+                if let didYouKnow = item["didYouKnow"] as? String { player.didYouKnow = didYouKnow.stripHTML().uppercased() }
+                
                 
                 if let teamName = team["name"] as? String, let teamId = team["id"] as? NSNumber, let teamShortName = team["shortName"] as? String, let teamLogoURLString = team["logoUrl"] as? String {
                     player.teamId = teamId

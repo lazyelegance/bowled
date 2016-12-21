@@ -475,6 +475,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                     if let player = players[batsman.id] {
                         if let ppvc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerProfileController") as? PlayerProfileController {
                             ppvc.player = player
+                            print(player)
                             self.navigationController?.pushViewController(ppvc, animated: true)
                             
                         }
@@ -581,7 +582,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                             
                             for inningsId in (self.scorecard?.innings.map{ $0.id })! {
                                 self.bowledServiceAPI.getPartnerships(self.match.matchId, seriesid: self.match.seriesId, inniid: inningsId)
-                                self.bowledServiceAPI.getBattingWheel(self.match.matchId, seriesid: self.match.seriesId, inniid: inningsId)
+//                                self.bowledServiceAPI.getBattingWheel(self.match.matchId, seriesid: self.match.seriesId, inniid: inningsId)
                             }
                             
                             self.updateSecondaryViews()
@@ -624,7 +625,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
                 if let resultsDictionary = results as? NSDictionary {
                     let commentaryfromresults = Commentary.commentaryFromAPI(resultsDictionary)
                     //let scorecardkeyfromresult = ScorecardKey(matchid: matchid, seriesid: seriesid)
-                    
+                    print("...................")
                     self.commentary = commentaryfromresults
                     //self.activityIndicator.stopAnimation()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -675,7 +676,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
 //                    var battingWheel = BattingWheel.battingWheelFromResults
                     let bw = BattingWheel.battingWheelFromResults(matchId: matchId!, inningsId: inningsId!, results: results as! NSDictionary)
                     self.battingWheel[bw.inningsId] = bw
-                    print(self.battingWheel.count)
+                    print(self.battingWheel.keys)
                     DispatchQueue.main.async(execute: {
                         //                        self.updateMatchDetails()
                         //Loading.stop()
