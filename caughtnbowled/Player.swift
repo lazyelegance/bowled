@@ -84,8 +84,8 @@ struct Player {
                 if let odiDebutDate = item["odiDebutDate"] as? String { player.odiDebutDate = odiDebutDate }
                 if let t20DebutDate = item["t20DebutDate"] as? String { player.t20DebutDate = t20DebutDate }
                 if let height = item["height"] as? String { player.height = height }
-                if let bio = item["bio"] as? String { player.bio = bio.stripHTML().uppercased() }
-                if let didYouKnow = item["didYouKnow"] as? String { player.didYouKnow = didYouKnow.stripHTML().uppercased() }
+                if let bio = item["bio"] as? String { player.bio = bio.stripHTML().decodeHTML().uppercased() }
+                if let didYouKnow = item["didYouKnow"] as? String { player.didYouKnow = didYouKnow.stripHTML().decodeHTML().uppercased() }
                 
                 
                 if let teamName = team["name"] as? String, let teamId = team["id"] as? NSNumber, let teamShortName = team["shortName"] as? String, let teamLogoURLString = team["logoUrl"] as? String {

@@ -140,16 +140,6 @@ extension NSString {
     }
 }
 
-extension String {
-    /**
-     Takes the current String struct and strips out HTML using regular expression. All tags get stripped out.
-     
-     :returns: String html text as plain text
-     */
-    func stripHTML() -> String {
-        return self.replacingOccurrences(of: htmlReplaceString, with: "", options: NSString.CompareOptions.regularExpression, range: nil)
-    }
-}
 
 
 public enum MenuItemType {

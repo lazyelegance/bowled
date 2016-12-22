@@ -81,13 +81,13 @@ class PlayerProfileController: UIViewController {
         mainMenu.selectionStyle = HMSegmentedControlSelectionStyleTextWidthStripe
         mainMenu.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown
         
-        mainMenu.backgroundColor = txtColor
+        mainMenu.backgroundColor = Color.clear
         
         mainMenu.titleTextAttributes = [NSForegroundColorAttributeName: mainColor, NSFontAttributeName: RobotoFont.regular]
         mainMenu.selectedTitleTextAttributes = [NSForegroundColorAttributeName: mainColor, NSFontAttributeName: RobotoFont.regular]
         mainMenu.selectedSegmentIndex = 0
         
-        menuPlaceHolder.backgroundColor = txtColor
+        menuPlaceHolder.backgroundColor = Color.clear
         
         menuPlaceHolder.addSubview(mainMenu)
 
