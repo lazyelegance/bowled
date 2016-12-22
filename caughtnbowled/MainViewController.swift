@@ -12,7 +12,7 @@ import Material
 
 
 protocol MainViewControllerDelegate {
-    func toggleLeftPanel(matchList: [Match])
+    func toggleLeftPanel(matchList: [Match]?, showFullMenu: Bool)
     //func toggleRightPanel(seriesList: [MenuItem], teamsList: [MenuItem], matchTypesList: [MenuItem])
     func collapseSidePanels()
 }
@@ -142,6 +142,18 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         menuButton.image = isMainViewController ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "ic_arrow_back_white")
         self.topMatchesTableView.reloadData()
     }
+    
+    func toSelectFavoriteTeam() {
+        if !menuExpanded {
+            menuButton.image = UIImage(named: "cm_arrow_upward_white")
+            menuExpanded = !menuExpanded
+            delegate?.toggleLeftPanel(matchList: nil, showFullMenu: false)
+        } else {
+            menuButton.image = UIImage(named: "cm_arrow_downward_white")
+            menuExpanded = !menuExpanded
+            delegate?.collapseSidePanels()
+        }
+    }
 
  
     @IBAction func menuButtonAction(_ sender: Any) {
@@ -149,7 +161,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
             if !menuExpanded {
                 menuButton.image = UIImage(named: "cm_arrow_upward_white")
                 menuExpanded = !menuExpanded
-                delegate?.toggleLeftPanel(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 })
+                delegate?.toggleLeftPanel(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }, showFullMenu: true)
             } else {
                 menuButton.image = UIImage(named: "cm_arrow_downward_white")
                 menuExpanded = !menuExpanded
@@ -181,12 +193,16 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
             showSelectedMatches(selectionTitle: item.uppercased(), matchList: allMatches.filter { $0.seriesName == item })
         case .matchType:
             showSelectedMatches(selectionTitle: item.uppercased(), matchList: allMatches.filter { $0.cmsMatchType == item })
+        case .favoriteTeam:
+            topMatchesTableView.reloadData()
         default:
             break
         }
         delegate?.collapseSidePanels()
-        
     }
+    
+
+    
     
     // MARK: - TableView
     
@@ -207,6 +223,9 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
                 if let fav_team_name = defaults?.value(forKey: "favoriteTeamName") as? String {
                     dummyCell.btn2.setTitle("⭐️ team: \(fav_team_name)".uppercased(), for: .normal)
                     dummyCell.btn2.addTarget(self, action: #selector(showFavoriteTeamMatches), for: .touchUpInside)
+                } else {
+                    dummyCell.btn2.setTitle("pick favorite team".uppercased(), for: .normal)
+                    dummyCell.btn2.addTarget(self, action: #selector(toSelectFavoriteTeam), for: .touchUpInside)
                 }
                 
                 dummyCell.btn3.setTitle("Fixtures".uppercased(), for: .normal)

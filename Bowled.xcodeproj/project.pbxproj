@@ -51,6 +51,7 @@
 		6379F3F31DE47E5A0024FC07 /* Delivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3F21DE47E5A0024FC07 /* Delivery.swift */; };
 		6379F3F51DE47F2F0024FC07 /* CommentaryOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3F41DE47F2F0024FC07 /* CommentaryOver.swift */; };
 		6379F3F71DE47FCD0024FC07 /* CommentaryInnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3F61DE47FCD0024FC07 /* CommentaryInnings.swift */; };
+		637D69251E0BFB1E00012D89 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637D69241E0BFB1E00012D89 /* Team.swift */; };
 		63970B921DDC33F100D171C9 /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63970B911DDC33F100D171C9 /* keys.plist */; };
 		63970B941DDC342C00D171C9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63970B931DDC342C00D171C9 /* MainViewController.swift */; };
 		63970B961DDC34A100D171C9 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63970B951DDC34A100D171C9 /* SideMenuController.swift */; };
@@ -206,6 +207,7 @@
 		6379F3F21DE47E5A0024FC07 /* Delivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Delivery.swift; sourceTree = "<group>"; };
 		6379F3F41DE47F2F0024FC07 /* CommentaryOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentaryOver.swift; sourceTree = "<group>"; };
 		6379F3F61DE47FCD0024FC07 /* CommentaryInnings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentaryInnings.swift; sourceTree = "<group>"; };
+		637D69241E0BFB1E00012D89 /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		63970B911DDC33F100D171C9 /* keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		63970B931DDC342C00D171C9 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		63970B951DDC34A100D171C9 /* SideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 				63B5E1E71DDC694800C1A63D /* Match.swift */,
 				630F86C81DFE94BC00E7C6F2 /* Player.swift */,
 				63B5E1E81DDC694800C1A63D /* Series.swift */,
+				637D69241E0BFB1E00012D89 /* Team.swift */,
 			);
 			name = Structs;
 			sourceTree = "<group>";
@@ -1014,6 +1017,7 @@
 				63970B961DDC34A100D171C9 /* SideMenuController.swift in Sources */,
 				63786EC81C980786007EF12D /* AsyncImageView.m in Sources */,
 				6379F3E11DE2D5BF0024FC07 /* Partnerships.swift in Sources */,
+				637D69251E0BFB1E00012D89 /* Team.swift in Sources */,
 				6379F3EB1DE2DB6A0024FC07 /* Batsman.swift in Sources */,
 				6379F3E51DE2D8140024FC07 /* BatsmanRecordCell.swift in Sources */,
 				6379F3F31DE47E5A0024FC07 /* Delivery.swift in Sources */,
