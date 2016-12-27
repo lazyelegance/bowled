@@ -9,8 +9,12 @@
 import Foundation
 
 struct Team {
-    let id: NSNumber
+    var id: NSNumber = 0
     let name: String
+    
+    init(name: String) {
+        self.name = name
+    }
     
     init(id: NSNumber, name: String) {
         self.id = id

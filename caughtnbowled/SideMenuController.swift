@@ -36,7 +36,7 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
     
     //temp
     
-    var internationalTeams: [Team] = [Team(id: 1, name: "Australia"), Team(id: 2, name: "England"), Team(id: 3, name: "India")]
+    var internationalTeams: [Team] = [Team(id: 1, name: "AUSTRALIA"), Team(id: 2, name: "ENGLAND"), Team(id: 3, name: "INDIA"), Team(id: 4, name: "NEW ZEALAND"), Team(id: 5, name: "PAKISTAN"), Team(id: 6, name: "SOUTH AFRICA"), Team(id: 7, name: "SRI LANKA"), Team(id: 8, name: "WEST INDIES"), Team(id: 9, name: "ZIMBABWE"),Team(id: 10, name: "BANGLADESH"), Team(id: 0, name: "IRELAND")]
     
         
     
@@ -187,11 +187,11 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             switch mainMenu.selectedSegmentIndex {
             case 0:
-                defaults?.set(internationalTeams[indexPath.row].name, forKey: "favoriteTeamName")
-                delegate?.menuItemSelected(item: internationalTeams[indexPath.row].name, type: .favoriteTeam)
+                defaults?.set(internationalTeams[indexPath.row].name.uppercased(), forKey: "favoriteTeamName")
             default:
                 break
             }
+            self.navigationController?.popViewController(animated: true)
         }
         
         
