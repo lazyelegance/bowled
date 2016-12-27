@@ -112,6 +112,8 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         tableView.backgroundColor = mainColor
 
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -498,6 +498,9 @@ struct Match {
                     
                 }
 
+                print("\(newMatch.hometeamId) \(newMatch.hometeamName) \(newMatch.hometeamLogoURL)")
+                print("\(newMatch.awayteamId) \(newMatch.awayteamName) \(newMatch.awayteamLogoURL)")
+                
                 matches.append(newMatch)
             }
             

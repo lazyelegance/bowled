@@ -32,6 +32,14 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
     var seriesList = [String]()
     var matchTypeList = [String]()
     
+    var isFullmenu = true // as opposed to false when selecting favorite team
+    
+    //temp
+    
+    var internationalTeams: [Team] = [Team(id: 1, name: "AUSTRALIA"), Team(id: 2, name: "ENGLAND"), Team(id: 3, name: "INDIA"), Team(id: 4, name: "NEW ZEALAND"), Team(id: 5, name: "PAKISTAN"), Team(id: 6, name: "SOUTH AFRICA"), Team(id: 7, name: "SRI LANKA"), Team(id: 8, name: "WEST INDIES"), Team(id: 9, name: "ZIMBABWE"),Team(id: 10, name: "BANGLADESH"), Team(id: 0, name: "IRELAND")]
+    
+        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = mainColor
@@ -40,7 +48,7 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
 
         // Do any additional setup after loading the view.
         
-        var menuTitles = ["TEAMS", "SERIES'", "MATCH TYPES", "SETTINGS"]
+        let menuTitles = isFullmenu ? ["TEAMS", "SERIES'", "MATCH TYPES", "SETTINGS"] : ["International"]
         mainMenu = HMSegmentedControl(sectionTitles: menuTitles)
         
         mainMenu.addTarget(self, action: #selector(SideMenuController.mainMenuChangedValue(_:)), for: UIControlEvents.valueChanged)
@@ -82,7 +90,7 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         
-        prepareTableViewData()
+        if isFullmenu { prepareTableViewData() }
         
     }
 
@@ -133,11 +141,11 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch mainMenu.selectedSegmentIndex {
         case 0:
-            return teamsList.count
+            return isFullmenu ? teamsList.count : internationalTeams.count
         case 1:
-            return seriesList.count
+            return isFullmenu ? seriesList.count : 0
         case 2:
-            return matchTypeList.count
+            return isFullmenu ? matchTypeList.count : 0
         default:
             return 0
         }
@@ -150,7 +158,7 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         
         switch mainMenu.selectedSegmentIndex {
         case 0:
-            menuCell.menuItem = teamsList[indexPath.row]
+            menuCell.menuItem = isFullmenu ? teamsList[indexPath.row] : internationalTeams[indexPath.row].name
         case 1:
             menuCell.menuItem = seriesList[indexPath.row]
         case 2:
@@ -165,18 +173,27 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print("here")
-        
-        switch mainMenu.selectedSegmentIndex {
-        case 0:
-            print(teamsList[indexPath.row])
-            delegate?.menuItemSelected(item: teamsList[indexPath.row], type: .team)
-        case 1:
-            delegate?.menuItemSelected(item: seriesList[indexPath.row], type: .series)
-        case 2:
-            delegate?.menuItemSelected(item: matchTypeList[indexPath.row], type: .matchType)
-        default:
-            break
+        if isFullmenu {
+            switch mainMenu.selectedSegmentIndex {
+            case 0:
+                delegate?.menuItemSelected(item: teamsList[indexPath.row], type: .team)
+            case 1:
+                delegate?.menuItemSelected(item: seriesList[indexPath.row], type: .series)
+            case 2:
+                delegate?.menuItemSelected(item: matchTypeList[indexPath.row], type: .matchType)
+            default:
+                break
+            }
+        } else {
+            switch mainMenu.selectedSegmentIndex {
+            case 0:
+                defaults?.set(internationalTeams[indexPath.row].name.uppercased(), forKey: "favoriteTeamName")
+            default:
+                break
+            }
+            self.navigationController?.popViewController(animated: true)
         }
+        
+        
     }
 }

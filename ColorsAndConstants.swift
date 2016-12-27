@@ -149,6 +149,7 @@ public enum MenuItemType {
     case series
     case matchType
     case settings
+    case favoriteTeam
     case all
     
     func to_String() -> String {
@@ -163,6 +164,8 @@ public enum MenuItemType {
             return "MATCH TYPE"
         case .settings:
             return "SETTINGS"
+        case .favoriteTeam:
+            return "FAVORITE TEAM"
         }
     }
     
@@ -179,25 +182,10 @@ public enum MenuItemType {
             return 3
         case .all:
             return 4
+        case .favoriteTeam:
+            return 5
         }
     }
-    
-    func to_Color() -> UIColor {
-        switch self {
-        case .all:
-            return peterrock
-        case .team:
-            return peterrock
-        case .series:
-            return midnightblue
-        case .matchType:
-            return pomegranate
-        case .settings:
-            return greensea
-            
-        }
-    }
-    
 }
 
 //public struct MenuItem {

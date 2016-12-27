@@ -12,7 +12,7 @@ import Material
 
 
 protocol MainViewControllerDelegate {
-    func toggleLeftPanel(matchList: [Match])
+    func toggleLeftPanel(matchList: [Match]?, showFullMenu: Bool)
     //func toggleRightPanel(seriesList: [MenuItem], teamsList: [MenuItem], matchTypesList: [MenuItem])
     func collapseSidePanels()
 }
@@ -38,6 +38,8 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     var selectedSeriesStanding: Series?
     
     var topMatchCellheight = 150
+    
+    var titleText = ""
     
     @IBOutlet weak var menuButton: FlatButton!
     
@@ -82,9 +84,14 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         //prepareTitle
         titleLabel.font = RobotoFont.bold
         titleLabel.textColor = txtColor
-        titleLabel.text = ""
+        titleLabel.text = titleText
 
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        topMatchesTableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -121,7 +128,11 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     func showFavoriteTeamMatches() {
         if let fav_team = defaults?.value(forKey: "favoriteTeamName") as? String {
             showSelectedMatches(selectionTitle: fav_team, matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.hometeamName == fav_team || $0.awayteamName == fav_team })
+        } else if let favortiteTeamMenu = self.storyboard?.instantiateViewController(withIdentifier: "SideMenuController") as? SideMenuController {
+            favortiteTeamMenu.isFullmenu = false
+            self.navigationController?.pushViewController(favortiteTeamMenu, animated: true)
         }
+
     }
     
     func showFixtures() {
@@ -130,17 +141,22 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     
     func showSelectedMatches(selectionTitle: String, matchList: [Match]) {
-//        if let selectedMatchListVC = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
-//            selectedMatchListVC.isMainViewController = false
-//            selectedMatchListVC.matchList = matchList
-//            self.navigationController?.pushViewController(selectedMatchListVC, animated: true)
-//        }
+        if let selectedMatchListVC = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
+            selectedMatchListVC.isMainViewController = false
+            selectedMatchListVC.matchList = matchList
+            selectedMatchListVC.titleText = selectionTitle
+            self.navigationController?.pushViewController(selectedMatchListVC, animated: true)
+        }
         
-        self.matchList = matchList
-        self.titleLabel.text = selectionTitle
-        self.isMainViewController = false
-        menuButton.image = isMainViewController ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "ic_arrow_back_white")
-        self.topMatchesTableView.reloadData()
+//        self.matchList = matchList
+//        self.titleLabel.text = selectionTitle
+//        self.isMainViewController = false
+//        menuButton.image = isMainViewController ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "ic_arrow_back_white")
+//        self.topMatchesTableView.reloadData()
+    }
+    
+    func toSelectFavoriteTeam() {
+        
     }
 
  
@@ -149,18 +165,21 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
             if !menuExpanded {
                 menuButton.image = UIImage(named: "cm_arrow_upward_white")
                 menuExpanded = !menuExpanded
-                delegate?.toggleLeftPanel(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 })
+                delegate?.toggleLeftPanel(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }, showFullMenu: true)
             } else {
                 menuButton.image = UIImage(named: "cm_arrow_downward_white")
                 menuExpanded = !menuExpanded
                 delegate?.collapseSidePanels()
             }
         } else {
-            self.matchList = self.topMatches
-            self.titleLabel.text = ""
-            self.isMainViewController = true
-            menuButton.image = isMainViewController ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "ic_arrow_back_white")
-            self.topMatchesTableView.reloadData()
+//            self.matchList = self.topMatches
+//            self.titleLabel.text = ""
+//            self.isMainViewController = true
+//            menuButton.image = isMainViewController ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "ic_arrow_back_white")
+//            self.topMatchesTableView.reloadData()
+//            
+            self.navigationController?.popViewController(animated: true)
+            
         }
         
     }
@@ -181,12 +200,16 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
             showSelectedMatches(selectionTitle: item.uppercased(), matchList: allMatches.filter { $0.seriesName == item })
         case .matchType:
             showSelectedMatches(selectionTitle: item.uppercased(), matchList: allMatches.filter { $0.cmsMatchType == item })
+        case .favoriteTeam:
+            topMatchesTableView.reloadData()
         default:
             break
         }
         delegate?.collapseSidePanels()
-        
     }
+    
+
+    
     
     // MARK: - TableView
     
@@ -206,8 +229,10 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
                 
                 if let fav_team_name = defaults?.value(forKey: "favoriteTeamName") as? String {
                     dummyCell.btn2.setTitle("⭐️ team: \(fav_team_name)".uppercased(), for: .normal)
-                    dummyCell.btn2.addTarget(self, action: #selector(showFavoriteTeamMatches), for: .touchUpInside)
+                } else {
+                    dummyCell.btn2.setTitle("pick favorite team".uppercased(), for: .normal)
                 }
+                dummyCell.btn2.addTarget(self, action: #selector(showFavoriteTeamMatches), for: .touchUpInside)
                 
                 dummyCell.btn3.setTitle("Fixtures".uppercased(), for: .normal)
                 dummyCell.btn3.addTarget(self, action: #selector(showFixtures), for: .touchUpInside)
