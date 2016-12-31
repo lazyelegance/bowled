@@ -11,13 +11,20 @@ import Foundation
 struct Team {
     var id: NSNumber = 0
     let name: String
+    var shortName: String
+    var logoString = "http://www.cricket.com.au/-/media/Logos/Teams/International/default.ashx"
+    var teamColor = "#FFFFFF"
+    var isInternational = false
+    var isWomensTeam = false
+    var teamType: String
     
-    init(name: String) {
+    init(name: String, shortName: String, logoString: String, teamColor: String, isInternational: Bool, isWomensTeam: Bool, teamType: String ) {
         self.name = name
-    }
-    
-    init(id: NSNumber, name: String) {
-        self.id = id
-        self.name = name
+        self.shortName = shortName
+        self.teamColor = teamColor
+        self.logoString = logoString
+        self.isInternational = isInternational
+        self.isWomensTeam = isWomensTeam
+        self.teamType = teamType
     }
 }
