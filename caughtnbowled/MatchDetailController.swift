@@ -10,10 +10,11 @@ import UIKit
 import BowledService
 import Material
 
-class MatchDetailController: UITableViewController, BowledServiceProtocol {
+class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource, BowledServiceProtocol {
     
     var bowledServiceAPI: BowledService!
     
+    @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var pulseView: PulseView!
     @IBOutlet weak var headerView: UIView!
@@ -33,10 +34,10 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     
     @IBOutlet weak var backButton: FlatButton!
     
+    
     @IBAction func backToMain(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    
     
     @IBOutlet weak var awardsView: PulseView!
     @IBOutlet weak var battingView: PulseView!
@@ -110,6 +111,8 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.backgroundColor = mainColor
+        
+        view.backgroundColor = mainColor
 
     }
     
@@ -346,13 +349,13 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         headerView.addSubview(mainMenu)
     }
     
-    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         updateHeaderView()
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 0 {
             return 2
         } else if self.subMenu != nil {
@@ -361,7 +364,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
         return 0
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 0 {
             switch section {
@@ -390,7 +393,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 0 {
             switch indexPath.section {
@@ -468,7 +471,7 @@ class MatchDetailController: UITableViewController, BowledServiceProtocol {
     
     
     //MARK: - navigation
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //
         if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 0 {
             if indexPath.section == 0 && indexPath.row != 0 {
