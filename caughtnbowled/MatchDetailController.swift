@@ -99,7 +99,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         headerView = tableView.tableHeaderView
         headerView.frame.size.height = kHeaderHeight
         headerView.backgroundColor = mainColor
-        pulseView.backgroundColor = secondaryColor
+        pulseView.backgroundColor = txtColor
         
         tableView.tableHeaderView = nil
         tableView.addSubview(headerView)
@@ -139,20 +139,20 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         
         series.textColor = txtColor
 //        series.font = RobotoFont.bold
-        matchStatus.textColor = txtColor
+        matchStatus.textColor = mainColor
 //        matchStatus.font = RobotoFont
         
-        teamOneName.textColor = txtColor
-        teamOneName.font = RobotoFont.bold
+        teamOneName.textColor = mainColor
+        teamOneName.font = RobotoFont.regular(with: 20)
         
-        teamOneScore.textColor = txtColor
-        teamOneScore.font = RobotoFont.light
+        teamOneScore.textColor = mainColor
+        teamOneScore.font = RobotoFont.regular(with: 30)
         
-        teamTwoName.textColor = txtColor
-        teamTwoName.font = RobotoFont.bold
+        teamTwoName.textColor = mainColor
+        teamTwoName.font = RobotoFont.regular
         
-        teamTwoScore.textColor = txtColor
-        teamTwoScore.font = RobotoFont.light
+        teamTwoScore.textColor = mainColor
+        teamTwoScore.font = RobotoFont.regular
         
         self.awardsViewHeight.constant = 0
         self.battingViewHeight.constant = 0
