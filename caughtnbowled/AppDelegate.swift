@@ -35,11 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window!.rootViewController = containerViewController
         window!.makeKeyAndVisible()
-        
-        
-        
-        
-        
+
         return true
     }
     

@@ -12,6 +12,7 @@ import Material
 
 class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource, BowledServiceProtocol {
     
+    var timer = Timer()
     var bowledServiceAPI: BowledService!
     
     @IBOutlet weak var tableView: UITableView!
@@ -124,6 +125,20 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
 
     }
     
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        
+        timer.invalidate()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        if match.status == .live {
+            timer = Timer.scheduledTimer( timeInterval: 30, target: self, selector: #selector(refreshLiveMatchData), userInfo: nil, repeats: true)
+        }
+    }
     
 
     override func didReceiveMemoryWarning() {
@@ -561,17 +576,28 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     //MARK: - Refresh/get Scorecard
     
     func refreshLiveMatchData() {
+        print("refreshLiveMatchData")
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-//        let status = Reach().connectionStatus()
-//        switch status {
-//        case .unknown, .offline:
-//            print("Not connected")
-//            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//        case .online(.wwan), .online(.wiFi): {
-//            
-////            bowledServiceAPI.getScoreCard(match.matchId, seriesid: match.seriesId)
-////            bowledServiceAPI.getCommentary(match.matchId, seriesid: match.seriesId)
-//        }
+        switch Reach().connectionStatus() {
+        case .online :
+            bowledServiceAPI.getMatches()
+            bowledServiceAPI.getScoreCard(match.matchId, seriesid: match.seriesId)
+            bowledServiceAPI.getCommentary(match.matchId, seriesid: match.seriesId)
+            //bowledServiceAPI.getMatchPlayers(match.matchId, seriesid: match.seriesId)
+        default:
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
+    }
+    
+
+    func updateLiveMatchData(matches: [Match]) {
+        print("updateLiveMatchData")
+        for m in matches {
+            if match.matchId == m.matchId {
+                self.match = m
+                self.prepareHeaderView()
+            }
+        }
     }
     
     // MARK: - Bowled Service
@@ -688,18 +714,14 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                     })
                 }
             }
-        } else if requestType == .matchDetail {
-//            let partnershipsQueue = DispatchQueue(label: "matchDetailQueue", attributes: [])
-//            
-//            
-//            
-//            partnershipsQueue.async { () -> Void in
-//                
-//                if let resultsDictionary = results as? NSDictionary {
-//                    //
-//                }
-//                
-//            }
+        } else if requestType == .matches {
+            if let resultsArray = results as? [AnyObject] {
+                DispatchQueue.main.async(execute: {
+                    let matches = Match.matchesFromAPI(results: resultsArray)
+                    self.updateLiveMatchData(matches: matches)
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                })
+            }
         } else if requestType == .battingWheel {
             let battingWheelQueue = DispatchQueue(label: "battingWheelQueue", attributes: [])
             
