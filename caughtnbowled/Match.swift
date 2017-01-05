@@ -172,9 +172,17 @@ struct Match {
             }
         }
         
-
+        for l in liveMatches {
+            print("\(l.hometeamName)..\(l.awayteamName)..\(l.isInternational)..\(l.cmsMatchType)..\(l.startDateTimeUTCDateFormat)")
+        }
+        
+        for l in self.sortMatches(matches: liveMatches) {
+            print("\(l.hometeamName)..\(l.awayteamName)..\(l.isInternational)..\(l.cmsMatchType)..\(l.startDateTimeUTCDateFormat)")
+        }
+        
         return (self.sortMatches(matches: liveMatches), self.sortMatches(matches: completedMatches), self.sortMatches(matches: upcomingMatches))
     }
+    
     
     static func sortMatches(matches: [Match]) -> [Match] {
         return matches.sorted { (item1, item2) -> Bool in
@@ -272,6 +280,8 @@ struct Match {
                                 newMatch.hometeamName = hometeamName.components(separatedBy: "Men")[0].trimmingCharacters(in: NSCharacterSet.whitespaces).uppercased()
                             } else if hometeamName.hasSuffix("WBBL") {
                                 newMatch.hometeamName = hometeamName.replacingOccurrences(of: "WBBL", with: "Women").uppercased()
+                            } else if hometeamName.hasSuffix("BBL") {
+                                newMatch.hometeamName = hometeamName.components(separatedBy: "BBL")[0].trimmingCharacters(in: NSCharacterSet.whitespaces).uppercased()
                             } else {
                                 newMatch.hometeamName = hometeamName.uppercased()
                             }
@@ -298,6 +308,8 @@ struct Match {
                                 newMatch.awayteamName = awayTeamName.components(separatedBy: "Men")[0].trimmingCharacters(in: NSCharacterSet.whitespaces).uppercased()
                             } else if awayTeamName.hasSuffix("WBBL") {
                                 newMatch.awayteamName = awayTeamName.replacingOccurrences(of: "WBBL", with: "Women").uppercased()
+                            } else if awayTeamName.hasSuffix("BBL") {
+                                newMatch.awayteamName = awayTeamName.components(separatedBy: "BBL")[0].trimmingCharacters(in: NSCharacterSet.whitespaces).uppercased()
                             } else {
                                 newMatch.awayteamName = awayTeamName.uppercased()
                             }
