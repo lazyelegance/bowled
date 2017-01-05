@@ -67,10 +67,10 @@
                                                             <rect key="frame" x="76" y="0.0" width="289" height="150"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eJc-PW-X4m" customClass="FlatButton" customModule="Material">
-                                                                    <rect key="frame" x="23" y="0.0" width="266" height="46.5"/>
+                                                                    <rect key="frame" x="269" y="0.0" width="20" height="46.5"/>
                                                                     <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                                                                     <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
-                                                                    <state key="normal" title="Button ;jalksjdlsjadlajslkdjsaljdlsjldjsl">
+                                                                    <state key="normal">
                                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </state>
                                                                     <userDefinedRuntimeAttributes>
@@ -727,27 +727,25 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zX5-Xu-sjk">
-                                                    <rect key="frame" x="308" y="30.5" width="42" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMc-KV-UwJ">
-                                                    <rect key="frame" x="308" y="56" width="42" height="20.5"/>
+                                                    <rect key="frame" x="308" y="57.5" width="42" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7Z-A9-Nlf" customClass="FlatButton" customModule="Material">
+                                                    <rect key="frame" x="294" y="30.5" width="56" height="22"/>
+                                                    <inset key="contentEdgeInsets" minX="5" minY="2" maxX="5" maxY="2"/>
+                                                    <state key="normal" title="Button"/>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="4LE-Sp-Qj4" secondAttribute="trailing" constant="5" id="13E-KE-kNX"/>
-                                                <constraint firstItem="zX5-Xu-sjk" firstAttribute="top" secondItem="4LE-Sp-Qj4" secondAttribute="bottom" constant="5" id="6VR-Am-7wP"/>
-                                                <constraint firstItem="zX5-Xu-sjk" firstAttribute="top" secondItem="4LE-Sp-Qj4" secondAttribute="bottom" constant="5" id="COc-mI-abz"/>
-                                                <constraint firstItem="zX5-Xu-sjk" firstAttribute="trailing" secondItem="4LE-Sp-Qj4" secondAttribute="trailing" id="E9c-UC-tPP"/>
+                                                <constraint firstItem="4LE-Sp-Qj4" firstAttribute="trailing" secondItem="c7Z-A9-Nlf" secondAttribute="trailing" id="4JU-UP-etd"/>
+                                                <constraint firstItem="c7Z-A9-Nlf" firstAttribute="top" secondItem="4LE-Sp-Qj4" secondAttribute="bottom" constant="5" id="GfV-9C-WfJ"/>
                                                 <constraint firstAttribute="height" constant="100" id="KDY-m7-Vg0"/>
-                                                <constraint firstItem="BMc-KV-UwJ" firstAttribute="top" secondItem="zX5-Xu-sjk" secondAttribute="bottom" constant="5" id="PRA-7D-D8g"/>
+                                                <constraint firstItem="BMc-KV-UwJ" firstAttribute="top" secondItem="c7Z-A9-Nlf" secondAttribute="bottom" constant="5" id="Vxs-jZ-aHr"/>
                                                 <constraint firstItem="4LE-Sp-Qj4" firstAttribute="top" secondItem="YxE-Q3-BpA" secondAttribute="top" constant="5" id="W8T-Q5-7NM"/>
                                                 <constraint firstItem="BMc-KV-UwJ" firstAttribute="trailing" secondItem="4LE-Sp-Qj4" secondAttribute="trailing" id="l4w-Xm-fgp"/>
                                             </constraints>
@@ -1136,7 +1134,7 @@
                         <outlet property="battingView" destination="oaa-AK-fZn" id="rZI-l3-Fqn"/>
                         <outlet property="headerView" destination="Jd0-gX-AAA" id="1eA-JE-K1Z"/>
                         <outlet property="matchStatus" destination="vqH-A9-oMA" id="pjg-dX-rva"/>
-                        <outlet property="motmName" destination="zX5-Xu-sjk" id="do0-0A-Dgh"/>
+                        <outlet property="motmNameBtn" destination="c7Z-A9-Nlf" id="KiS-X3-a48"/>
                         <outlet property="motmStats" destination="BMc-KV-UwJ" id="oPz-Ht-bdO"/>
                         <outlet property="motmTitle" destination="4LE-Sp-Qj4" id="b0H-WM-ZCO"/>
                         <outlet property="pulseView" destination="JOk-se-jhb" id="xyD-hx-EtJ"/>

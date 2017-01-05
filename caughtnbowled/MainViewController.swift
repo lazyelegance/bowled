@@ -73,19 +73,20 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         
         
         
-        swiftLoaderConfig.size = 100
-        swiftLoaderConfig.spinnerColor = whitecolor
-        swiftLoaderConfig.backgroundColor = clearcolor
-        swiftLoaderConfig.titleTextColor = whitecolor
-        swiftLoaderConfig.foregroundAlpha = 0
-        SwiftLoader.setConfig(swiftLoaderConfig)
         
-        SwiftLoader.show(true)
         
         //get match list
         bowledServiceAPI = BowledService(delegate: self)
         
         if isMainViewController {
+            swiftLoaderConfig.size = 100
+            swiftLoaderConfig.spinnerColor = whitecolor
+            swiftLoaderConfig.backgroundColor = clearcolor
+            swiftLoaderConfig.titleTextColor = whitecolor
+            swiftLoaderConfig.foregroundAlpha = 0
+            SwiftLoader.setConfig(swiftLoaderConfig)
+            SwiftLoader.show(true)
+            
             getMatchData()
         }
         

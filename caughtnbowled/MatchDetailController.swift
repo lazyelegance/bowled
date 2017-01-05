@@ -30,6 +30,8 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var motmName: UILabel!
     
+    @IBOutlet weak var motmNameBtn: FlatButton!
+    
     @IBOutlet weak var motmStats: UILabel!
     
     
@@ -77,6 +79,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     var scorecard: Scorecard!
     var commentary: Commentary!
     var players = [NSNumber: Player]()
+    var motmPlayer = Player(id: -1, name: "--")
     var battingWheel = [NSNumber: BattingWheel]()
     
     var partnerships = [NSNumber: [Partnership]]()
@@ -122,6 +125,15 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.backgroundColor = mainColor
         
         view.backgroundColor = mainColor
+        
+        swiftLoaderConfig.size = 100
+        swiftLoaderConfig.spinnerColor = whitecolor
+        swiftLoaderConfig.backgroundColor = clearcolor
+        
+        swiftLoaderConfig.foregroundAlpha = 0
+        SwiftLoader.setConfig(swiftLoaderConfig)
+        
+        SwiftLoader.show(true)
 
     }
     
@@ -242,7 +254,17 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
             self.awardsViewHeight.constant = 100
             
             motmTitle.text = "Player Of The Match"
-            motmName.text = scorecard.motm.name.uppercased()
+            
+            motmNameBtn.setTitle(scorecard.motm.name.uppercased(), for: .normal)
+//            motmName.text = scorecard.motm.name.uppercased()
+            
+            if let player = players[scorecard.motm.id] {
+//                motmName.text = player.scorecardName.uppercased()
+                motmPlayer = player
+                motmNameBtn.setTitle(player.scorecardName.uppercased(), for: .normal)
+                motmNameBtn.addTarget(self, action: #selector(showMotMPlayerProfileView), for: .touchUpInside)
+            }
+            
             
             if scorecard.motm.hasBatting && scorecard.motm.hasBowling {
                 motmStats.text = scorecard.motm.batting + " " + scorecard.motm.bowling
@@ -257,14 +279,18 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
             motmTitle.textColor = txtColor
             motmTitle.font = RobotoFont.light
             
-            motmName.textColor = txtColor
-            motmName.font = RobotoFont.bold
+//            motmName.textColor = txtColor
+//            motmName.font = RobotoFont.bold
+            motmNameBtn.titleLabel?.textColor = txtColor
+            motmNameBtn.titleColor = txtColor
+            motmNameBtn.titleLabel?.font = RobotoFont.bold
             
             motmStats.textColor = txtColor
             motmStats.font = RobotoFont.medium
             
             motmTitle.alpha = 1
-            motmName.alpha = 1
+//            motmName.alpha = 1
+            motmNameBtn.alpha = 1
             motmStats.alpha = 1
             
             awardsView.backgroundColor = mainColor
@@ -388,9 +414,10 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         mainMenu.backgroundColor = headerView.backgroundColor
         mainMenu.titleTextAttributes = [NSForegroundColorAttributeName: whitecolor , NSFontAttributeName: UIFont.systemFont(ofSize: 10)]
         mainMenu.selectedTitleTextAttributes = [NSForegroundColorAttributeName: headerView.backgroundColor , NSFontAttributeName: UIFont.systemFont(ofSize: 10)]
-        
-        
         headerView.addSubview(mainMenu)
+        
+        mainMenu.alpha = 0
+        mainMenu.isUserInteractionEnabled = false
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -522,25 +549,31 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                 if let batsman = self.scorecard.innings[self.subMenu.selectedSegmentIndex].batsmen[indexPath.row - 1] as Batsman? {
                     
                     if let player = players[batsman.id] {
-                        if let ppvc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerProfileController") as? PlayerProfileController {
-                            ppvc.player = player
-                            self.navigationController?.pushViewController(ppvc, animated: true)
-                            
-                        }
+                        showPlayerProfileView(player: player)
                     }
 
                 }
             } else if indexPath.section == 1 && indexPath.row != 0 {
                 if let bowler = self.scorecard.innings[self.subMenu.selectedSegmentIndex].bowlers[indexPath.row - 1] as Bowler? {
                     if let player = players[bowler.id] {
-                        if let ppvc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerProfileController") as? PlayerProfileController {
-                            ppvc.player = player
-                            self.navigationController?.pushViewController(ppvc, animated: true)
-                            
-                        }
+                        showPlayerProfileView(player: player)
                     }
                 }
             }
+        }
+    }
+    
+    func showMotMPlayerProfileView() {
+        if motmPlayer.id != -1 && match.status == .completed {
+            self.showPlayerProfileView(player: self.motmPlayer)
+        }
+    }
+    
+  func showPlayerProfileView(player: Player) {
+        if let ppvc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerProfileController") as? PlayerProfileController {
+            ppvc.player = player
+            self.navigationController?.pushViewController(ppvc, animated: true)
+            
         }
     }
  
@@ -683,9 +716,9 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 if let resultsDictionary = results as? NSDictionary {
                     let commentaryfromresults = Commentary.commentaryFromAPI(resultsDictionary)
-                    //let scorecardkeyfromresult = ScorecardKey(matchid: matchid, seriesid: seriesid)
-                    print("...................")
+                    
                     self.commentary = commentaryfromresults
+                    self.mainMenu.isUserInteractionEnabled = true
                     //self.activityIndicator.stopAnimation()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
