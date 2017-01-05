@@ -8,6 +8,7 @@ target 'Bowled' do
   # Pods for Bowled
   pod 'Material', '~> 2.0'
   pod 'Charts'
+  pod 'Firebase/Core'
 
   target 'BowledTests' do
     inherit! :search_paths
