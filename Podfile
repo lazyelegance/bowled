@@ -7,6 +7,7 @@ target 'Bowled' do
 
   # Pods for Bowled
   pod 'Material', '~> 2.0'
+  pod 'Charts'
 
   target 'BowledTests' do
     inherit! :search_paths
@@ -20,13 +21,13 @@ target 'Bowled' do
 
 end
 
-target 'CBService' do
+target 'BowledService' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
   # Pods for CBService
 
-  target 'CBServiceTests' do
+  target 'BowledServiceTests' do
     inherit! :search_paths
     # Pods for testing
   end

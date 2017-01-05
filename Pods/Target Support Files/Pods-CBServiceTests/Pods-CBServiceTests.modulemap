@@ -1,6 +1,0 @@
-framework module Pods_CBServiceTests {
-  umbrella header "Pods-CBServiceTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

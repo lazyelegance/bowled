@@ -27,25 +27,35 @@ class TopMatchCell: UITableViewCell {
     var match: Match? {
         didSet {
             if match != nil {
-                teamOneName.text = match?.hometeamName
+                
                 teamOneName.textColor = txtColor
                 teamOneName.font = RobotoFont.bold
                 
-                teamTwoName.text = match?.awayteamName
+                
                 teamTwoName.textColor = txtColor
                 teamTwoName.font = RobotoFont.bold
                 
+                teamOneName.text = match?.hometeamName
+                teamTwoName.text = match?.awayteamName
                 
                 if match?.status == .live || match?.status == .completed {
-                    teamOneScore.text = match?.homeScore
-                    teamOneScore.textColor = txtColor
-                    teamOneScore.font = RobotoFont.light
                     
-                    teamTwoScore.text = match?.awayScore
+                    if match?.hometeamIsBatting == true {
+                        teamOneName.text = match?.hometeamName
+                        teamOneScore.text = match?.homeScore
+                        teamTwoName.text = match?.awayteamName
+                        teamTwoScore.text = match?.awayScore == "0/0 (0)" ? " " : match?.awayScore
+                    } else {
+                        teamOneName.text = match?.awayteamName
+                        teamOneScore.text = match?.awayScore
+                        teamTwoName.text = match?.hometeamName
+                        teamTwoScore.text = match?.homeScore == "0/0 (0)" ? " " : match?.homeScore
+                    }
                     teamTwoScore.textColor = txtColor
                     teamTwoScore.font = RobotoFont.light
+                    teamOneScore.textColor = txtColor
+                    teamOneScore.font = RobotoFont.light
                 }
-            
         
                 
                 
