@@ -20,6 +20,8 @@ protocol MainViewControllerDelegate {
 
 class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDelegate, UITableViewDataSource, MenuControllerDelegate {
     
+    var timer = Timer()
+    
     
     var bowledServiceAPI: BowledService!
 
@@ -69,11 +71,23 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
 //        topMatchesTableView.indi
 //        self.updateTableHeight()
         
+        
+        
+        
+        
         //get match list
+        bowledServiceAPI = BowledService(delegate: self)
         
         if isMainViewController {
-            bowledServiceAPI = BowledService(delegate: self)
-            bowledServiceAPI.getMatches()
+            swiftLoaderConfig.size = 100
+            swiftLoaderConfig.spinnerColor = whitecolor
+            swiftLoaderConfig.backgroundColor = clearcolor
+            swiftLoaderConfig.titleTextColor = whitecolor
+            swiftLoaderConfig.foregroundAlpha = 0
+            SwiftLoader.setConfig(swiftLoaderConfig)
+            SwiftLoader.show(true)
+            
+            getMatchData()
         }
         
         
@@ -92,17 +106,44 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         topMatchesTableView.reloadData()
+        if isMainViewController {
+            timer = Timer.scheduledTimer( timeInterval: 120, target: self, selector: #selector(getMatchData), userInfo: nil, repeats: true)
+        }
+        
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        timer.invalidate()
+    }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func getMatchData() {
+        print("....getting match data...")
+        switch Reach().connectionStatus() {
+        case .online :
+            bowledServiceAPI.getMatches()
+        default:
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            swiftLoaderConfig.spinnerColor = whitecolor
+            swiftLoaderConfig.backgroundColor = clearcolor
+            swiftLoaderConfig.titleTextColor = whitecolor
+            swiftLoaderConfig.size = 300
+            SwiftLoader.setConfig(swiftLoaderConfig)
+            SwiftLoader.show("No Network Connectivity. Please Try Again Later", animated: true)
+        }
+    }
+    
     func prepareView() {
         
         topMatchesTableView.backgroundColor = Color.clear
-        
         
     }
 
@@ -273,6 +314,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
 //                    self.updateTableHeight()
                     self.matchList = self.topMatches
                     self.topMatchesTableView.reloadData()
+                    SwiftLoader.hide()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 })
             }
