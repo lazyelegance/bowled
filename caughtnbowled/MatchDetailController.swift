@@ -12,6 +12,7 @@ import Material
 
 class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource, BowledServiceProtocol {
     
+    var timer = Timer()
     var bowledServiceAPI: BowledService!
     
     @IBOutlet weak var tableView: UITableView!
@@ -28,6 +29,8 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var motmTitle: UILabel!
     
     @IBOutlet weak var motmName: UILabel!
+    
+    @IBOutlet weak var motmNameBtn: FlatButton!
     
     @IBOutlet weak var motmStats: UILabel!
     
@@ -76,6 +79,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     var scorecard: Scorecard!
     var commentary: Commentary!
     var players = [NSNumber: Player]()
+    var motmPlayer = Player(id: -1, name: "--")
     var battingWheel = [NSNumber: BattingWheel]()
     
     var partnerships = [NSNumber: [Partnership]]()
@@ -121,9 +125,32 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.backgroundColor = mainColor
         
         view.backgroundColor = mainColor
+        
+        swiftLoaderConfig.size = 100
+        swiftLoaderConfig.spinnerColor = whitecolor
+        swiftLoaderConfig.backgroundColor = clearcolor
+        
+        swiftLoaderConfig.foregroundAlpha = 0
+        SwiftLoader.setConfig(swiftLoaderConfig)
+        
+        SwiftLoader.show(true)
 
     }
     
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        
+        timer.invalidate()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        if match.status == .live {
+            timer = Timer.scheduledTimer( timeInterval: 30, target: self, selector: #selector(refreshLiveMatchData), userInfo: nil, repeats: true)
+        }
+    }
     
 
     override func didReceiveMemoryWarning() {
@@ -227,7 +254,17 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
             self.awardsViewHeight.constant = 100
             
             motmTitle.text = "Player Of The Match"
-            motmName.text = scorecard.motm.name.uppercased()
+            
+            motmNameBtn.setTitle(scorecard.motm.name.uppercased(), for: .normal)
+//            motmName.text = scorecard.motm.name.uppercased()
+            
+            if let player = players[scorecard.motm.id] {
+//                motmName.text = player.scorecardName.uppercased()
+                motmPlayer = player
+                motmNameBtn.setTitle(player.scorecardName.uppercased(), for: .normal)
+                motmNameBtn.addTarget(self, action: #selector(showMotMPlayerProfileView), for: .touchUpInside)
+            }
+            
             
             if scorecard.motm.hasBatting && scorecard.motm.hasBowling {
                 motmStats.text = scorecard.motm.batting + " " + scorecard.motm.bowling
@@ -242,14 +279,18 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
             motmTitle.textColor = txtColor
             motmTitle.font = RobotoFont.light
             
-            motmName.textColor = txtColor
-            motmName.font = RobotoFont.bold
+//            motmName.textColor = txtColor
+//            motmName.font = RobotoFont.bold
+            motmNameBtn.titleLabel?.textColor = txtColor
+            motmNameBtn.titleColor = txtColor
+            motmNameBtn.titleLabel?.font = RobotoFont.bold
             
             motmStats.textColor = txtColor
             motmStats.font = RobotoFont.medium
             
             motmTitle.alpha = 1
-            motmName.alpha = 1
+//            motmName.alpha = 1
+            motmNameBtn.alpha = 1
             motmStats.alpha = 1
             
             awardsView.backgroundColor = mainColor
@@ -373,9 +414,10 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         mainMenu.backgroundColor = headerView.backgroundColor
         mainMenu.titleTextAttributes = [NSForegroundColorAttributeName: whitecolor , NSFontAttributeName: UIFont.systemFont(ofSize: 10)]
         mainMenu.selectedTitleTextAttributes = [NSForegroundColorAttributeName: headerView.backgroundColor , NSFontAttributeName: UIFont.systemFont(ofSize: 10)]
-        
-        
         headerView.addSubview(mainMenu)
+        
+        mainMenu.alpha = 0
+        mainMenu.isUserInteractionEnabled = false
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -507,25 +549,31 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                 if let batsman = self.scorecard.innings[self.subMenu.selectedSegmentIndex].batsmen[indexPath.row - 1] as Batsman? {
                     
                     if let player = players[batsman.id] {
-                        if let ppvc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerProfileController") as? PlayerProfileController {
-                            ppvc.player = player
-                            self.navigationController?.pushViewController(ppvc, animated: true)
-                            
-                        }
+                        showPlayerProfileView(player: player)
                     }
 
                 }
             } else if indexPath.section == 1 && indexPath.row != 0 {
                 if let bowler = self.scorecard.innings[self.subMenu.selectedSegmentIndex].bowlers[indexPath.row - 1] as Bowler? {
                     if let player = players[bowler.id] {
-                        if let ppvc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerProfileController") as? PlayerProfileController {
-                            ppvc.player = player
-                            self.navigationController?.pushViewController(ppvc, animated: true)
-                            
-                        }
+                        showPlayerProfileView(player: player)
                     }
                 }
             }
+        }
+    }
+    
+    func showMotMPlayerProfileView() {
+        if motmPlayer.id != -1 && match.status == .completed {
+            self.showPlayerProfileView(player: self.motmPlayer)
+        }
+    }
+    
+  func showPlayerProfileView(player: Player) {
+        if let ppvc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerProfileController") as? PlayerProfileController {
+            ppvc.player = player
+            self.navigationController?.pushViewController(ppvc, animated: true)
+            
         }
     }
  
@@ -561,17 +609,28 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     //MARK: - Refresh/get Scorecard
     
     func refreshLiveMatchData() {
+        print("refreshLiveMatchData")
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-//        let status = Reach().connectionStatus()
-//        switch status {
-//        case .unknown, .offline:
-//            print("Not connected")
-//            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//        case .online(.wwan), .online(.wiFi): {
-//            
-////            bowledServiceAPI.getScoreCard(match.matchId, seriesid: match.seriesId)
-////            bowledServiceAPI.getCommentary(match.matchId, seriesid: match.seriesId)
-//        }
+        switch Reach().connectionStatus() {
+        case .online :
+            bowledServiceAPI.getMatches()
+            bowledServiceAPI.getScoreCard(match.matchId, seriesid: match.seriesId)
+            bowledServiceAPI.getCommentary(match.matchId, seriesid: match.seriesId)
+            //bowledServiceAPI.getMatchPlayers(match.matchId, seriesid: match.seriesId)
+        default:
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
+    }
+    
+
+    func updateLiveMatchData(matches: [Match]) {
+        print("updateLiveMatchData")
+        for m in matches {
+            if match.matchId == m.matchId {
+                self.match = m
+                self.prepareHeaderView()
+            }
+        }
     }
     
     // MARK: - Bowled Service
@@ -657,9 +716,9 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 if let resultsDictionary = results as? NSDictionary {
                     let commentaryfromresults = Commentary.commentaryFromAPI(resultsDictionary)
-                    //let scorecardkeyfromresult = ScorecardKey(matchid: matchid, seriesid: seriesid)
-                    print("...................")
+                    
                     self.commentary = commentaryfromresults
+                    self.mainMenu.isUserInteractionEnabled = true
                     //self.activityIndicator.stopAnimation()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
@@ -688,18 +747,14 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                     })
                 }
             }
-        } else if requestType == .matchDetail {
-//            let partnershipsQueue = DispatchQueue(label: "matchDetailQueue", attributes: [])
-//            
-//            
-//            
-//            partnershipsQueue.async { () -> Void in
-//                
-//                if let resultsDictionary = results as? NSDictionary {
-//                    //
-//                }
-//                
-//            }
+        } else if requestType == .matches {
+            if let resultsArray = results as? [AnyObject] {
+                DispatchQueue.main.async(execute: {
+                    let matches = Match.matchesFromAPI(results: resultsArray)
+                    self.updateLiveMatchData(matches: matches)
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                })
+            }
         } else if requestType == .battingWheel {
             let battingWheelQueue = DispatchQueue(label: "battingWheelQueue", attributes: [])
             
