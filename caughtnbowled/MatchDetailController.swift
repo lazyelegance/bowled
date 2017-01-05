@@ -86,7 +86,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     var awayTeamId: NSNumber!
     
     var kTableHeaderHeight: CGFloat = 240
-    let kHeaderHeight: CGFloat = 350
+    var kHeaderHeight: CGFloat = 350
     
     var mainMenu: HMSegmentedControl!
     var subMenu: HMSegmentedControl!
@@ -95,6 +95,11 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //TEST
+        print(match)
+        
+        kHeaderHeight = match.status == .completed ? 350 : 250
 
         headerView = tableView.tableHeaderView
         headerView.frame.size.height = kHeaderHeight
@@ -105,6 +110,9 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.addSubview(headerView)
         prepareHeaderView()
         prepareMainMenu()
+        
+        
+        
         tableView.contentInset = UIEdgeInsets(top: kHeaderHeight, left: 0, bottom: 0, right: 0)
         tableView.contentOffset = CGPoint(x: 0, y: -kHeaderHeight)
         tableView.separatorStyle = .none
@@ -129,18 +137,45 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         
-        series.text = match.seriesName
-        teamOneName.text = match.hometeamName
-        teamOneScore.text = match.homeScore
-        teamTwoName.text = match.awayteamName
-        teamTwoScore.text = match.awayScore
-        matchStatus.text = match.matchSummaryText
+        series.text = match.seriesName.uppercased() + " | " + match.matchName.uppercased()
+        
+    
+        if match.status == .live {
+            if match.hometeamIsBatting {
+                teamOneName.text = match.hometeamName
+                teamOneScore.text = match.homeScore
+                teamTwoName.text = match.awayteamName
+                teamTwoScore.text = match.awayScore == "0/0 (0)" ? " " : match.awayScore
+            } else {
+                teamOneName.text = match.awayteamName
+                teamOneScore.text = match.awayScore
+                teamTwoName.text = match.hometeamName
+                teamTwoScore.text = match.homeScore == "0/0 (0)" ? " " : match.homeScore
+            }
+        } else {
+            
+            //what happens if no one team wins?
+            
+            if match.hometeamId == match.winningTeamId {
+                teamOneName.text = match.hometeamName
+                teamOneScore.text = match.homeScore
+                teamTwoName.text = match.awayteamName
+                teamTwoScore.text = match.awayScore == "0/0 (0)" ? " " : match.awayScore
+            } else {
+                teamOneName.text = match.awayteamName
+                teamOneScore.text = match.awayScore
+                teamTwoName.text = match.hometeamName
+                teamTwoScore.text = match.homeScore == "0/0 (0)" ? " " : match.homeScore
+            }
+        }
+        
+        matchStatus.text = match.matchSummaryText.uppercased()
 
         
         series.textColor = txtColor
-//        series.font = RobotoFont.bold
-        matchStatus.textColor = mainColor
-//        matchStatus.font = RobotoFont
+        series.font = RobotoFont.regular(with: 10)
+        
+        matchStatus.font = RobotoFont.regular
         
         teamOneName.textColor = mainColor
         teamOneName.font = RobotoFont.regular(with: 20)
@@ -154,10 +189,10 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         teamTwoScore.textColor = mainColor
         teamTwoScore.font = RobotoFont.regular
         
-        self.awardsViewHeight.constant = 0
-        self.battingViewHeight.constant = 0
+        awardsViewHeight.constant = 0
         
-        battingView.alpha = 0
+        battingView.backgroundColor = mainColor
+        matchStatus.textColor = txtColor
         
         // MOVE FROM HERE
         bowledServiceAPI = BowledService(delegate: self)
@@ -190,9 +225,6 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     func updateSecondaryViews() {
         if match.status == .completed && scorecard.hasMotM {
             self.awardsViewHeight.constant = 100
-            self.battingViewHeight.constant = 0
-            
-            
             
             motmTitle.text = "Player Of The Match"
             motmName.text = scorecard.motm.name.uppercased()
@@ -224,87 +256,84 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
             
         } else if match.status == .live && scorecard != nil && commentary != nil {
             self.awardsViewHeight.constant = 0
-            self.battingViewHeight.constant = 100
+
             
-            self.battingView.alpha = 1
-            self.battingView.backgroundColor = mainColor
-            
-            strikerName.textColor = txtColor
-            strikerSR.textColor = txtColor
-            strikerSixes.textColor = txtColor
-            strikerFours.textColor = txtColor
-            strikerRunsScored.textColor = txtColor
-            strikerBallsFaced.textColor = txtColor
-            
-            nonstrikerName.textColor = txtColor
-            nonstrikerSR.textColor = txtColor
-            nonstrikerSixes.textColor = txtColor
-            nonstrikerFours.textColor = txtColor
-            nonstrikerRunsScored.textColor = txtColor
-            nonstrikerBallsFaced.textColor = txtColor
-            
-            bowlerName.textColor = txtColor
-            bowlerOvers.textColor = txtColor
-            bowlerRunsConceded.textColor = txtColor
-            bowlerWickets.textColor = txtColor
-            bowlerMaidens.textColor = txtColor
-            bowlerEcomony.textColor = txtColor
-            
-            strikerName.font = RobotoFont.bold
-            strikerSR.font = RobotoFont.medium
-            strikerSixes.font = RobotoFont.medium
-            strikerFours.font = RobotoFont.medium
-            strikerRunsScored.font = RobotoFont.bold
-            strikerBallsFaced.font = RobotoFont.medium
-            
-            nonstrikerName.font = RobotoFont.bold
-            nonstrikerSR.font = RobotoFont.medium
-            nonstrikerSixes.font = RobotoFont.medium
-            nonstrikerFours.font = RobotoFont.medium
-            nonstrikerRunsScored.font = RobotoFont.bold
-            nonstrikerBallsFaced.font = RobotoFont.medium
-            
-            bowlerName.font = RobotoFont.bold
-            bowlerOvers.font = RobotoFont.medium
-            bowlerRunsConceded.font = RobotoFont.medium
-            bowlerWickets.font = RobotoFont.bold
-            bowlerMaidens.font = RobotoFont.medium
-            bowlerEcomony.font = RobotoFont.medium
+//            strikerName.textColor = txtColor
+//            strikerSR.textColor = txtColor
+//            strikerSixes.textColor = txtColor
+//            strikerFours.textColor = txtColor
+//            strikerRunsScored.textColor = txtColor
+//            strikerBallsFaced.textColor = txtColor
+//            
+//            nonstrikerName.textColor = txtColor
+//            nonstrikerSR.textColor = txtColor
+//            nonstrikerSixes.textColor = txtColor
+//            nonstrikerFours.textColor = txtColor
+//            nonstrikerRunsScored.textColor = txtColor
+//            nonstrikerBallsFaced.textColor = txtColor
+//            
+//            bowlerName.textColor = txtColor
+//            bowlerOvers.textColor = txtColor
+//            bowlerRunsConceded.textColor = txtColor
+//            bowlerWickets.textColor = txtColor
+//            bowlerMaidens.textColor = txtColor
+//            bowlerEcomony.textColor = txtColor
+//            
+//            strikerName.font = RobotoFont.bold
+//            strikerSR.font = RobotoFont.medium
+//            strikerSixes.font = RobotoFont.medium
+//            strikerFours.font = RobotoFont.medium
+//            strikerRunsScored.font = RobotoFont.bold
+//            strikerBallsFaced.font = RobotoFont.medium
+//            
+//            nonstrikerName.font = RobotoFont.bold
+//            nonstrikerSR.font = RobotoFont.medium
+//            nonstrikerSixes.font = RobotoFont.medium
+//            nonstrikerFours.font = RobotoFont.medium
+//            nonstrikerRunsScored.font = RobotoFont.bold
+//            nonstrikerBallsFaced.font = RobotoFont.medium
+//            
+//            bowlerName.font = RobotoFont.bold
+//            bowlerOvers.font = RobotoFont.medium
+//            bowlerRunsConceded.font = RobotoFont.medium
+//            bowlerWickets.font = RobotoFont.bold
+//            bowlerMaidens.font = RobotoFont.medium
+//            bowlerEcomony.font = RobotoFont.medium
             
             
             
-            let comment = commentary.commentaryInnings[0].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }[0]
-            let batsmen = scorecard.innings.map { $0.batsmen }.flatMap { $0 }
-            let bowlers = scorecard.innings.map { $0.bowlers }.flatMap { $0 }
-            
-            for batsman in batsmen {
-                if comment.batsmanId == batsman.id {
-                    strikerName.text = batsman.name
-                    strikerBallsFaced.text = batsman.ballsFaced
-                    strikerRunsScored.text = batsman.runsScored
-                    strikerFours.text = batsman.foursHit
-                    strikerSixes.text = batsman.sixesHit
-                    strikerSR.text = batsman.strikeRate
-                } else if comment.offStrikeBatsmanId == batsman.id {
-                    nonstrikerName.text = batsman.name
-                    nonstrikerBallsFaced.text = batsman.ballsFaced
-                    nonstrikerRunsScored.text = batsman.runsScored
-                    nonstrikerFours.text = batsman.foursHit
-                    nonstrikerSixes.text = batsman.sixesHit
-                    nonstrikerSR.text = batsman.strikeRate
-                }
-            }
-            
-            for bowler in bowlers {
-                if comment.bowlerId == bowler.id {
-                    bowlerName.text = bowler.name
-                    bowlerOvers.text = bowler.overs
-                    bowlerEcomony.text = bowler.ecomony
-                    bowlerMaidens.text = bowler.maidens
-                    bowlerWickets.text = bowler.wickets
-                    bowlerRunsConceded.text = bowler.runsConceded
-                }
-            }
+//            let comment = commentary.commentaryInnings[0].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }[0]
+//            let batsmen = scorecard.innings.map { $0.batsmen }.flatMap { $0 }
+//            let bowlers = scorecard.innings.map { $0.bowlers }.flatMap { $0 }
+//            
+//            for batsman in batsmen {
+//                if comment.batsmanId == batsman.id {
+//                    strikerName.text = batsman.name
+//                    strikerBallsFaced.text = batsman.ballsFaced
+//                    strikerRunsScored.text = batsman.runsScored
+//                    strikerFours.text = batsman.foursHit
+//                    strikerSixes.text = batsman.sixesHit
+//                    strikerSR.text = batsman.strikeRate
+//                } else if comment.offStrikeBatsmanId == batsman.id {
+//                    nonstrikerName.text = batsman.name
+//                    nonstrikerBallsFaced.text = batsman.ballsFaced
+//                    nonstrikerRunsScored.text = batsman.runsScored
+//                    nonstrikerFours.text = batsman.foursHit
+//                    nonstrikerSixes.text = batsman.sixesHit
+//                    nonstrikerSR.text = batsman.strikeRate
+//                }
+//            }
+//            
+//            for bowler in bowlers {
+//                if comment.bowlerId == bowler.id {
+//                    bowlerName.text = bowler.name
+//                    bowlerOvers.text = bowler.overs
+//                    bowlerEcomony.text = bowler.ecomony
+//                    bowlerMaidens.text = bowler.maidens
+//                    bowlerWickets.text = bowler.wickets
+//                    bowlerRunsConceded.text = bowler.runsConceded
+//                }
+//            }
         }
         
     
@@ -417,7 +446,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                     batsmanRecordCell.batsman = batsman
                     batsmanRecordCell.contentView.backgroundColor = secondaryColor
                     if let player = players[batsman.id] {
-                        batsmanRecordCell.name.text = player.fullName
+                        batsmanRecordCell.name.text = player.scorecardName
                     }
                 }
                 return batsmanRecordCell
@@ -435,7 +464,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                     bowlerRecordCell.bowler = bowler
                     bowlerRecordCell.contentView.backgroundColor = secondaryColor
                     if let player = players[bowler.id] {
-                        bowlerRecordCell.name.text = player.fullName
+                        bowlerRecordCell.name.text = player.scorecardName
                     }
                 }
                 
@@ -480,7 +509,6 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                     if let player = players[batsman.id] {
                         if let ppvc = self.storyboard?.instantiateViewController(withIdentifier: "PlayerProfileController") as? PlayerProfileController {
                             ppvc.player = player
-                            print(player)
                             self.navigationController?.pushViewController(ppvc, animated: true)
                             
                         }

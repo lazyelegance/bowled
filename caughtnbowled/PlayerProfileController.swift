@@ -55,6 +55,8 @@ class PlayerProfileController: UIViewController {
         playerImage.layer.borderWidth = 3
         playerImage.layer.cornerRadius = 5
         
+        
+        
         playerName.text = player?.fullName
         playerBattingStyle.text = player?.battingStyle
         playerBowlingStyle.text = player?.bowlingStyle
@@ -67,7 +69,7 @@ class PlayerProfileController: UIViewController {
             playerBio.text = playerBio.text + " " + (player?.didYouKnow)!
         }
         
-        var menuTitles = ["BIO"]
+        let menuTitles = ["BIO"]
         mainMenu = HMSegmentedControl(sectionTitles: menuTitles)
         mainMenu.addTarget(self, action: #selector(mainMenuChangedValue(_:)), for: .valueChanged)
         mainMenu.frame = CGRect(x: 10, y: 0, width: menuPlaceHolder.frame.width - 20, height: menuPlaceHolder.frame.height)

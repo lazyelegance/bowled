@@ -11,6 +11,7 @@ import Foundation
 struct Player {
     var id: NSNumber
     var fullName: String
+    var scorecardName : String
     var firstName = String()
     var lastName = String()
     var imageURL = URL(fileURLWithPath: Bundle.main.path(forResource: "playerdefault", ofType: "png")!)
@@ -35,6 +36,12 @@ struct Player {
     init(id: NSNumber, name: String) {
         self.id = id
         self.fullName = name
+        self.scorecardName = name
+        if name.hasSuffix(" (c)") {
+            self.fullName = name.replacingOccurrences(of: " (c)", with: "")
+        } else if name.hasSuffix(" (wk)") {
+            self.fullName = name.replacingOccurrences(of: " (wk)", with: "")
+        }
     }
     
     static func playersFromResults(results: [String: AnyObject]) -> [NSNumber: Player] {
