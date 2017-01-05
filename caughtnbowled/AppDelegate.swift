@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Firebase
 
 
 
@@ -18,15 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-//        let status = Reach().connectionStatus()
-//        switch status {
-//        
-//        case .Online(.WWAN), .Online(.WiFi) :
-//            Fabric.with([Crashlytics.self, Twitter.self])
-//        default:
-//            break
-//        }
-        
+//        let status =
+        switch Reach().connectionStatus() {
+            case .online :
+                FIRApp.configure()
+            default:
+                break
+        }
 
         window = UIWindow(frame: UIScreen.main.bounds)
         
