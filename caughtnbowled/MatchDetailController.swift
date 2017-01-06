@@ -50,6 +50,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var awardsViewHeight: NSLayoutConstraint!
     @IBOutlet weak var battingViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var headerViewWidth: NSLayoutConstraint!
     @IBOutlet weak var strikerName: UILabel!
     @IBOutlet weak var strikerRunsScored: UILabel!
     @IBOutlet weak var strikerBallsFaced: UILabel!
@@ -105,6 +106,9 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         print(match)
         
         kHeaderHeight = match.status == .completed ? 350 : 250
+        
+        
+        headerViewWidth.constant = view.bounds.width
 
 //        headerView = tableView.tableHeaderView
 //        headerView.frame.size.height = kHeaderHeight
