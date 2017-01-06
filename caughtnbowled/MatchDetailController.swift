@@ -45,10 +45,12 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var awardsView: PulseView!
     @IBOutlet weak var battingView: PulseView!
     
+    @IBOutlet weak var menuPlaceholder: UIView!
     
     @IBOutlet weak var awardsViewHeight: NSLayoutConstraint!
     @IBOutlet weak var battingViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var headerViewWidth: NSLayoutConstraint!
     @IBOutlet weak var strikerName: UILabel!
     @IBOutlet weak var strikerRunsScored: UILabel!
     @IBOutlet weak var strikerBallsFaced: UILabel!
@@ -104,21 +106,25 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         print(match)
         
         kHeaderHeight = match.status == .completed ? 350 : 250
+        
+        
+        headerViewWidth.constant = view.bounds.width
 
-        headerView = tableView.tableHeaderView
-        headerView.frame.size.height = kHeaderHeight
+//        headerView = tableView.tableHeaderView
+//        headerView.frame.size.height = kHeaderHeight
+        menuPlaceholder.backgroundColor = mainColor
         headerView.backgroundColor = mainColor
         pulseView.backgroundColor = txtColor
         
-        tableView.tableHeaderView = nil
-        tableView.addSubview(headerView)
+//        tableView.tableHeaderView = nil
+//        tableView.addSubview(headerView)
         prepareHeaderView()
         prepareMainMenu()
         
         
         
-        tableView.contentInset = UIEdgeInsets(top: kHeaderHeight, left: 0, bottom: 0, right: 0)
-        tableView.contentOffset = CGPoint(x: 0, y: -kHeaderHeight)
+//        tableView.contentInset = UIEdgeInsets(top: kHeaderHeight, left: 0, bottom: 0, right: 0)
+//        tableView.contentOffset = CGPoint(x: 0, y: -kHeaderHeight)
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -391,8 +397,8 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         mainMenu.addTarget(self, action: #selector(mainMenuChangedValue(_:)), for: UIControlEvents.valueChanged)
         mainMenu.frame.size.height = 40
         mainMenu.frame.origin.x = 10
-        mainMenu.frame.size.width = headerView.frame.size.width - 20
-        mainMenu.frame.origin.y = headerView.frame.size.height - 70
+        mainMenu.frame.size.width = menuPlaceholder.frame.size.width - 20
+        mainMenu.frame.origin.y = 10
         
         mainMenu.autoresizingMask =  [.flexibleRightMargin, .flexibleWidth]
         
@@ -414,14 +420,14 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         mainMenu.backgroundColor = headerView.backgroundColor
         mainMenu.titleTextAttributes = [NSForegroundColorAttributeName: whitecolor , NSFontAttributeName: UIFont.systemFont(ofSize: 10)]
         mainMenu.selectedTitleTextAttributes = [NSForegroundColorAttributeName: headerView.backgroundColor , NSFontAttributeName: UIFont.systemFont(ofSize: 10)]
-        headerView.addSubview(mainMenu)
+        menuPlaceholder.addSubview(mainMenu)
         
         mainMenu.alpha = 0
         mainMenu.isUserInteractionEnabled = false
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        updateHeaderView()
+//        updateHeaderView()
     }
 
     // MARK: - Table view data source
@@ -656,8 +662,8 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                             self.subMenu.frame.size.height = 30
                             
                             self.subMenu.frame.origin.x = 10
-                            self.subMenu.frame.size.width = self.headerView.frame.size.width - 20
-                            self.subMenu.frame.origin.y = self.headerView.frame.size.height - 30
+                            self.subMenu.frame.size.width = self.menuPlaceholder.frame.size.width - 20
+                            self.subMenu.frame.origin.y = self.menuPlaceholder.frame.size.height - 30
                             self.subMenu.autoresizingMask =  [.flexibleRightMargin, .flexibleWidth]
                             self.subMenu.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe
                             self.subMenu.borderType = HMSegmentedControlBorderType.bottom
@@ -669,7 +675,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                             self.subMenu.selectionIndicatorColor = whitecolor                            
                             self.subMenu.backgroundColor = self.headerView.backgroundColor
                             self.subMenu.titleTextAttributes = [NSForegroundColorAttributeName: whitecolor , NSFontAttributeName: UIFont.systemFont(ofSize: 10)]
-                            self.headerView.addSubview(self.subMenu)
+                            self.menuPlaceholder.addSubview(self.subMenu)
                             self.hasSubMenu = true
                             
                             for inningsId in (self.scorecard?.innings.map{ $0.id })! {

@@ -17,9 +17,10 @@ DerivedData
 *.ipa
 *.xcuserstate
 keys.plist
+GoogleService-Info.plist
 
 
 
-  
+
 
 feeling-responsive/
