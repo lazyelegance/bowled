@@ -8,6 +8,8 @@
 
 import UIKit
 import Material
+import Firebase
+import FirebaseDatabase
 
 protocol MenuControllerDelegate {
     func menuItemSelected(item: String, type: MenuItemType)
@@ -35,6 +37,8 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
     var isFullmenu = true // as opposed to false when selecting favorite team
     
     var teamTypes = [String]()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,6 +115,24 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         
         matchTypeList = [ "Test", "One-Day International", "T20 International", "BBL","WBBL","First-Class"] //Array(Set(matches.map{ $0.cmsMatchType }))
         
+    
+        let ref = FIRDatabase.database().reference()
+        
+        print(ref)
+        
+        ref.child("matchTypes").observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            
+            if let matchTypes = value?.allValues as? [String] {
+                self.matchTypeList = matchTypes
+                self.tableView.reloadData()
+            }
+            
+            // ...
+        }) { (error) in
+            print(error.localizedDescription)
+        }
         
         tableView.reloadData()
     }
