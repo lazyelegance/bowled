@@ -15,6 +15,16 @@ protocol MenuControllerDelegate {
     func menuItemSelected(item: String, type: MenuItemType)
 }
 
+struct MatchType {
+    let name: String
+    let isInternational: Bool
+    
+    init(name: String, isInternational: Bool) {
+        self.name = name
+        self.isInternational = isInternational
+    }
+}
+
 class SideMenuController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var mainMenu: HMSegmentedControl!
@@ -27,8 +37,11 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
 
     @IBOutlet weak var intOnlyView: View!
     
+    var intOnlySwitch: Switch!
+    
     var delegate: MenuControllerDelegate?
     
+    var matchTypes = [MatchType]()
     var matches = [Match]()
     var teamsList = [String]()
     var seriesList = [String]()
@@ -78,8 +91,10 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         intOnlyLabel.textColor = mainColor
         intOnlyLabel.font = RobotoFont.medium
         
-        let intOnlySwitch = Switch(state: .on, style: .dark, size: .medium)
+        intOnlySwitch = Switch(state: .off, style: .dark, size: .medium)
         intOnlySwitch.buttonOnColor = mainColor
+        
+        intOnlySwitch.addTarget(self, action: #selector(switchStateChanged), for: .valueChanged)
         
         intOnlyView.layout.center(intOnlySwitch)
         
@@ -90,7 +105,12 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         
-        if isFullmenu { prepareTableViewData() }
+        
+        
+        if isFullmenu {
+            getMatchTypes()
+            prepareTableViewData()
+        }
         
         
         
@@ -107,46 +127,58 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         
         //teamsList = Array(Set([matches.map{ $0.hometeamName }, matches.map{ $0.awayteamName }].flatMap { $0 }))
         // fixed teams
+        teamsList.removeAll()
         for type in teamTypes {
-            teamsList = [teamsList, teams.filter { $0.teamType == type }.map { $0.name }].flatMap { $0 }
-        }
-        
-        seriesList = Array(Set(matches.map{ $0.seriesName }))
-        
-        matchTypeList = [ "Test", "One-Day International", "T20 International", "BBL","WBBL","First-Class"] //Array(Set(matches.map{ $0.cmsMatchType }))
-        
-    
-        let ref = FIRDatabase.database().reference()
-        
-        print(ref)
-        
-        ref.child("matchTypes").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            
-            if let matchTypes = value?.allValues as? [String] {
-                self.matchTypeList = matchTypes
-                self.tableView.reloadData()
+            if intOnlySwitch.on {
+                teamsList = [teamsList, teams.filter { $0.teamType == type && $0.isInternational == true }.map { $0.name }].flatMap { $0 }
+            } else {
+                teamsList = [teamsList, teams.filter { $0.teamType == type }.map { $0.name }].flatMap { $0 }
             }
             
-            // ...
-        }) { (error) in
-            print(error.localizedDescription)
+        }
+        
+        //Series
+        if intOnlySwitch.on {
+            seriesList = Array(Set(matches.filter { $0.isInternational == true }.map{ $0.seriesName }))
+        } else {
+            seriesList = Array(Set(matches.map{ $0.seriesName }))
+        }
+        
+        
+        //match types
+        matchTypeList.removeAll()
+    
+        if intOnlySwitch.on {
+            matchTypeList = matchTypes.filter { $0.isInternational == true }.map{$0.name}.flatMap { $0 }
+        } else {
+            matchTypeList = matchTypes.map{$0.name}.flatMap { $0 }
+        }
+        
+        if matchTypeList.count == 0 {
+            matchTypeList = intOnlySwitch.on ? [ "Test", "One-Day International", "T20 International"] : [ "Test", "One-Day International", "T20 International", "BBL","WBBL","First-Class"]
         }
         
         tableView.reloadData()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func getMatchTypes() {
+        let ref = FIRDatabase.database().reference()
+        
+        ref.child("matchTypes").observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            
+            if let types = value?.allValues as? [[String: AnyObject]] {
+                for type in types {
+                    self.matchTypes.append(MatchType(name: type["name"] as! String, isInternational: type["isInternational"] as! Bool))
+                }
+                self.prepareTableViewData()
+            }
+        }) { (error) in
+            print(error.localizedDescription)
+        }
     }
-    */
+    
     
     func mainMenuChangedValue(_ mainMenu: HMSegmentedControl) {
         
@@ -156,6 +188,10 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         
         
         tableView.reloadData()
+    }
+    
+    func switchStateChanged() {
+        prepareTableViewData()
     }
     
  
