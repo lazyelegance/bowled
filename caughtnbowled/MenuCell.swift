@@ -13,13 +13,14 @@ class MenuCell: UITableViewCell {
 
     @IBOutlet weak var menuLabel: UILabel!
     
-    
+    @IBOutlet weak var menuView: PulseView!
     
     var menuItem: String? {
         didSet {
             if menuItem != nil {
                 menuLabel.text = menuItem
-                menuLabel.textColor = txtColor
+                menuView.backgroundColor = mainColor
+                menuLabel.textColor = secondaryColor
                 menuLabel.font = RobotoFont.medium
                 self.contentView.backgroundColor = Color.clear
                 self.backgroundColor = Color.clear

@@ -73,7 +73,7 @@ class TopMatchCell: UITableViewCell {
                 self.backgroundColor = Color.clear
                 self.contentView.backgroundColor = mainColor
                 pulseView.backgroundColor = secondaryColor
-                
+                                
             }
         }
     }

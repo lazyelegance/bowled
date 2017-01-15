@@ -97,6 +97,11 @@ struct Match {
     
     static func topMatchesFromAPI(results: [AnyObject], internationalOnly: Bool) -> ([Match],[Match],[Match],[Match]) {
         let (liveMatches, completedMatches, upcomingMatches) = self.filterMatchesFromAPI(results: results, internationalOnly: internationalOnly)
+        
+        print(liveMatches.count)
+        print(completedMatches.count)
+        print(upcomingMatches.count)
+        
         var topMatches = [Match]()
         
         if liveMatches.count > 0 {
@@ -172,13 +177,6 @@ struct Match {
             }
         }
         
-        for l in liveMatches {
-            print("\(l.hometeamName)..\(l.awayteamName)..\(l.isInternational)..\(l.cmsMatchType)..\(l.startDateTimeUTCDateFormat)")
-        }
-        
-        for l in self.sortMatches(matches: liveMatches) {
-            print("\(l.hometeamName)..\(l.awayteamName)..\(l.isInternational)..\(l.cmsMatchType)..\(l.startDateTimeUTCDateFormat)")
-        }
         
         return (self.sortMatches(matches: liveMatches), self.sortMatches(matches: completedMatches), self.sortMatches(matches: upcomingMatches))
     }
@@ -197,7 +195,6 @@ struct Match {
     
     static func matchesFromAPI(results: [AnyObject]) -> [Match] {
         var matches = [Match]()
-        
         
         if results.count > 0 {
             
@@ -218,6 +215,7 @@ struct Match {
                     default:
                         break
                     }
+                    
                     
                     newMatch.matchName = matchName
                     newMatch.matchTypeId = matchTypeId
