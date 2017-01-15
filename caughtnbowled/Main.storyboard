@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D17a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vpZ-xy-mq0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D25a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vpZ-xy-mq0">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -548,8 +548,8 @@
                                                                 <constraint firstItem="QxP-xj-OQk" firstAttribute="top" secondItem="OHp-1V-JrY" secondAttribute="top" constant="5" id="wHl-89-3ui"/>
                                                             </constraints>
                                                             <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
-                                                                    <color key="value" red="0.19698071479797363" green="0.2770063579082489" blue="0.36018550395965576" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="2"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
@@ -562,6 +562,7 @@
                                                 </tableViewCellContentView>
                                                 <connections>
                                                     <outlet property="menuLabel" destination="QxP-xj-OQk" id="tzg-X1-yr1"/>
+                                                    <outlet property="menuView" destination="OHp-1V-JrY" id="48i-6L-SLj"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>

@@ -97,7 +97,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         
         //prepareTitle
         titleLabel.font = RobotoFont.bold
-        titleLabel.textColor = txtColor
+        titleLabel.textColor = secondaryColor
         titleLabel.text = titleText
 
         

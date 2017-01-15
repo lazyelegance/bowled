@@ -28,9 +28,9 @@ var resoursesURL = URL(string: resoursesURLString)
 
 let clearcolor = Color.clear
 let whitecolor = Color.white
-let mainColor = UIColor(red: 44.0/255.0, green: 62.0/255.0, blue: 80.0/255.0, alpha: 1.0) //Color.indigo.base
-let secondaryColor = UIColor(red: 52.0/255.0, green: 73.0/255.0, blue: 94.0/255.0, alpha: 1.0)//rgba(52, 73, 94,1.0)// Color.darkGray
-let txtColor = Color.white
+let mainColor = UIColor(red: 68.0/255.0, green: 108.0/255.0, blue: 179.0/255.0, alpha: 1.0) //UIColor(red: 44.0/255.0, green: 62.0/255.0, blue: 80.0/255.0, alpha: 1.0) //Color.indigo.base
+let secondaryColor = Color.white //UIColor(red: 52.0/255.0, green: 73.0/255.0, blue: 94.0/255.0, alpha: 1.0)//rgba(52, 73, 94,1.0)// Color.darkGray
+let txtColor = mainColor
 
 // MARK: - Swift Loader
 

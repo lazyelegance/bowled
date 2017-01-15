@@ -68,7 +68,7 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         mainMenu.frame = CGRect(x: 10, y: 0, width: headerView.frame.width - 20, height: 30)
         mainMenu.autoresizingMask =  UIViewAutoresizing()
         
-        mainMenu.selectionIndicatorColor = txtColor
+        mainMenu.selectionIndicatorColor = secondaryColor
         mainMenu.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleDynamic
         mainMenu.layer.cornerRadius = 2
         
@@ -78,8 +78,8 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         
         mainMenu.backgroundColor = mainColor
        
-        mainMenu.titleTextAttributes = [NSForegroundColorAttributeName: txtColor, NSFontAttributeName: RobotoFont.regular]
-        mainMenu.selectedTitleTextAttributes = [NSForegroundColorAttributeName: txtColor, NSFontAttributeName: RobotoFont.regular]
+        mainMenu.titleTextAttributes = [NSForegroundColorAttributeName: secondaryColor, NSFontAttributeName: RobotoFont.regular]
+        mainMenu.selectedTitleTextAttributes = [NSForegroundColorAttributeName: secondaryColor, NSFontAttributeName: RobotoFont.regular]
         mainMenu.selectedSegmentIndex = 0
         
         headerView.backgroundColor = mainColor
@@ -92,6 +92,12 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         intOnlyLabel.font = RobotoFont.medium
         
         intOnlySwitch = Switch(state: .off, style: .dark, size: .medium)
+        
+        if let showInternationalOnly = defaults?.bool(forKey: "showInternationalOnly") {
+            intOnlySwitch.setOn(on: showInternationalOnly, animated: false)
+        }
+        
+        
         intOnlySwitch.buttonOnColor = mainColor
         
         intOnlySwitch.addTarget(self, action: #selector(switchStateChanged), for: .valueChanged)
@@ -181,16 +187,13 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     func mainMenuChangedValue(_ mainMenu: HMSegmentedControl) {
-        
-//        if let selectedMenuTypeIndex = menuTypes[mainMenu.selectedSegmentIndex].to_Index() as? Int {
-//            defaults?.set(selectedMenuTypeIndex, forKey: "selectedMenuTypeIndex")
-//        }
-        
-        
         tableView.reloadData()
     }
     
     func switchStateChanged() {
+        
+        defaults?.set(intOnlySwitch.on, forKey: "showInternationalOnly")
+        
         prepareTableViewData()
     }
     
