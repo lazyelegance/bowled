@@ -56,13 +56,8 @@ class TopMatchCell: UITableViewCell {
                     teamOneScore.textColor = txtColor
                     teamOneScore.font = RobotoFont.light
                 }
-        
                 
-                
-                
-                
-                
-                series.text = match?.seriesName.uppercased()
+                series.text = (match?.seriesName.uppercased())! + " | " + (match?.matchName.uppercased())!
                 matchStatus.text = match?.status == .upcoming ? match?.relStartDate.uppercased() : match?.matchSummaryText.uppercased()
                 
                 series.font = RobotoFont.light(with: 10)
