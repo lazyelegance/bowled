@@ -13,6 +13,7 @@ import FirebaseDatabase
 
 protocol MenuControllerDelegate {
     func menuItemSelected(item: String, type: MenuItemType)
+    func updateFavoriteTeam()
 }
 
 struct MatchType {
@@ -87,7 +88,9 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         headerView.addSubview(mainMenu)
         
         
-        intOnlyLabel.text = "Show International Matches Only?"
+        intOnlyView.alpha = isFullmenu ? 1 : 0
+        intOnlyLabel.text = isFullmenu ? "Show International Matches Only?" : "Select Favorite Team"
+        
         intOnlyLabel.textColor = mainColor
         intOnlyLabel.font = RobotoFont.medium
         
@@ -237,7 +240,15 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
                 break
             }
         } else {
-            menuCell.menuItem = teams.filter({ $0.teamType == teamTypes[mainMenu.selectedSegmentIndex]})[indexPath.row].name
+            
+            let favTeam = teams.filter({ $0.teamType == teamTypes[mainMenu.selectedSegmentIndex]})[indexPath.row].name
+            menuCell.menuItem = favTeam
+            if let defaultsFavTeam = defaults?.value(forKey: "favoriteTeamName") as? String {
+                if favTeam == defaultsFavTeam {
+                    menuCell.menuLabel.font = RobotoFont.bold
+                }
+            }
+            
         }
         
         return menuCell
