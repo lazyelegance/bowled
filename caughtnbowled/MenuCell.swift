@@ -21,7 +21,7 @@ class MenuCell: UITableViewCell {
                 menuLabel.text = menuItem
                 menuView.backgroundColor = mainColor
                 menuLabel.textColor = secondaryColor
-                menuLabel.font = RobotoFont.medium
+                menuLabel.font = RobotoFont.regular
                 self.contentView.backgroundColor = Color.clear
                 self.backgroundColor = Color.clear
                 self.selectionStyle = .none

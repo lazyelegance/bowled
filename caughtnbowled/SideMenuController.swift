@@ -240,7 +240,15 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
                 break
             }
         } else {
-            menuCell.menuItem = teams.filter({ $0.teamType == teamTypes[mainMenu.selectedSegmentIndex]})[indexPath.row].name
+            
+            let favTeam = teams.filter({ $0.teamType == teamTypes[mainMenu.selectedSegmentIndex]})[indexPath.row].name
+            menuCell.menuItem = favTeam
+            if let defaultsFavTeam = defaults?.value(forKey: "favoriteTeamName") as? String {
+                if favTeam == defaultsFavTeam {
+                    menuCell.menuLabel.font = RobotoFont.bold
+                }
+            }
+            
         }
         
         return menuCell
