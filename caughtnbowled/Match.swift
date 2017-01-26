@@ -67,13 +67,13 @@ struct Match {
     var isMatchAbandoned: Bool = false
     
     var winningTeamId: NSNumber = 999999
-    var startDateTimeUTCDateFormat = Date()
-    var startDateTimeUTC = String()
-    var startDateTimeLocalDateFormat = Date()
-    var startDateTimeLocal = String()
-    var endDateTime = String()
-    var localStartDate = String()
-    var localStartTime = String()
+
+    var startDate = Date()
+    var startDateString = String()
+    
+    //to do
+    //var endDateTime = String()
+
     var hasRelDate = false
     var relStartDate = String()
     var relStartDateHuman = String()
@@ -176,18 +176,27 @@ struct Match {
                 }
             }
         }
-        
-        
+
+        for m in self.sortMatches(matches: liveMatches) {
+            print("\(m.status)..\(m.startDate)..\(m.isInternational)..\(m.hometeamName)..\(m.awayteamName)..\(m.cmsMatchType)")
+        }
+        for m in self.sortMatches(matches: completedMatches) {
+            print("\(m.status)..\(m.startDate)..\(m.isInternational)..\(m.hometeamName)..\(m.awayteamName)..\(m.cmsMatchType)")
+        }
+        for m in self.sortMatches(matches: upcomingMatches) {
+            print("\(m.status)..\(m.matchId)..\(m.startDate)..\(m.isInternational)..\(m.hometeamName)..\(m.awayteamName)..\(m.cmsMatchType)")
+        }
+  
         return (self.sortMatches(matches: liveMatches), self.sortMatches(matches: completedMatches), self.sortMatches(matches: upcomingMatches))
     }
     
     
     static func sortMatches(matches: [Match]) -> [Match] {
-        return matches.sorted { (item1, item2) -> Bool in
-            if item1.startDateTimeUTCDateFormat.compare(item2.startDateTimeUTCDateFormat as Date) == ComparisonResult.orderedDescending {
-                return true || item1.isInternational && !item2.isInternational
+        return matches.sorted { (matchA, matchB) -> Bool in
+            if matchA.startDate.compare(matchB.startDate) == ComparisonResult.orderedAscending {
+                return true || matchA.isInternational && !matchB.isInternational
             } else {
-                return false || item1.isInternational && !item2.isInternational
+                return false || matchA.isInternational && !matchB.isInternational
             }
         }
     }
@@ -360,90 +369,62 @@ struct Match {
                     }
                     
                     //start time
-                    if let startTime = result["startDateTime"] as? String {
-                        let startTimeArray = startTime.components(separatedBy: CharacterSet(charactersIn: "TZ"))
-                        let startT = startTimeArray[0] + " " + startTimeArray[1]
-                        let inFormat = DateFormatter()
-                        inFormat.timeZone = TimeZone(abbreviation: "UTC")
-                        inFormat.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    if let startDateTimeString = result["startDateTime"] as? String {
+                        let calendar = Calendar.current
+                        let date = Date()
+                        let units: Set<Calendar.Component> = [.day, .year, .hour, .minute ,.month]
                         
-                        let startUTC = inFormat.date(from: startT)
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
                         
-                        
-                        
-                        newMatch.startDateTimeUTCDateFormat = startUTC!
-                        newMatch.startDateTimeUTC = startT
-                        
-                        let timzoneSeconds = NSTimeZone.local.secondsFromGMT()
-                        
-                        newMatch.startDateTimeLocalDateFormat = newMatch.startDateTimeUTCDateFormat.addingTimeInterval(Double(timzoneSeconds))
-                        
-                        
-                        
-                        newMatch.endDateTime  = result["endDateTime"] as! String
-                        
-                        
-                        
-                        let outFormat = DateFormatter()
-                        outFormat.timeZone = TimeZone.autoupdatingCurrent
-                        outFormat.dateFormat = "MMMM d, yyyy, hh:mm aaa"
-                        newMatch.startDateTimeLocal = outFormat.string(from: startUTC!)
-                        
-                        
-                        
-                        let diffDateComponents = (Calendar.current as NSCalendar).components([NSCalendar.Unit.year, NSCalendar.Unit.month, NSCalendar.Unit.day, NSCalendar.Unit.hour, NSCalendar.Unit.minute, NSCalendar.Unit.second], from: Date() , to: newMatch.startDateTimeUTCDateFormat, options: NSCalendar.Options.init(rawValue: 0))
-                        
-                        let currentDateComponents = (Calendar.current as NSCalendar).components([NSCalendar.Unit.year, NSCalendar.Unit.month, NSCalendar.Unit.day, NSCalendar.Unit.hour, NSCalendar.Unit.minute, NSCalendar.Unit.second], from: Date() )
-                        let matchStartDateComponents = (Calendar.current as NSCalendar).components([NSCalendar.Unit.year, NSCalendar.Unit.month, NSCalendar.Unit.day, NSCalendar.Unit.hour, NSCalendar.Unit.minute, NSCalendar.Unit.second], from: newMatch.startDateTimeUTCDateFormat)
-                        
-                        
-                        
-                        if diffDateComponents.year == 0 && diffDateComponents.month == 0 {
-                            if diffDateComponents.day == 0 {
-                                if currentDateComponents.day == matchStartDateComponents.day {
-                                    if diffDateComponents.hour == 0 && diffDateComponents.minute! >= 0 {
+                        if let startDate = dateFormatter.date(from: startDateTimeString) as Date? {
+                            
+                            newMatch.startDate = startDate.addingTimeInterval(Double(NSTimeZone.local.secondsFromGMT()))
+                            let dateDifference = calendar.dateComponents(units, from: date, to: newMatch.startDate)
+                            let startDateComponents = calendar.dateComponents(units, from: newMatch.startDate)
+                            let currentDateComponents = calendar.dateComponents(units, from: date)
+                            
+                            let outFormatter = DateFormatter()
+                            outFormatter.dateStyle = .long
+                            outFormatter.timeStyle = .medium
+                            
+                            newMatch.startDateString = outFormatter.string(from: newMatch.startDate)
+                            newMatch.relStartDate = "starts \(newMatch.startDateString)"
+
+                            if dateDifference.year == 0 && dateDifference.month == 0 {
+                                if dateDifference.day == 0 {
+                                    if currentDateComponents.day == startDateComponents.day {
+                                        if dateDifference.hour == 0 && dateDifference.minute! >= 0 {
+                                            newMatch.hasRelDate = true
+                                            newMatch.relStartDate = "Starts in \(dateDifference.minute) Minutes"
+                                        } else {
+                                            newMatch.hasRelDate = true
+                                            outFormatter.dateStyle = .none
+                                            newMatch.relStartDate = "Starts Today, \(outFormatter.string(from: newMatch.startDate))"
+                                        }
+                                    } else if currentDateComponents.day! + 1 == startDateComponents.day! {
                                         newMatch.hasRelDate = true
-                                        newMatch.relStartDate = "Starts in \(diffDateComponents.minute) Minutes"
-                                    } else {
+                                        newMatch.relStartDate = "Starts Tomorrow, \(outFormatter.string(from: newMatch.startDate))"
+                                    } else if currentDateComponents.day! - 1 == startDateComponents.day! {
                                         newMatch.hasRelDate = true
-                                        outFormat.dateFormat = "hh:mm aaa"
-                                        newMatch.relStartDate = "STARTS Today, \(outFormat.string(from: startUTC!))"
+                                        newMatch.relStartDate = "Started Yesterday, \(outFormatter.string(from: newMatch.startDate))"
                                     }
-                                } else if currentDateComponents.day! + 1 == matchStartDateComponents.day! {
+                                } else if dateDifference.day == 1 {
+                                    if currentDateComponents.day! + 1 == startDateComponents.day! {
+                                        newMatch.hasRelDate = true
+                                        newMatch.relStartDate = "Starts Tomorrow, \(outFormatter.string(from: newMatch.startDate))"
+                                    } else if currentDateComponents.day! + 1 == startDateComponents.day! {
+                                        newMatch.hasRelDate = true
+                                        newMatch.relStartDate = "Started Yesterday, \(outFormatter.string(from: newMatch.startDate))"
+                                    }
+                                } else if newMatch.isMultiDay && dateDifference.day! <= -10 {
                                     newMatch.hasRelDate = true
-                                    outFormat.dateFormat = "MMM d hh:mm aaa"
-                                    newMatch.relStartDate = "STARTS Tomorrow, \(outFormat.string(from: startUTC!))"
-                                } else if currentDateComponents.day! - 1 == matchStartDateComponents.day! {
-                                    newMatch.hasRelDate = true
-                                    outFormat.dateFormat = "MMM d hh:mm aaa"
-                                    newMatch.relStartDate = "STARTed YESterday, \(outFormat.string(from: startUTC!))"
+                                    newMatch.relStartDate = outFormatter.string(from: newMatch.startDate)
                                 }
-                            } else if diffDateComponents.day == 1 {
-                                if currentDateComponents.day! + 1 == matchStartDateComponents.day! {
-                                    newMatch.hasRelDate = true
-                                    outFormat.dateFormat = "MMM d hh:mm aaa"
-                                    newMatch.relStartDate = "STARTS Tomorrow, \(outFormat.string(from: startUTC!))"
-                                } else if currentDateComponents.day! + 1 == matchStartDateComponents.day! {
-                                    newMatch.hasRelDate = true
-                                    outFormat.dateFormat = "MMM d hh:mm aaa"
-                                    newMatch.relStartDate = "STARTed YESterday, \(outFormat.string(from: startUTC!))"
-                                }
-                                
-                            } else if newMatch.isMultiDay && diffDateComponents.day! >=  -10 {
-                                newMatch.hasRelDate = true
-                                outFormat.dateFormat = "MMM d hh:mm aaa"
-                                newMatch.relStartDate = "\(outFormat.string(from: startUTC!))"
                             }
                         }
+
                     }
-                    
-                    //Local -- not used
-                    if let localStartDate  = result["localStartDate"] as? String, let localStartTime  = result["localStartTime"] as? String{
-                        newMatch.localStartDate = localStartDate
-                        newMatch.localStartTime = localStartTime
-                    }
-                    
-                    
                     matches.append(newMatch)
                 }
             }
