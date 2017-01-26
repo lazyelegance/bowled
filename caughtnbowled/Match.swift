@@ -177,16 +177,6 @@ struct Match {
             }
         }
 
-        for m in self.sortMatches(matches: liveMatches) {
-            print("\(m.status)..\(m.startDate)..\(m.isInternational)..\(m.hometeamName)..\(m.awayteamName)..\(m.cmsMatchType)")
-        }
-        for m in self.sortMatches(matches: completedMatches) {
-            print("\(m.status)..\(m.startDate)..\(m.isInternational)..\(m.hometeamName)..\(m.awayteamName)..\(m.cmsMatchType)")
-        }
-        for m in self.sortMatches(matches: upcomingMatches) {
-            print("\(m.status)..\(m.matchId)..\(m.startDate)..\(m.isInternational)..\(m.hometeamName)..\(m.awayteamName)..\(m.cmsMatchType)")
-        }
-  
         return (self.sortMatches(matches: liveMatches), self.sortMatches(matches: completedMatches), self.sortMatches(matches: upcomingMatches))
     }
     
