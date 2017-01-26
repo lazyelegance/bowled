@@ -86,10 +86,10 @@ struct Player {
                 if let battingStyle = item["battingStyle"] as? String { player.battingStyle = battingStyle }
                 if let bowlingStyle = item["bowlingStyle"] as? String { player.bowlingStyle = bowlingStyle }
                 if let playerType = item["playerType"] as? String { player.playerType = playerType }
-                if let dob = item["dob"] as? String { player.dateOfBirth = dob }
-                if let testDebutDate = item["testDebutDate"] as? String { player.testDebutDate = testDebutDate }
-                if let odiDebutDate = item["odiDebutDate"] as? String { player.odiDebutDate = odiDebutDate }
-                if let t20DebutDate = item["t20DebutDate"] as? String { player.t20DebutDate = t20DebutDate }
+                if let dob = item["dob"] as? String { player.dateOfBirth = formatDate(inDate: dob) }
+                if let testDebutDate = item["testDebutDate"] as? String { player.testDebutDate = formatDate(inDate: testDebutDate) }
+                if let odiDebutDate = item["odiDebutDate"] as? String { player.odiDebutDate = formatDate(inDate: odiDebutDate) }
+                if let t20DebutDate = item["t20DebutDate"] as? String { player.t20DebutDate = formatDate(inDate: t20DebutDate) }
                 if let height = item["height"] as? String { player.height = height }
                 if let bio = item["bio"] as? String { player.bio = bio.stripHTML().decodeHTML().uppercased() }
                 if let didYouKnow = item["didYouKnow"] as? String { player.didYouKnow = didYouKnow.stripHTML().decodeHTML().uppercased() }
@@ -110,4 +110,21 @@ struct Player {
         return players
         
     }
+    
+    static func formatDate(inDate: String) -> String {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        let outFormatter = DateFormatter()
+        outFormatter.dateStyle = .long
+        outFormatter.timeStyle = .none
+        
+        if let outDate = dateFormatter.date(from: inDate) as Date? {
+            return outFormatter.string(from: outDate)
+        } else {
+            return inDate
+        }
+    }
+    
+    
 }
