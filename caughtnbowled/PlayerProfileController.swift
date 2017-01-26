@@ -63,7 +63,24 @@ class PlayerProfileController: UIViewController {
         playerBio.textColor = mainColor
         
         if player?.didYouKnow != nil {
-            playerBio.text = playerBio.text + " " + (player?.didYouKnow)!
+            playerBio.text = playerBio.text + (player?.didYouKnow)! + "\n"
+        }
+        
+        if player?.dateOfBirth != nil {
+           
+            playerBio.text = playerBio.text + "\nBorn: \((player?.dateOfBirth)!)".uppercased()
+            
+        }
+        if player?.testDebutDate != nil {
+            
+            playerBio.text = playerBio.text + "\nTest Debut: \((player?.testDebutDate)!)".uppercased()
+            
+        }
+        if player?.odiDebutDate != nil {
+            playerBio.text = playerBio.text + "\nODI Debut: \((player?.odiDebutDate)!)".uppercased()
+        }
+        if player?.t20DebutDate != nil {
+            playerBio.text = playerBio.text + "\nT20I Debut: \((player?.t20DebutDate)!)".uppercased()
         }
         
         let menuTitles = ["BIO"]
