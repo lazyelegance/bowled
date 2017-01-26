@@ -102,8 +102,6 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //TEST
-        print(match)
         
         kHeaderHeight = match.status == .completed ? 350 : 250
         
@@ -114,7 +112,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
 //        headerView.frame.size.height = kHeaderHeight
         menuPlaceholder.backgroundColor = mainColor
         headerView.backgroundColor = mainColor
-        pulseView.backgroundColor = txtColor
+        pulseView.backgroundColor = secondaryColor
         
 //        tableView.tableHeaderView = nil
 //        tableView.addSubview(headerView)
@@ -205,7 +203,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         matchStatus.text = match.matchSummaryText.uppercased()
 
         
-        series.textColor = txtColor
+        series.textColor = secondaryColor
         series.font = RobotoFont.regular(with: 10)
         
         matchStatus.font = RobotoFont.regular
@@ -225,7 +223,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         awardsViewHeight.constant = 0
         
         battingView.backgroundColor = mainColor
-        matchStatus.textColor = txtColor
+        matchStatus.textColor = secondaryColor
         
         // MOVE FROM HERE
         bowledServiceAPI = BowledService(delegate: self)
@@ -282,16 +280,14 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                 motmStats.text = ""
             }
             
-            motmTitle.textColor = txtColor
+            motmTitle.textColor = secondaryColor
             motmTitle.font = RobotoFont.light
-            
-//            motmName.textColor = txtColor
-//            motmName.font = RobotoFont.bold
-            motmNameBtn.titleLabel?.textColor = txtColor
-            motmNameBtn.titleColor = txtColor
+ 
+            motmNameBtn.titleLabel?.textColor = secondaryColor
+            motmNameBtn.titleColor = secondaryColor
             motmNameBtn.titleLabel?.font = RobotoFont.bold
             
-            motmStats.textColor = txtColor
+            motmStats.textColor = secondaryColor
             motmStats.font = RobotoFont.medium
             
             motmTitle.alpha = 1
@@ -492,7 +488,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                     batsmanRecordCell.isUserInteractionEnabled = false
                 } else if let batsman = self.scorecard.innings[self.subMenu.selectedSegmentIndex].batsmen[indexPath.row - 1] as Batsman? {
                     batsmanRecordCell.batsman = batsman
-                    batsmanRecordCell.contentView.backgroundColor = secondaryColor
+                    batsmanRecordCell.contentView.backgroundColor = mainColor
                     if let player = players[batsman.id] {
                         batsmanRecordCell.name.text = player.scorecardName
                     }
@@ -510,7 +506,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                     bowlerRecordCell.isUserInteractionEnabled = false
                 } else if let bowler = self.scorecard.innings[self.subMenu.selectedSegmentIndex].bowlers[indexPath.row - 1] as Bowler? {
                     bowlerRecordCell.bowler = bowler
-                    bowlerRecordCell.contentView.backgroundColor = secondaryColor
+                    bowlerRecordCell.contentView.backgroundColor = mainColor
                     if let player = players[bowler.id] {
                         bowlerRecordCell.name.text = player.scorecardName
                     }

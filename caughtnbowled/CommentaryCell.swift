@@ -30,8 +30,8 @@ class CommentaryCell: UITableViewCell {
                 commentLabel.text = comment?.text
                 
                 
-                deliveryNumber.textColor = txtColor
-                commentLabel.textColor = txtColor
+                deliveryNumber.textColor = secondaryColor
+                commentLabel.textColor = secondaryColor
                 
                 deliveryNumber.font = RobotoFont.medium(with: 15)
                 commentLabel.font = RobotoFont.regular(with: 15)
@@ -43,7 +43,7 @@ class CommentaryCell: UITableViewCell {
                 resultWidth.constant = 40
                 
                 resultLabel.backgroundColor = secondaryColor
-                resultLabel.textColor = txtColor
+                resultLabel.textColor = mainColor
                 resultLabel.layer.masksToBounds = true
                 resultLabel.layer.cornerRadius = 5
                 
@@ -54,10 +54,10 @@ class CommentaryCell: UITableViewCell {
                 }
                 
                 if comment?.ballType == "NonBallComment" {
-                    commentLabel.font = RobotoFont.regular
+                    commentLabel.font = RobotoFont.bold
                     deliverNumberWidth.constant = 0
                     resultWidth.constant = 0
-                    self.contentView.backgroundColor = secondaryColor
+                    self.contentView.backgroundColor = mainColor
                 }
             }
         }
