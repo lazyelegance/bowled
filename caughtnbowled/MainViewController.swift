@@ -17,6 +17,14 @@ protocol MainViewControllerDelegate {
     func collapseSidePanels()
 }
 
+enum MainViewControllerType {
+    case main
+    case series
+    case team
+    case fixtures
+    case favorite
+}
+
 
 class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDelegate, UITableViewDataSource, MenuControllerDelegate {
     
@@ -24,14 +32,15 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     
     var bowledServiceAPI: BowledService!
-
+    
     var liveMatches = [Match]()
     var completedMatches = [Match]()
     var upcomingMatches = [Match]()
     var topMatches = [Match]()
     var matchList = [Match]()
+    var allMatches = [Match]()
     
-    var isMainViewController = true
+    var mainViewControllerType = MainViewControllerType.main
     
     var menuExpanded = false
     var delegate: MainViewControllerDelegate?
@@ -44,6 +53,8 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     var titleText = ""
     
     @IBOutlet weak var menuButton: FlatButton!
+    
+    @IBOutlet weak var editButton: FlatButton!
     
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -68,17 +79,11 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         topMatchesTableView.backgroundColor = mainColor
         topMatchesTableView.estimatedRowHeight = 100
         topMatchesTableView.rowHeight = UITableViewAutomaticDimension
-//        topMatchesTableView.indi
-//        self.updateTableHeight()
-        
-        
-        
-        
-        
+
         //get match list
         bowledServiceAPI = BowledService(delegate: self)
         
-        if isMainViewController {
+        if mainViewControllerType == .main {
             swiftLoaderConfig.size = 100
             swiftLoaderConfig.spinnerColor = whitecolor
             swiftLoaderConfig.backgroundColor = clearcolor
@@ -86,14 +91,15 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
             swiftLoaderConfig.foregroundAlpha = 0
             SwiftLoader.setConfig(swiftLoaderConfig)
             SwiftLoader.show(true)
-            
             getMatchData()
         }
         
         
         //prepare menu
         
-        menuButton.image = isMainViewController ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "ic_arrow_back_white")
+        menuButton.image = mainViewControllerType == .main ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "ic_arrow_back_white")
+        
+        editButton.alpha = mainViewControllerType == .favorite ? 1 : 0
         
         //prepareTitle
         titleLabel.font = RobotoFont.bold
@@ -105,9 +111,13 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        
         topMatchesTableView.reloadData()
-        if isMainViewController {
+        
+        if mainViewControllerType == .main {
             timer = Timer.scheduledTimer( timeInterval: 120, target: self, selector: #selector(getMatchData), userInfo: nil, repeats: true)
+        } else if mainViewControllerType == .favorite {
+            updateFavoriteTeam()
         }
         
     }
@@ -126,7 +136,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     
     func getMatchData() {
-        print("....getting match data...")
+
         switch Reach().connectionStatus() {
         case .online :
             bowledServiceAPI.getMatches()
@@ -163,37 +173,23 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     
     func showSelectedSeries() {
-        showSelectedMatches(selectionTitle: matchList.filter { $0.status == .dummy_series }[0].seriesName, matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.seriesId == matchList.filter { $0.status == .dummy_series }[0].seriesId })
+        showSelectedMatches(selectionTitle: matchList.filter { $0.status == .dummy_series }[0].seriesName, matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.seriesId == matchList.filter { $0.status == .dummy_series }[0].seriesId }, selectionType: .series)
     }
     
-    func showFavoriteTeamMatches() {
-        if let fav_team = defaults?.value(forKey: "favoriteTeamName") as? String {
-            showSelectedMatches(selectionTitle: fav_team, matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.hometeamName == fav_team || $0.awayteamName == fav_team })
-        } else if let favortiteTeamMenu = self.storyboard?.instantiateViewController(withIdentifier: "SideMenuController") as? SideMenuController {
-            favortiteTeamMenu.isFullmenu = false
-            self.navigationController?.pushViewController(favortiteTeamMenu, animated: true)
-        }
 
-    }
     
     func showFixtures() {
-        showSelectedMatches(selectionTitle: "FIXTURES", matchList: self.upcomingMatches)
+        showSelectedMatches(selectionTitle: "FIXTURES", matchList: self.upcomingMatches, selectionType: .fixtures)
     }
     
     
-    func showSelectedMatches(selectionTitle: String, matchList: [Match]) {
+    func showSelectedMatches(selectionTitle: String, matchList: [Match], selectionType: MainViewControllerType) {
         if let selectedMatchListVC = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
-            selectedMatchListVC.isMainViewController = false
+            selectedMatchListVC.mainViewControllerType = selectionType
             selectedMatchListVC.matchList = matchList
             selectedMatchListVC.titleText = selectionTitle
             self.navigationController?.pushViewController(selectedMatchListVC, animated: true)
         }
-        
-//        self.matchList = matchList
-//        self.titleLabel.text = selectionTitle
-//        self.isMainViewController = false
-//        menuButton.image = isMainViewController ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "ic_arrow_back_white")
-//        self.topMatchesTableView.reloadData()
     }
     
     func toSelectFavoriteTeam() {
@@ -202,7 +198,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
 
  
     @IBAction func menuButtonAction(_ sender: Any) {
-        if isMainViewController {
+        if mainViewControllerType == .main {
             if !menuExpanded {
                 menuButton.image = UIImage(named: "cm_arrow_upward_white")
                 menuExpanded = !menuExpanded
@@ -213,14 +209,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
                 delegate?.collapseSidePanels()
             }
         } else {
-//            self.matchList = self.topMatches
-//            self.titleLabel.text = ""
-//            self.isMainViewController = true
-//            menuButton.image = isMainViewController ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "ic_arrow_back_white")
-//            self.topMatchesTableView.reloadData()
-//            
             self.navigationController?.popViewController(animated: true)
-            
         }
         
     }
@@ -234,23 +223,54 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         
         switch type {
         case .team:
-            print(allMatches.filter { $0.hometeamName == item || $0.awayteamName == item }.count)
-            showSelectedMatches(selectionTitle: item.uppercased(), matchList: allMatches.filter { $0.hometeamName == item || $0.awayteamName == item })
+            showSelectedMatches(selectionTitle: item.uppercased(), matchList: allMatches.filter { $0.hometeamName == item || $0.awayteamName == item }, selectionType: .team)
         case .series:
-            print(allMatches.filter { $0.seriesName == item }.count)
-            showSelectedMatches(selectionTitle: item.uppercased(), matchList: allMatches.filter { $0.seriesName == item })
+            showSelectedMatches(selectionTitle: item.uppercased(), matchList: allMatches.filter { $0.seriesName == item }, selectionType: .series)
         case .matchType:
-            showSelectedMatches(selectionTitle: item.uppercased(), matchList: allMatches.filter { $0.cmsMatchType == item })
+            showSelectedMatches(selectionTitle: item.uppercased(), matchList: allMatches.filter { $0.cmsMatchType == item }, selectionType: .team)
         case .favoriteTeam:
-            topMatchesTableView.reloadData()
+            showFavoriteTeamMatches()
         default:
             break
         }
         delegate?.collapseSidePanels()
     }
     
-
+    // MARK: - Handle Favorite Team
     
+    func showFavoriteTeamMatches() {
+        if let fav_team = defaults?.value(forKey: "favoriteTeamName") as? String {
+            if let selectedMatchListVC = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
+                selectedMatchListVC.mainViewControllerType = .favorite
+                selectedMatchListVC.matchList = [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.hometeamName == fav_team || $0.awayteamName == fav_team }
+                selectedMatchListVC.titleText = fav_team
+                selectedMatchListVC.allMatches = [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }
+                self.navigationController?.pushViewController(selectedMatchListVC, animated: true)
+            }
+        } else if let favortiteTeamMenu = self.storyboard?.instantiateViewController(withIdentifier: "SideMenuController") as? SideMenuController {
+            favortiteTeamMenu.isFullmenu = false
+            self.navigationController?.pushViewController(favortiteTeamMenu, animated: true)
+//            delegate?.toggleLeftPanel(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }, showFullMenu: false)
+        }
+    }
+    
+    func updateFavoriteTeam() {
+        
+        if let fav_team = defaults?.value(forKey: "favoriteTeamName") as? String {
+            matchList = allMatches.filter { $0.hometeamName == fav_team || $0.awayteamName == fav_team }
+            titleText = fav_team
+            titleLabel.text = titleText
+            topMatchesTableView.reloadData()
+        }
+    }
+    
+    @IBAction func editFavorite(_ sender: Any) {
+        if let favortiteTeamMenu = self.storyboard?.instantiateViewController(withIdentifier: "SideMenuController") as? SideMenuController {
+            favortiteTeamMenu.isFullmenu = false
+            self.navigationController?.pushViewController(favortiteTeamMenu, animated: true)
+        }
+        
+    }
     
     // MARK: - TableView
     
@@ -308,10 +328,6 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
             if let resultsArray = results as? [AnyObject] {
                 DispatchQueue.main.async(execute: {
                     (self.topMatches, self.liveMatches, self.completedMatches, self.upcomingMatches) = Match.topMatchesFromAPI(results: resultsArray, internationalOnly: false)
-//                    self.prepareTableViewData()
-//                    self.prepareMenuData()
-//                    print(self.liveMatches.count)
-//                    self.updateTableHeight()
                     self.matchList = self.topMatches
                     self.topMatchesTableView.reloadData()
                     SwiftLoader.hide()
