@@ -18,10 +18,10 @@ struct Player {
     var battingStyle = ""
     var bowlingStyle = ""
     var playerType = String()
-    var dateOfBirth = String()
-    var testDebutDate = String()
-    var odiDebutDate = String()
-    var t20DebutDate = String()
+    var dateOfBirth: String?
+    var testDebutDate: String?
+    var odiDebutDate: String?
+    var t20DebutDate: String?
     var bio = String()
     var didYouKnow = String()
     var height = String()
@@ -48,8 +48,7 @@ struct Player {
         
         var homeTeamPlayers = [NSNumber: Player]()
         var awayTeamPlayers = [NSNumber: Player]()
-        
-        print("..getting match players... 2 ..")
+
     
         if let homeTeam = results["homeTeam"] as? [String: AnyObject] {
             if let playersArray = homeTeam["players"] as? [[String: AnyObject]], let team = homeTeam["team"] as? [String: AnyObject] {
@@ -111,7 +110,7 @@ struct Player {
         
     }
     
-    static func formatDate(inDate: String) -> String {
+    static func formatDate(inDate: String) -> String? {
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
@@ -119,12 +118,11 @@ struct Player {
         outFormatter.dateStyle = .long
         outFormatter.timeStyle = .none
         
-        if let outDate = dateFormatter.date(from: inDate) as Date? {
-            return outFormatter.string(from: outDate)
-        } else {
-            return inDate
+        if inDate != "0001-01-01T00:00:00Z" {
+            if let outDate = dateFormatter.date(from: inDate) as Date? {
+                return outFormatter.string(from: outDate)
+            }
         }
+        return nil
     }
-    
-    
 }
