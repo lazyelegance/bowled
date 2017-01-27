@@ -168,7 +168,9 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         
-        series.text = match.seriesName.uppercased() + " | " + match.matchName.uppercased()
+        series.text = match.seriesName.uppercased() + "\n" + match.matchName.uppercased()
+        series.font = RobotoFont.regular
+        series.textColor = secondaryColor
         
     
         if match.status == .live {
@@ -201,10 +203,6 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         matchStatus.text = match.matchSummaryText.uppercased()
-
-        
-        series.textColor = secondaryColor
-        series.font = RobotoFont.regular(with: 10)
         
         matchStatus.font = RobotoFont.regular
         

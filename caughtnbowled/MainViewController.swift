@@ -102,7 +102,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         editButton.alpha = mainViewControllerType == .favorite ? 1 : 0
         
         //prepareTitle
-        titleLabel.font = RobotoFont.bold
+        titleLabel.font = RobotoFont.regular
         titleLabel.textColor = secondaryColor
         titleLabel.text = titleText
 
