@@ -168,7 +168,9 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         
-        series.text = match.seriesName.uppercased() + " | " + match.matchName.uppercased()
+        series.text = match.seriesName.uppercased() + "\n" + match.matchName.uppercased()
+        series.font = RobotoFont.regular
+        series.textColor = secondaryColor
         
     
         if match.status == .live {
@@ -201,10 +203,6 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         matchStatus.text = match.matchSummaryText.uppercased()
-
-        
-        series.textColor = secondaryColor
-        series.font = RobotoFont.regular(with: 10)
         
         matchStatus.font = RobotoFont.regular
         
@@ -299,84 +297,6 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
             
         } else if match.status == .live && scorecard != nil && commentary != nil {
             self.awardsViewHeight.constant = 0
-
-            
-//            strikerName.textColor = txtColor
-//            strikerSR.textColor = txtColor
-//            strikerSixes.textColor = txtColor
-//            strikerFours.textColor = txtColor
-//            strikerRunsScored.textColor = txtColor
-//            strikerBallsFaced.textColor = txtColor
-//            
-//            nonstrikerName.textColor = txtColor
-//            nonstrikerSR.textColor = txtColor
-//            nonstrikerSixes.textColor = txtColor
-//            nonstrikerFours.textColor = txtColor
-//            nonstrikerRunsScored.textColor = txtColor
-//            nonstrikerBallsFaced.textColor = txtColor
-//            
-//            bowlerName.textColor = txtColor
-//            bowlerOvers.textColor = txtColor
-//            bowlerRunsConceded.textColor = txtColor
-//            bowlerWickets.textColor = txtColor
-//            bowlerMaidens.textColor = txtColor
-//            bowlerEcomony.textColor = txtColor
-//            
-//            strikerName.font = RobotoFont.bold
-//            strikerSR.font = RobotoFont.medium
-//            strikerSixes.font = RobotoFont.medium
-//            strikerFours.font = RobotoFont.medium
-//            strikerRunsScored.font = RobotoFont.bold
-//            strikerBallsFaced.font = RobotoFont.medium
-//            
-//            nonstrikerName.font = RobotoFont.bold
-//            nonstrikerSR.font = RobotoFont.medium
-//            nonstrikerSixes.font = RobotoFont.medium
-//            nonstrikerFours.font = RobotoFont.medium
-//            nonstrikerRunsScored.font = RobotoFont.bold
-//            nonstrikerBallsFaced.font = RobotoFont.medium
-//            
-//            bowlerName.font = RobotoFont.bold
-//            bowlerOvers.font = RobotoFont.medium
-//            bowlerRunsConceded.font = RobotoFont.medium
-//            bowlerWickets.font = RobotoFont.bold
-//            bowlerMaidens.font = RobotoFont.medium
-//            bowlerEcomony.font = RobotoFont.medium
-            
-            
-            
-//            let comment = commentary.commentaryInnings[0].commentaryOvers.map { $0.deliveries }.flatMap { $0 }.map { $0.comments }.flatMap { $0 }[0]
-//            let batsmen = scorecard.innings.map { $0.batsmen }.flatMap { $0 }
-//            let bowlers = scorecard.innings.map { $0.bowlers }.flatMap { $0 }
-//            
-//            for batsman in batsmen {
-//                if comment.batsmanId == batsman.id {
-//                    strikerName.text = batsman.name
-//                    strikerBallsFaced.text = batsman.ballsFaced
-//                    strikerRunsScored.text = batsman.runsScored
-//                    strikerFours.text = batsman.foursHit
-//                    strikerSixes.text = batsman.sixesHit
-//                    strikerSR.text = batsman.strikeRate
-//                } else if comment.offStrikeBatsmanId == batsman.id {
-//                    nonstrikerName.text = batsman.name
-//                    nonstrikerBallsFaced.text = batsman.ballsFaced
-//                    nonstrikerRunsScored.text = batsman.runsScored
-//                    nonstrikerFours.text = batsman.foursHit
-//                    nonstrikerSixes.text = batsman.sixesHit
-//                    nonstrikerSR.text = batsman.strikeRate
-//                }
-//            }
-//            
-//            for bowler in bowlers {
-//                if comment.bowlerId == bowler.id {
-//                    bowlerName.text = bowler.name
-//                    bowlerOvers.text = bowler.overs
-//                    bowlerEcomony.text = bowler.ecomony
-//                    bowlerMaidens.text = bowler.maidens
-//                    bowlerWickets.text = bowler.wickets
-//                    bowlerRunsConceded.text = bowler.runsConceded
-//                }
-//            }
         }
         
     
