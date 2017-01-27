@@ -296,6 +296,33 @@
                                                     <outlet property="teamTwoName" destination="vjO-6A-Ktn" id="0Wb-fB-W08"/>
                                                 </connections>
                                             </tableViewCell>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="dummyCell" rowHeight="150" id="Eyw-9p-Ehx" customClass="CellWithText" customModule="Bowled" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="506" width="375" height="150"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Eyw-9p-Ehx" id="EUT-Uv-GHO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FAZ-dL-3yg">
+                                                            <rect key="frame" x="13" y="13" width="349" height="124"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="FAZ-dL-3yg" firstAttribute="top" secondItem="EUT-Uv-GHO" secondAttribute="topMargin" constant="5" id="23a-kG-P2v"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="FAZ-dL-3yg" secondAttribute="trailing" constant="5" id="KHJ-3l-txC"/>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="FAZ-dL-3yg" secondAttribute="bottom" constant="5" id="f7F-Z7-wjd"/>
+                                                        <constraint firstItem="FAZ-dL-3yg" firstAttribute="leading" secondItem="EUT-Uv-GHO" secondAttribute="leadingMargin" constant="5" id="ib8-gE-Pii"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <outlet property="dummyTextLabel" destination="FAZ-dL-3yg" id="uki-NV-JRI"/>
+                                                </connections>
+                                            </tableViewCell>
                                         </prototypes>
                                         <connections>
                                             <outlet property="dataSource" destination="hnT-YD-JPJ" id="r6h-dr-x5g"/>
@@ -352,7 +379,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xpk-Wb-1lj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2284" y="-823"/>
+            <point key="canvasLocation" x="-2284" y="-823.53823088455783"/>
         </scene>
         <!--Player Profile Controller-->
         <scene sceneID="XjC-6L-8zJ">

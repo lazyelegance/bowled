@@ -275,10 +275,21 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     // MARK: - TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if matchList.count == 0 {
+            return 1
+        }
         return matchList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if matchList.count == 0 {
+            let dummyCell = topMatchesTableView.dequeueReusableCell(withIdentifier: "dummyCell", for: indexPath) as! CellWithText
+            dummyCell.dummyTextLabel.text = mainViewControllerType == .main ? "updating .. ".uppercased() : "no recent matches".uppercased() //
+            dummyCell.dummyTextLabel.textColor = secondaryColor
+            dummyCell.dummyTextLabel.font = RobotoFont.regular
+            return dummyCell
+        }
         
         if let match = matchList[indexPath.row] as Match? {
             
@@ -310,8 +321,6 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
                 cell.match = match
                 return cell
             }
-            
-            
         }
         
         // :o
