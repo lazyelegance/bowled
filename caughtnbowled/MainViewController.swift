@@ -274,13 +274,43 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     // MARK: - TableView
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
+        if mainViewControllerType == .main {
+            return 1
+        } else {
+            if Array(Set((matchList.map { $0.seriesName }))).count == 0 {
+                return 1
+            } else {
+                return Array(Set((matchList.map { $0.seriesName }))).count
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return matchList.count
+        if mainViewControllerType == .main {
+            return matchList.count
+        } else if matchList.count == 0 {
+            return 1
+        } else {
+            
+            return matchList.filter{ $0.seriesName == Array(Set((matchList.map { $0.seriesName })))[section] }.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let match = matchList[indexPath.row] as Match? {
+        if matchList.count == 0 && mainViewControllerType != .main {
+            let dummyCell = topMatchesTableView.dequeueReusableCell(withIdentifier: "dummyCell", for: indexPath) as! CellWithText
+            dummyCell.dummyTextLabel.text =  "no recent matches".uppercased() //
+            dummyCell.dummyTextLabel.textColor = secondaryColor
+            dummyCell.dummyTextLabel.font = RobotoFont.regular
+            return dummyCell
+        }
+        
+        let newMatchList = mainViewControllerType == .main ? matchList : matchList.filter{ $0.seriesName == Array(Set((matchList.map { $0.seriesName })))[indexPath.section] }
+        
+        if let match = newMatchList[indexPath.row] as Match? {
             
             if match.status == .dummy_series {
                 let dummyCell = topMatchesTableView.dequeueReusableCell(withIdentifier: "dummyMatchCell", for: indexPath) as! CellWithButtons
@@ -310,15 +340,19 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
                 cell.match = match
                 return cell
             }
-            
-            
         }
         
         // :o
         return topMatchesTableView.dequeueReusableCell(withIdentifier: "topMatchCell", for: indexPath)
     }
     
-    
+//    may its better without section header 😮
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        if mainViewControllerType != .main && Array(Set((matchList.map { $0.seriesName }))).count != 0 {
+//            return Array(Set((matchList.map { $0.seriesName })))[section]
+//        }
+//        return nil
+//    }
 
     // MARK: - Bowled Service
     

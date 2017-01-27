@@ -62,7 +62,7 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
             return (a == "INTERNATIONAL")
         })
         
-        let menuTitles = isFullmenu ? ["TEAMS", "SERIES'", "MATCH TYPES", "SETTINGS"] : teamTypes //Array(Set(teams.map { $0.teamType }.flatMap { $0 }))
+        let menuTitles = isFullmenu ? ["TEAMS", "SERIES'", "MATCH TYPES"] : teamTypes //Array(Set(teams.map { $0.teamType }.flatMap { $0 }))
         mainMenu = HMSegmentedControl(sectionTitles: menuTitles)
         
         mainMenu.addTarget(self, action: #selector(SideMenuController.mainMenuChangedValue(_:)), for: UIControlEvents.valueChanged)
