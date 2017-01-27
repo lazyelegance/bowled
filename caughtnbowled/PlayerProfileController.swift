@@ -47,7 +47,7 @@ class PlayerProfileController: UIViewController {
 //        player = vKohli
         
         playerImage.imageURL = player?.imageURL
-        playerImage.backgroundColor = secondaryColor
+        playerImage.backgroundColor = mainColor
         playerImage.layer.borderColor = Color.white.cgColor
         playerImage.layer.borderWidth = 3
         playerImage.layer.cornerRadius = 5
