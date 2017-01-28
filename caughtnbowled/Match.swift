@@ -69,6 +69,7 @@ struct Match {
     var winningTeamId: NSNumber = 999999
 
     var startDate = Date()
+    var startDateMonth = String()
     var startDateString = String()
     
     //to do
@@ -377,6 +378,11 @@ struct Match {
                             let outFormatter = DateFormatter()
                             outFormatter.dateStyle = .long
                             outFormatter.timeStyle = .medium
+                            
+                            let monthFormatter = DateFormatter()
+                            monthFormatter.dateFormat = "MMMM yyyy"
+                            
+                            newMatch.startDateMonth = monthFormatter.string(from: newMatch.startDate)
                             
                             newMatch.startDateString = outFormatter.string(from: newMatch.startDate)
                             newMatch.relStartDate = "starts \(newMatch.startDateString)"
