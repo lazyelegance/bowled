@@ -169,7 +169,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         series.text = match.seriesName.uppercased() + "\n" + match.matchName.uppercased()
-        series.font = RobotoFont.regular
+        series.font = RobotoFont.regular(with: 14)
         series.textColor = secondaryColor
         
     
@@ -446,6 +446,16 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
             let partnershipCell = tableView.dequeueReusableCell(withIdentifier: "partnershipCell", for: indexPath) as! PartnershipCell
             
             partnershipCell.partnership = self.partnerships[NSNumber(integerLiteral: (self.subMenu.sectionTitles.count - self.subMenu.selectedSegmentIndex))]?[indexPath.row]
+            
+        
+            
+            if let player = players[(partnershipCell.partnership?.firstBatsman.id)!] {
+                partnershipCell.fbName.text = player.scorecardName
+            }
+            
+            if let player = players[(partnershipCell.partnership?.secondBatsman.id)!] {
+                partnershipCell.sbName.text = player.scorecardName
+            }
             
             return partnershipCell
         } else if self.subMenu != nil && self.mainMenu.selectedSegmentIndex == 3 {
