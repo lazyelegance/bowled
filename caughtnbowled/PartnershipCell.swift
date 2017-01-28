@@ -35,7 +35,7 @@ class PartnershipCell: UITableViewCell {
             if partnership != nil {
                 totalRuns.text = "\(partnership!.totalRuns)"
                 totalRuns.textColor = secondaryColor
-                totalRuns.font = RobotoFont.bold(with: 25)
+                totalRuns.font = RobotoFont.bold(with: 30)
                 
                 fbName.text = partnership?.firstBatsman.name
                 fbRunsScored.text = "(" + (partnership?.firstBatsman.ballsFaced)! + ") " + (partnership?.firstBatsman.runsScored)!
