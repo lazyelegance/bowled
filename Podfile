@@ -10,6 +10,7 @@ target 'Bowled' do
   pod 'Charts'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'Firebase/Crash'
 
   target 'BowledTests' do
     inherit! :search_paths

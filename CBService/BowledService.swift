@@ -121,7 +121,6 @@ open class BowledService {
     
     open func getMatchPlayers(_ matchid: NSNumber, seriesid: NSNumber ) {
         
-        print("..getting match players... 1 ..")
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
         let httpHeaderValue = dictionary?.object(forKey: "X-Mashape-Key") as! String

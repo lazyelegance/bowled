@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         switch Reach().connectionStatus() {
             case .online :
                 FIRApp.configure()
+
             default:
                 break
         }
