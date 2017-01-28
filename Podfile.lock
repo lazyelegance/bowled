@@ -5,6 +5,9 @@ PODS:
   - Firebase/Core (3.9.0):
     - FirebaseAnalytics (= 3.5.1)
     - FirebaseCore (= 3.4.4)
+  - Firebase/Crash (3.9.0):
+    - Firebase/Core
+    - FirebaseCrash (= 1.1.3)
   - Firebase/Database (3.9.0):
     - Firebase/Core
     - FirebaseDatabase (= 3.1.0)
@@ -17,6 +20,13 @@ PODS:
   - FirebaseCore (3.4.4):
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseCrash (1.1.3):
+    - FirebaseAnalytics (~> 3.4)
+    - FirebaseInstanceID (~> 1.0)
+    - GoogleInterchangeUtilities (~> 1.2)
+    - GoogleSymbolUtilities (~> 1.1)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseDatabase (3.1.0):
     - FirebaseAnalytics (~> 3.4)
   - FirebaseInstanceID (1.0.8)
@@ -24,6 +34,8 @@ PODS:
     - GoogleSymbolUtilities (~> 1.1)
   - GoogleSymbolUtilities (1.1.2)
   - GoogleToolboxForMac/Defines (2.1.0)
+  - GoogleToolboxForMac/Logger (2.1.0):
+    - GoogleToolboxForMac/Defines (= 2.1.0)
   - GoogleToolboxForMac/NSData+zlib (2.1.0):
     - GoogleToolboxForMac/Defines (= 2.1.0)
   - Material (2.3.7):
@@ -33,6 +45,7 @@ PODS:
 DEPENDENCIES:
   - Charts
   - Firebase/Core
+  - Firebase/Crash
   - Firebase/Database
   - Material (~> 2.0)
 
@@ -41,6 +54,7 @@ SPEC CHECKSUMS:
   Firebase: ff77ffb77b317c3720fef57a60e9335cebf962e6
   FirebaseAnalytics: 6e58fc9b397664369ac7617fb0ba93fab6ba7b5b
   FirebaseCore: d0ed25f27b6f9158eccc439f1be6f92e81207e28
+  FirebaseCrash: bafd94cd9c9373b6eb8c631705680e891f54bdb3
   FirebaseDatabase: 3ebb2edb6007c3f0f87b248f3fa212bde56a1468
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
@@ -48,6 +62,6 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   Material: b0aa466c72931f6dc3854a059e086455f4103a28
 
-PODFILE CHECKSUM: 82582056fbb848a64ce79c9dc90691215e69873c
+PODFILE CHECKSUM: c07446b4da6150a7b1304bfb28721472146d87bd
 
 COCOAPODS: 1.2.0.beta.1
