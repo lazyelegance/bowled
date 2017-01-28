@@ -66,6 +66,8 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     @IBOutlet weak var topTableViewHeightConstraint: NSLayoutConstraint!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -92,6 +94,8 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
             SwiftLoader.setConfig(swiftLoaderConfig)
             SwiftLoader.show(true)
             getMatchData()
+        } else if mainViewControllerType == .fixtures {
+            prepareFixtures()
         }
         
         
@@ -106,7 +110,6 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         titleLabel.textColor = secondaryColor
         titleLabel.text = titleText
 
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -154,6 +157,10 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     func prepareView() {
         
         topMatchesTableView.backgroundColor = Color.clear
+        
+    }
+    
+    func prepareFixtures() {
         
     }
 
@@ -273,11 +280,15 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     }
     
     // MARK: - TableView
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
+        
+        print(mainViewControllerType)
         
         if mainViewControllerType == .main {
             return 1
+        } else if mainViewControllerType == .fixtures {
+            return 1 //Array(Set((matchList.map { $0.startDateMonth }))).count // 2.0.1 😬
         } else {
             if Array(Set((matchList.map { $0.seriesName }))).count == 0 {
                 return 1
@@ -290,10 +301,11 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if mainViewControllerType == .main {
             return matchList.count
+        } else if mainViewControllerType == .fixtures {
+            return matchList.count //matchList.filter{ $0.startDateMonth == Array(Set((matchList.map { $0.startDateMonth })))[section] }.count // 2.0.1 😬
         } else if matchList.count == 0 {
             return 1
         } else {
-            
             return matchList.filter{ $0.seriesName == Array(Set((matchList.map { $0.seriesName })))[section] }.count
         }
     }
@@ -308,10 +320,14 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
             return dummyCell
         }
         
-        let newMatchList = mainViewControllerType == .main ? matchList : matchList.filter{ $0.seriesName == Array(Set((matchList.map { $0.seriesName })))[indexPath.section] }
+        
+        
+        var newMatchList = mainViewControllerType == .main || mainViewControllerType == .fixtures ? matchList :  matchList.filter{ $0.seriesName == Array(Set((matchList.map { $0.seriesName })))[indexPath.section] } //mainViewControllerType == .fixtures ? matchList.filter{ $0.startDateMonth == Array(Set((matchList.map { $0.startDateMonth })))[indexPath.section] } : // 2.0.1 😬
+        
         
         if let match = newMatchList[indexPath.row] as Match? {
             
+            print("\(match.matchId)----\(match.startDate)----\(match.hometeamName)----\(match.awayteamName)----\(match.isInternational)----\(match.startDateMonth)")
             if match.status == .dummy_series {
                 let dummyCell = topMatchesTableView.dequeueReusableCell(withIdentifier: "dummyMatchCell", for: indexPath) as! CellWithButtons
 
@@ -346,10 +362,25 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         return topMatchesTableView.dequeueReusableCell(withIdentifier: "topMatchCell", for: indexPath)
     }
     
-//    may its better without section header 😮
+//    may be it's better without section header 😮
+//    may be it is not 🙄
+//    nope 😕
+//    2.0.1 😬
 //    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 //        if mainViewControllerType != .main && Array(Set((matchList.map { $0.seriesName }))).count != 0 {
-//            return Array(Set((matchList.map { $0.seriesName })))[section]
+//            return mainViewControllerType == .fixtures ? Array(Set((matchList.map { $0.startDateMonth })))[section] : Array(Set((matchList.map { $0.seriesName })))[section]
+//        }
+//        return nil
+//    }
+//    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        if mainViewControllerType != .main && Array(Set((matchList.map { $0.seriesName }))).count != 0 {
+//            var sectionTitle = UILabel()
+//            sectionTitle.text = mainViewControllerType == .fixtures ? Array(Set((matchList.map { $0.startDateMonth })))[section] : Array(Set((matchList.map { $0.seriesName })))[section]
+//            sectionTitle.textColor = secondaryColor
+//            sectionTitle.font = RobotoFont.light
+//            
+//            return sectionTitle
 //        }
 //        return nil
 //    }
