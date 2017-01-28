@@ -531,7 +531,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     //MARK: - Refresh/get Scorecard
     
     func refreshLiveMatchData() {
-        print("refreshLiveMatchData")
+
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         switch Reach().connectionStatus() {
         case .online :
@@ -546,7 +546,6 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     
 
     func updateLiveMatchData(matches: [Match]) {
-        print("updateLiveMatchData")
         for m in matches {
             if match.matchId == m.matchId {
                 self.match = m
@@ -563,7 +562,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                 if let resultsDictionary = results as? NSDictionary {
                     let scorecardfromresults = Scorecard.scorecardFromAPI(resultsDictionary)
                     self.scorecard = scorecardfromresults
-//                    print(self.scorecard.innings[0])
+
                     DispatchQueue.main.async(execute: {
                         
                         if self.scorecard.status != "no results" {
@@ -612,8 +611,6 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         } else if requestType == .matchPlayers {
             DispatchQueue.global(priority: DispatchQueue.GlobalQueuePriority.default).async(execute: {
                 if let resultsDictionary = results as? [String: AnyObject] {
-//                    self.players
-                    print("..getting match players... 1.5 ..")
                     self.players = Player.playersFromResults(results: resultsDictionary)
                     
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -686,7 +683,6 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
 //                    var battingWheel = BattingWheel.battingWheelFromResults
                     let bw = BattingWheel.battingWheelFromResults(matchId: matchId!, inningsId: inningsId!, results: results as! NSDictionary)
                     self.battingWheel[bw.inningsId] = bw
-                    print(self.battingWheel.keys)
                     DispatchQueue.main.async(execute: {
                         //                        self.updateMatchDetails()
                         //Loading.stop()

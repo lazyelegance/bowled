@@ -370,7 +370,9 @@ struct Match {
                         
                         if let startDate = dateFormatter.date(from: startDateTimeString) as Date? {
                             
-                            newMatch.startDate = startDate.addingTimeInterval(Double(NSTimeZone.local.secondsFromGMT()))
+                            let secondsFromGMT = Double(NSTimeZone.local.secondsFromGMT())
+                            
+                            newMatch.startDate = startDate.addingTimeInterval(secondsFromGMT)
                             let dateDifference = calendar.dateComponents(units, from: date, to: newMatch.startDate)
                             let startDateComponents = calendar.dateComponents(units, from: newMatch.startDate)
                             let currentDateComponents = calendar.dateComponents(units, from: date)
@@ -379,12 +381,16 @@ struct Match {
                             outFormatter.dateStyle = .long
                             outFormatter.timeStyle = .medium
                             
+                            outFormatter.timeZone = TimeZone.current
+                            
+                        
+                            
                             let monthFormatter = DateFormatter()
                             monthFormatter.dateFormat = "MMMM yyyy"
+ 
+                            newMatch.startDateMonth = monthFormatter.string(from: newMatch.startDate.addingTimeInterval(-secondsFromGMT))
                             
-                            newMatch.startDateMonth = monthFormatter.string(from: newMatch.startDate)
-                            
-                            newMatch.startDateString = outFormatter.string(from: newMatch.startDate)
+                            newMatch.startDateString = outFormatter.string(from: newMatch.startDate.addingTimeInterval(-secondsFromGMT))
                             newMatch.relStartDate = "starts \(newMatch.startDateString)"
 
                             if dateDifference.year == 0 && dateDifference.month == 0 {
@@ -392,30 +398,31 @@ struct Match {
                                     if currentDateComponents.day == startDateComponents.day {
                                         if dateDifference.hour == 0 && dateDifference.minute! >= 0 {
                                             newMatch.hasRelDate = true
+                                            outFormatter.dateStyle = .none
                                             newMatch.relStartDate = "Starts in \(dateDifference.minute) Minutes"
                                         } else {
                                             newMatch.hasRelDate = true
-                                            outFormatter.dateStyle = .none
-                                            newMatch.relStartDate = "Starts Today, \(outFormatter.string(from: newMatch.startDate))"
+                                            
+                                            newMatch.relStartDate = "Starts Today, \(outFormatter.string(from: newMatch.startDate.addingTimeInterval(-secondsFromGMT)))"
                                         }
                                     } else if currentDateComponents.day! + 1 == startDateComponents.day! {
                                         newMatch.hasRelDate = true
-                                        newMatch.relStartDate = "Starts Tomorrow, \(outFormatter.string(from: newMatch.startDate))"
+                                        newMatch.relStartDate = "Starts Tomorrow, \(outFormatter.string(from: newMatch.startDate.addingTimeInterval(-secondsFromGMT)))"
                                     } else if currentDateComponents.day! - 1 == startDateComponents.day! {
                                         newMatch.hasRelDate = true
-                                        newMatch.relStartDate = "Started Yesterday, \(outFormatter.string(from: newMatch.startDate))"
+                                        newMatch.relStartDate = "Started Yesterday, \(outFormatter.string(from: newMatch.startDate.addingTimeInterval(-secondsFromGMT)))"
                                     }
                                 } else if dateDifference.day == 1 {
                                     if currentDateComponents.day! + 1 == startDateComponents.day! {
                                         newMatch.hasRelDate = true
-                                        newMatch.relStartDate = "Starts Tomorrow, \(outFormatter.string(from: newMatch.startDate))"
+                                        newMatch.relStartDate = "Starts Tomorrow, \(outFormatter.string(from: newMatch.startDate.addingTimeInterval(-secondsFromGMT)))"
                                     } else if currentDateComponents.day! + 1 == startDateComponents.day! {
                                         newMatch.hasRelDate = true
-                                        newMatch.relStartDate = "Started Yesterday, \(outFormatter.string(from: newMatch.startDate))"
+                                        newMatch.relStartDate = "Started Yesterday, \(outFormatter.string(from: newMatch.startDate.addingTimeInterval(-secondsFromGMT)))"
                                     }
                                 } else if newMatch.isMultiDay && dateDifference.day! <= -10 {
                                     newMatch.hasRelDate = true
-                                    newMatch.relStartDate = outFormatter.string(from: newMatch.startDate)
+                                    newMatch.relStartDate = outFormatter.string(from: newMatch.startDate.addingTimeInterval(-secondsFromGMT))
                                 }
                             }
                         }

@@ -283,7 +283,6 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
 
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        print(mainViewControllerType)
         
         if mainViewControllerType == .main {
             return 1
@@ -327,7 +326,6 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         
         if let match = newMatchList[indexPath.row] as Match? {
             
-            print("\(match.matchId)----\(match.startDate)----\(match.hometeamName)----\(match.awayteamName)----\(match.isInternational)----\(match.startDateMonth)")
             if match.status == .dummy_series {
                 let dummyCell = topMatchesTableView.dequeueReusableCell(withIdentifier: "dummyMatchCell", for: indexPath) as! CellWithButtons
 
