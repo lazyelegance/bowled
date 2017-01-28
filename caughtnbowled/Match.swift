@@ -98,11 +98,7 @@ struct Match {
     
     static func topMatchesFromAPI(results: [AnyObject], internationalOnly: Bool) -> ([Match],[Match],[Match],[Match]) {
         let (liveMatches, completedMatches, upcomingMatches) = self.filterMatchesFromAPI(results: results, internationalOnly: internationalOnly)
-        
-        print(liveMatches.count)
-        print(completedMatches.count)
-        print(upcomingMatches.count)
-        
+    
         var topMatches = [Match]()
         
         if liveMatches.count > 0 {
@@ -110,11 +106,9 @@ struct Match {
         }
         
         if completedMatches.count > 0 {
-//            var i = 0
             for match in completedMatches {
                 if match.hasRelDate {
                     topMatches.append(match)
-//                    i += 1
                 }
             }
         }

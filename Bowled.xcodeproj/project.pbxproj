@@ -242,13 +242,13 @@
 		63C0B1A91BD4C26900CE198A /* team95.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = team95.png; sourceTree = "<group>"; };
 		63C0EA501DE5757F00BAC52E /* Partnership.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Partnership.swift; sourceTree = "<group>"; };
 		63C0EA521DE60BFF00BAC52E /* PartnershipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartnershipCell.swift; sourceTree = "<group>"; };
-		63CCC2011E0AB45A007C2B66 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		63CCC2011E0AB45A007C2B66 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = ../String.swift; sourceTree = "<group>"; };
 		63CCC6C21E219507008FA36E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		63D259F41E01DC2200B3F9D1 /* BattingWheel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattingWheel.swift; sourceTree = "<group>"; };
 		63D259F61E01DC3500B3F9D1 /* Shot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shot.swift; sourceTree = "<group>"; };
 		63D259F81E02B70F00B3F9D1 /* WheelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WheelView.swift; sourceTree = "<group>"; };
 		63D50BD91DF9528500894C2E /* MenuCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
-		63EDF8FA1BD8EA2600634500 /* ColorsAndConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorsAndConstants.swift; sourceTree = "<group>"; };
+		63EDF8FA1BD8EA2600634500 /* ColorsAndConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorsAndConstants.swift; path = ../ColorsAndConstants.swift; sourceTree = "<group>"; };
 		63F5DC5C1CB651DD00E0DDDD /* bowled_white_20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bowled_white_20.png; sourceTree = "<group>"; };
 		63F5DC5E1CB6532700E0DDDD /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		63F5DC601CB65A9B00E0DDDD /* medium_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medium_placeholder.png; sourceTree = "<group>"; };
@@ -345,11 +345,9 @@
 				6359AA3B1DDC40F900C3F943 /* BowledService */,
 				6359AA481DDC40F900C3F943 /* BowledServiceTests */,
 				6384CD691C57F9EE00041956 /* Frameworks */,
-				63EDF8FA1BD8EA2600634500 /* ColorsAndConstants.swift */,
-				63CCC2011E0AB45A007C2B66 /* String.swift */,
-				6308465D1BD0B1A50019AD3F /* caughtnbowled */,
-				630846721BD0B1A60019AD3F /* caughtnbowledTests */,
-				6308467D1BD0B1A60019AD3F /* caughtnbowledUITests */,
+				6308465D1BD0B1A50019AD3F /* bowled */,
+				630846721BD0B1A60019AD3F /* bowledTests */,
+				6308467D1BD0B1A60019AD3F /* bowledUITests */,
 				6308465C1BD0B1A50019AD3F /* Products */,
 				36504E15289E34EAAA455A98 /* Pods */,
 			);
@@ -367,55 +365,40 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6308465D1BD0B1A50019AD3F /* caughtnbowled */ = {
+		6308465D1BD0B1A50019AD3F /* bowled */ = {
 			isa = PBXGroup;
 			children = (
-				63970B9B1DDC37F800D171C9 /* Main.storyboard */,
-				63D259F81E02B70F00B3F9D1 /* WheelView.swift */,
-				6379F3D01DE1844F0024FC07 /* MatchHeaderView.swift */,
-				63786EC61C980786007EF12D /* AsyncImageView.h */,
-				63786EC71C980786007EF12D /* AsyncImageView.m */,
-				63173E061CAD0E3500F614F6 /* SwiftLoader.swift */,
 				6308465E1BD0B1A60019AD3F /* AppDelegate.swift */,
-				630846B71BD0BBE50019AD3F /* ContainerViewController.swift */,
-				63970B971DDC34C200D171C9 /* FilterMenuController.swift */,
-				63970B951DDC34A100D171C9 /* SideMenuController.swift */,
-				63970B931DDC342C00D171C9 /* MainViewController.swift */,
-				6379F3D41DE188A10024FC07 /* MatchDetailController.swift */,
-				63B3CC971E00195800993520 /* PlayerProfileController.swift */,
+				6390539C1E3D618500002FCE /* storyboards */,
+				639053991E3D611D00002FCE /* utils */,
+				6390539A1E3D613800002FCE /* app */,
 				6379F3E31DE2D7EF0024FC07 /* TableCells */,
 				6379F3E21DE2D7D50024FC07 /* Structs */,
-				6307423E1DDDCF71008F86CF /* BowledTableViewController.swift */,
-				6379F3D81DE193FA0024FC07 /* Reach.swift */,
-				6327B3101BD29DC800B0EB23 /* HMSegmentedControl.m */,
-				6327B3111BD29DC800B0EB23 /* HMSegmentedControl.h */,
 				63C0B1A81BD4BEE000CE198A /* images */,
 				630846651BD0B1A60019AD3F /* Assets.xcassets */,
-				630846671BD0B1A60019AD3F /* LaunchScreen.storyboard */,
-				6308466A1BD0B1A60019AD3F /* Info.plist */,
-				63CCC6C21E219507008FA36E /* GoogleService-Info.plist */,
-				639053971E3C5B8700002FCE /* caught-1d629-firebase-crashreporting-riqjb-73a40d8ab2.json */,
-				63970B911DDC33F100D171C9 /* keys.plist */,
-				630846C11BD1B3880019AD3F /* caughtnbowled-Bridging-Header.h */,
+				6390539B1E3D617300002FCE /* config */,
 			);
+			name = bowled;
 			path = caughtnbowled;
 			sourceTree = "<group>";
 		};
-		630846721BD0B1A60019AD3F /* caughtnbowledTests */ = {
+		630846721BD0B1A60019AD3F /* bowledTests */ = {
 			isa = PBXGroup;
 			children = (
 				630846731BD0B1A60019AD3F /* caughtnbowledTests.swift */,
 				630846751BD0B1A60019AD3F /* Info.plist */,
 			);
+			name = bowledTests;
 			path = caughtnbowledTests;
 			sourceTree = "<group>";
 		};
-		6308467D1BD0B1A60019AD3F /* caughtnbowledUITests */ = {
+		6308467D1BD0B1A60019AD3F /* bowledUITests */ = {
 			isa = PBXGroup;
 			children = (
 				6308467E1BD0B1A60019AD3F /* caughtnbowledUITests.swift */,
 				630846801BD0B1A60019AD3F /* Info.plist */,
 			);
+			name = bowledUITests;
 			path = caughtnbowledUITests;
 			sourceTree = "<group>";
 		};
@@ -506,6 +489,58 @@
 				0365B85F51F36824B5DEEE4D /* Pods_BowledServiceTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		639053991E3D611D00002FCE /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				63EDF8FA1BD8EA2600634500 /* ColorsAndConstants.swift */,
+				63CCC2011E0AB45A007C2B66 /* String.swift */,
+				63786EC61C980786007EF12D /* AsyncImageView.h */,
+				63786EC71C980786007EF12D /* AsyncImageView.m */,
+				63173E061CAD0E3500F614F6 /* SwiftLoader.swift */,
+				6379F3D81DE193FA0024FC07 /* Reach.swift */,
+				6327B3101BD29DC800B0EB23 /* HMSegmentedControl.m */,
+				6327B3111BD29DC800B0EB23 /* HMSegmentedControl.h */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
+		6390539A1E3D613800002FCE /* app */ = {
+			isa = PBXGroup;
+			children = (
+				63D259F81E02B70F00B3F9D1 /* WheelView.swift */,
+				6379F3D01DE1844F0024FC07 /* MatchHeaderView.swift */,
+				6307423E1DDDCF71008F86CF /* BowledTableViewController.swift */,
+				630846B71BD0BBE50019AD3F /* ContainerViewController.swift */,
+				63970B971DDC34C200D171C9 /* FilterMenuController.swift */,
+				63970B951DDC34A100D171C9 /* SideMenuController.swift */,
+				63970B931DDC342C00D171C9 /* MainViewController.swift */,
+				6379F3D41DE188A10024FC07 /* MatchDetailController.swift */,
+				63B3CC971E00195800993520 /* PlayerProfileController.swift */,
+			);
+			name = app;
+			sourceTree = "<group>";
+		};
+		6390539B1E3D617300002FCE /* config */ = {
+			isa = PBXGroup;
+			children = (
+				6308466A1BD0B1A60019AD3F /* Info.plist */,
+				63CCC6C21E219507008FA36E /* GoogleService-Info.plist */,
+				639053971E3C5B8700002FCE /* caught-1d629-firebase-crashreporting-riqjb-73a40d8ab2.json */,
+				63970B911DDC33F100D171C9 /* keys.plist */,
+				630846C11BD1B3880019AD3F /* caughtnbowled-Bridging-Header.h */,
+			);
+			name = config;
+			sourceTree = "<group>";
+		};
+		6390539C1E3D618500002FCE /* storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				63970B9B1DDC37F800D171C9 /* Main.storyboard */,
+				630846671BD0B1A60019AD3F /* LaunchScreen.storyboard */,
+			);
+			name = storyboards;
 			sourceTree = "<group>";
 		};
 		63C0B1A81BD4BEE000CE198A /* images */ = {
