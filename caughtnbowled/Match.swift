@@ -172,13 +172,13 @@ struct Match {
             }
         }
 
-        return (self.sortMatches(matches: liveMatches), self.sortMatches(matches: completedMatches), self.sortMatches(matches: upcomingMatches))
+        return (self.sortMatches(matches: liveMatches, order: .orderedDescending), self.sortMatches(matches: completedMatches, order: .orderedDescending), self.sortMatches(matches: upcomingMatches, order: .orderedAscending))
     }
     
     
-    static func sortMatches(matches: [Match]) -> [Match] {
+    static func sortMatches(matches: [Match], order: ComparisonResult) -> [Match] {
         return matches.sorted { (matchA, matchB) -> Bool in
-            if matchA.startDate.compare(matchB.startDate) == ComparisonResult.orderedAscending {
+            if matchA.startDate.compare(matchB.startDate) == order {
                 return true || matchA.isInternational && !matchB.isInternational
             } else {
                 return false || matchA.isInternational && !matchB.isInternational
