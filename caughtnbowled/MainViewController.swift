@@ -166,14 +166,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
 
     // MARK: - Navigation
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let match = matchList[indexPath.row] as Match? {
-            if let matchDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "MatchDetailController") as? MatchDetailController {
-                matchDetailViewController.match = match
-                self.navigationController?.pushViewController(matchDetailViewController, animated: true)
-            }
-        }
-    }
+    
     
     @IBAction func unwindToMainController(_ segue: UIStoryboardSegue) {
     }
@@ -245,11 +238,26 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     // MARK: - Handle Favorite Team
     
+    func uniq<S : Sequence, T : Hashable>(source: S) -> [T] where S.Iterator.Element == T {
+        var buffer = [T]()
+        var added = Set<T>()
+        for elem in source {
+            if !added.contains(elem) {
+                buffer.append(elem)
+                added.insert(elem)
+            }
+        }
+        return buffer
+    }
+    
     func showFavoriteTeamMatches() {
         if let fav_team = defaults?.value(forKey: "favoriteTeamName") as? String {
             if let selectedMatchListVC = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
                 selectedMatchListVC.mainViewControllerType = .favorite
                 selectedMatchListVC.matchList = [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.hometeamName == fav_team || $0.awayteamName == fav_team }
+                for match in uniq(source: selectedMatchListVC.matchList.map({ $0.seriesName })) {
+                    print(match)
+                }
                 selectedMatchListVC.titleText = fav_team
                 selectedMatchListVC.allMatches = [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }
                 self.navigationController?.pushViewController(selectedMatchListVC, animated: true)
@@ -279,6 +287,8 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         
     }
     
+    
+    
     // MARK: - TableView
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -289,10 +299,23 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         } else if mainViewControllerType == .fixtures {
             return 1 //Array(Set((matchList.map { $0.startDateMonth }))).count // 2.0.1 😬
         } else {
-            if Array(Set((matchList.map { $0.seriesName }))).count == 0 {
+            if uniq(source: matchList.map({ $0.seriesName })).count == 0 {
                 return 1
             } else {
-                return Array(Set((matchList.map { $0.seriesName }))).count
+                return uniq(source: matchList.map({ $0.seriesName })).count
+            }
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if matchList.count != 0 {
+            let newMatchList = mainViewControllerType == .main || mainViewControllerType == .fixtures ? matchList :  matchList.filter{ $0.seriesName == uniq(source: matchList.map({ $0.seriesName }))[indexPath.section] }
+            if let match = newMatchList[indexPath.row] as Match? {
+                if let matchDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "MatchDetailController") as? MatchDetailController {
+                    matchDetailViewController.match = match
+                    self.navigationController?.pushViewController(matchDetailViewController, animated: true)
+                }
             }
         }
     }
@@ -305,7 +328,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         } else if matchList.count == 0 {
             return 1
         } else {
-            return matchList.filter{ $0.seriesName == Array(Set((matchList.map { $0.seriesName })))[section] }.count
+            return matchList.filter{ $0.seriesName == uniq(source: matchList.map({ $0.seriesName }))[section] }.count
         }
     }
     
@@ -321,7 +344,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         
         
         
-        var newMatchList = mainViewControllerType == .main || mainViewControllerType == .fixtures ? matchList :  matchList.filter{ $0.seriesName == Array(Set((matchList.map { $0.seriesName })))[indexPath.section] } //mainViewControllerType == .fixtures ? matchList.filter{ $0.startDateMonth == Array(Set((matchList.map { $0.startDateMonth })))[indexPath.section] } : // 2.0.1 😬
+        var newMatchList = mainViewControllerType == .main || mainViewControllerType == .fixtures ? matchList :  matchList.filter{ $0.seriesName == uniq(source: matchList.map({ $0.seriesName }))[indexPath.section] } //mainViewControllerType == .fixtures ? matchList.filter{ $0.startDateMonth == Array(Set((matchList.map { $0.startDateMonth })))[indexPath.section] } : // 2.0.1 😬
         
         
         if let match = newMatchList[indexPath.row] as Match? {
