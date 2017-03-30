@@ -200,22 +200,7 @@ public enum MatchStatus {
 
 
 
-var teams = [Team(name: "ADELAIDE STRIKERS", shortName: "STR", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Adelaide-Strikers.ashx", teamColor: "#00b0de", isInternational: false, isWomensTeam :false, teamType: "BBL"),
-             Team(name: "BRISBANE HEAT", shortName: "HEA", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Brisbane-Heat.ashx", teamColor: "#00b3bc", isInternational: false, isWomensTeam :false, teamType: "BBL"),
-             Team(name: "HOBART HURRICANES", shortName: "HUR", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Hobart-Hurricanes.ashx", teamColor: "#773cb0", isInternational: false, isWomensTeam :false, teamType: "BBL"),
-             Team(name: "MELBOURNE RENEGADES", shortName: "REN", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Melbourne-Renegades.ashx", teamColor: "#df0048", isInternational: false, isWomensTeam :false, teamType: "BBL"),
-             Team(name: "MELBOURNE STARS", shortName: "STA", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Melbourne-Stars.ashx", teamColor: "#339e00", isInternational: false, isWomensTeam :false, teamType: "BBL"),
-             Team(name: "PERTH SCORCHERS", shortName: "SCO", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Perth-Scorchers.ashx", teamColor: "#f58400", isInternational: false, isWomensTeam :false, teamType: "BBL"),
-             Team(name: "SYDNEY SIXERS", shortName: "SIX", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Sydney-Sixers.ashx", teamColor: "#dd1b9d", isInternational: false, isWomensTeam :false, teamType: "BBL"),
-             Team(name: "SYDNEY THUNDER", shortName: "THU", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Sydney-Thunder.ashx", teamColor: "#9fc000", isInternational: false, isWomensTeam :false, teamType: "BBL"),
-             Team(name: "ADELAIDE STRIKERS WOMEN", shortName: "STR", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Adelaide-Strikers.ashx", teamColor: "#00b0de", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
-             Team(name: "BRISBANE HEAT WOMEN", shortName: "HEA", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Brisbane-Heat.ashx", teamColor: "#00b3bc", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
-             Team(name: "HOBART HURRICANES WOMEN", shortName: "HUR", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Hobart-Hurricanes.ashx", teamColor: "#773cb0", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
-             Team(name: "MELBOURNE RENEGADES WOMEN", shortName: "REN", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Melbourne-Renegades.ashx", teamColor: "#df0048", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
-             Team(name: "MELBOURNE STARS WOMEN", shortName: "STA", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Melbourne-Stars.ashx", teamColor: "#339e00", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
-             Team(name: "PERTH SCORCHERS WOMEN", shortName: "SCO", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Perth-Scorchers.ashx", teamColor: "#f58400", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
-             Team(name: "SYDNEY SIXERS WOMEN", shortName: "SIX", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Sydney-Sixers.ashx", teamColor: "#dd1b9d", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
-             Team(name: "SYDNEY THUNDER WOMEN", shortName: "THU", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Sydney-Thunder.ashx", teamColor: "#9fc000", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
+var teams = [
              Team(name: "AUSTRALIA", shortName: "AUS", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/International/Australia.ashx", teamColor: "#00503c", isInternational: true, isWomensTeam :false, teamType: "INTERNATIONAL"),
              Team(name: "BANGLADESH", shortName: "BAN", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/International/Bangladesh.ashx", teamColor: "#00794f", isInternational: true, isWomensTeam :false, teamType: "INTERNATIONAL"),
              Team(name: "ENGLAND", shortName: "ENG", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/International/England.ashx", teamColor: "#dc210a", isInternational: true, isWomensTeam :false, teamType: "INTERNATIONAL"),
@@ -237,7 +222,33 @@ var teams = [Team(name: "ADELAIDE STRIKERS", shortName: "STR", logoString: "http
              Team(name: "SOUTH AFRICA WOMEN", shortName: "SA", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/International/South-Africa.ashx", teamColor: "#007a4d", isInternational: true, isWomensTeam :true, teamType: "INTERNATIONAL WOMEN"),
              Team(name: "SRI LANKA WOMEN", shortName: "SL", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/International/Sri-Lanka.ashx", teamColor: "#403fa8", isInternational: true, isWomensTeam :true, teamType: "INTERNATIONAL WOMEN"),
              Team(name: "WEST INDIES WOMEN", shortName: "WI", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/International/West-Indies.ashx", teamColor: "#00794f", isInternational: true, isWomensTeam :true, teamType: "INTERNATIONAL WOMEN"),
-             Team(name: "ZIMBABWE WOMEN", shortName: "ZIM", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/International/Zimbabwe.ashx", teamColor: "#00503c", isInternational: true, isWomensTeam :true, teamType: "INTERNATIONAL WOMEN")]
+             Team(name: "ZIMBABWE WOMEN", shortName: "ZIM", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/International/Zimbabwe.ashx", teamColor: "#00503c", isInternational: true, isWomensTeam :true, teamType: "INTERNATIONAL WOMEN"),
+             Team(name: "DELHI DAREDEVILS", shortName: "DEL", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/Other/Team-Delhi-Daredevils.ashx", teamColor: "#da2625", isInternational: false, isWomensTeam :false, teamType: "INDIAN PREMIER LEAGUE"),
+             Team(name: "GUJARAT LIONS", shortName: "GUJ", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/Other/team-gujarat.ashx", teamColor: "#ffa500", isInternational: false, isWomensTeam :false, teamType: "INDIAN PREMIER LEAGUE"),
+             Team(name: "KINGS XI PUNJAB", shortName: "KXI", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/Other/Team-Kings-XI-Punjab.ashx", teamColor: "#d10000", isInternational: false, isWomensTeam :false, teamType: "INDIAN PREMIER LEAGUE"),
+             Team(name: "KOLKATA KNIGHT RIDERS", shortName: "KKR", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/Other/Team-Kolkata-Knight-Riders.ashx", teamColor: "#481363", isInternational: false, isWomensTeam :false, teamType: "INDIAN PREMIER LEAGUE"),
+             Team(name: "MUMBAI INDIANS", shortName: "MI", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/Other/Team-Mumbai-Indians.ashx", teamColor: "#b7900f", isInternational: false, isWomensTeam :false, teamType: "INDIAN PREMIER LEAGUE"),
+             Team(name: "RISING PUNE SUPERGIANTS", shortName: "RPS", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/Other/team-pune.ashx", teamColor: "#df01d7", isInternational: false, isWomensTeam :false, teamType: "INDIAN PREMIER LEAGUE"),
+             Team(name: "ROYAL CHALLENGERS BANGALORE", shortName: "RCB", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/Other/Team-Royal-Challengers-Bangalore.ashx", teamColor: "#ae181d", isInternational: false, isWomensTeam :false, teamType: "INDIAN PREMIER LEAGUE"),
+             Team(name: "SUNRISERS HYDERABAD", shortName: "SUN", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/Other/Team-Sunrisers-Hyderabad.ashx", teamColor: "#ff8a4a", isInternational: false, isWomensTeam :false, teamType: "INDIAN PREMIER LEAGUE")]
+/*
+ Team(name: "ADELAIDE STRIKERS", shortName: "STR", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Adelaide-Strikers.ashx", teamColor: "#00b0de", isInternational: false, isWomensTeam :false, teamType: "BBL"),
+ Team(name: "BRISBANE HEAT", shortName: "HEA", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Brisbane-Heat.ashx", teamColor: "#00b3bc", isInternational: false, isWomensTeam :false, teamType: "BBL"),
+ Team(name: "HOBART HURRICANES", shortName: "HUR", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Hobart-Hurricanes.ashx", teamColor: "#773cb0", isInternational: false, isWomensTeam :false, teamType: "BBL"),
+ Team(name: "MELBOURNE RENEGADES", shortName: "REN", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Melbourne-Renegades.ashx", teamColor: "#df0048", isInternational: false, isWomensTeam :false, teamType: "BBL"),
+ Team(name: "MELBOURNE STARS", shortName: "STA", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Melbourne-Stars.ashx", teamColor: "#339e00", isInternational: false, isWomensTeam :false, teamType: "BBL"),
+ Team(name: "PERTH SCORCHERS", shortName: "SCO", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Perth-Scorchers.ashx", teamColor: "#f58400", isInternational: false, isWomensTeam :false, teamType: "BBL"),
+ Team(name: "SYDNEY SIXERS", shortName: "SIX", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Sydney-Sixers.ashx", teamColor: "#dd1b9d", isInternational: false, isWomensTeam :false, teamType: "BBL"),
+ Team(name: "SYDNEY THUNDER", shortName: "THU", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Sydney-Thunder.ashx", teamColor: "#9fc000", isInternational: false, isWomensTeam :false, teamType: "BBL"),
+ Team(name: "ADELAIDE STRIKERS WOMEN", shortName: "STR", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Adelaide-Strikers.ashx", teamColor: "#00b0de", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
+ Team(name: "BRISBANE HEAT WOMEN", shortName: "HEA", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Brisbane-Heat.ashx", teamColor: "#00b3bc", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
+ Team(name: "HOBART HURRICANES WOMEN", shortName: "HUR", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Hobart-Hurricanes.ashx", teamColor: "#773cb0", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
+ Team(name: "MELBOURNE RENEGADES WOMEN", shortName: "REN", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Melbourne-Renegades.ashx", teamColor: "#df0048", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
+ Team(name: "MELBOURNE STARS WOMEN", shortName: "STA", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Melbourne-Stars.ashx", teamColor: "#339e00", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
+ Team(name: "PERTH SCORCHERS WOMEN", shortName: "SCO", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Perth-Scorchers.ashx", teamColor: "#f58400", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
+ Team(name: "SYDNEY SIXERS WOMEN", shortName: "SIX", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Sydney-Sixers.ashx", teamColor: "#dd1b9d", isInternational: false, isWomensTeam :true, teamType: "WBBL"),
+ Team(name: "SYDNEY THUNDER WOMEN", shortName: "THU", logoString: "http://www.cricket.com.au/-/media/Logos/Teams/BBL/Sydney-Thunder.ashx", teamColor: "#9fc000", isInternational: false, isWomensTeam :true, teamType: "WBBL")
+*/
 
 
 

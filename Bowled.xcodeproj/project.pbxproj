@@ -34,6 +34,7 @@
 		6359AA4F1DDC40F900C3F943 /* BowledService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6359AA3A1DDC40F900C3F943 /* BowledService.framework */; };
 		6359AA501DDC40F900C3F943 /* BowledService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6359AA3A1DDC40F900C3F943 /* BowledService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6359AA571DDC413500C3F943 /* BowledService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630846B11BD0B4E60019AD3F /* BowledService.swift */; };
+		635EA3B01E4C539100CE4694 /* UpcomingMatchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635EA3AF1E4C539100CE4694 /* UpcomingMatchController.swift */; };
 		63786EC81C980786007EF12D /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63786EC71C980786007EF12D /* AsyncImageView.m */; };
 		63786ECA1C9A95F2007EF12D /* playerdefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 63786EC91C9A95F2007EF12D /* playerdefault.png */; };
 		6379F3D11DE1844F0024FC07 /* MatchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3D01DE1844F0024FC07 /* MatchHeaderView.swift */; };
@@ -192,6 +193,7 @@
 		6359AA421DDC40F900C3F943 /* BowledServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BowledServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6359AA491DDC40F900C3F943 /* BowledServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BowledServiceTests.swift; sourceTree = "<group>"; };
 		6359AA4B1DDC40F900C3F943 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		635EA3AF1E4C539100CE4694 /* UpcomingMatchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpcomingMatchController.swift; sourceTree = "<group>"; };
 		63786EC61C980786007EF12D /* AsyncImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncImageView.h; sourceTree = "<group>"; };
 		63786EC71C980786007EF12D /* AsyncImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncImageView.m; sourceTree = "<group>"; };
 		63786EC91C9A95F2007EF12D /* playerdefault.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playerdefault.png; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 				63970B951DDC34A100D171C9 /* SideMenuController.swift */,
 				63970B931DDC342C00D171C9 /* MainViewController.swift */,
 				6379F3D41DE188A10024FC07 /* MatchDetailController.swift */,
+				635EA3AF1E4C539100CE4694 /* UpcomingMatchController.swift */,
 				63B3CC971E00195800993520 /* PlayerProfileController.swift */,
 			);
 			name = app;
@@ -718,6 +721,9 @@
 							};
 							com.apple.InAppPurchase = {
 								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
 							};
 							com.apple.iCloud = {
 								enabled = 0;
@@ -1077,6 +1083,7 @@
 				63970B961DDC34A100D171C9 /* SideMenuController.swift in Sources */,
 				63786EC81C980786007EF12D /* AsyncImageView.m in Sources */,
 				6379F3E11DE2D5BF0024FC07 /* Partnerships.swift in Sources */,
+				635EA3B01E4C539100CE4694 /* UpcomingMatchController.swift in Sources */,
 				637D69251E0BFB1E00012D89 /* Team.swift in Sources */,
 				6379F3EB1DE2DB6A0024FC07 /* Batsman.swift in Sources */,
 				6379F3E51DE2D8140024FC07 /* BatsmanRecordCell.swift in Sources */,
