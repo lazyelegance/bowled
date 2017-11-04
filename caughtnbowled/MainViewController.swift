@@ -138,7 +138,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     }
     
     
-    func getMatchData() {
+    @objc func getMatchData() {
 
         switch Reach().connectionStatus() {
         case .online :
@@ -172,13 +172,13 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     }
     
     
-    func showSelectedSeries() {
+    @objc func showSelectedSeries() {
         showSelectedMatches(selectionTitle: matchList.filter { $0.status == .dummy_series }[0].seriesName, matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.seriesId == matchList.filter { $0.status == .dummy_series }[0].seriesId }, selectionType: .series)
     }
     
 
     
-    func showFixtures() {
+    @objc func showFixtures() {
         showSelectedMatches(selectionTitle: "FIXTURES", matchList: self.upcomingMatches, selectionType: .fixtures)
     }
     
@@ -250,7 +250,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         return buffer
     }
     
-    func showFavoriteTeamMatches() {
+    @objc func showFavoriteTeamMatches() {
         if let fav_team = defaults?.value(forKey: "favoriteTeamName") as? String {
             if let selectedMatchListVC = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
                 selectedMatchListVC.mainViewControllerType = .favorite

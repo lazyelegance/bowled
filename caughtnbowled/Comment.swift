@@ -68,7 +68,7 @@ struct Comment {
                 
                 
                 
-                newComment.deliveryNumRep = "\((overNumber as Int) - 1).\(deliveryNumber)"
+                newComment.deliveryNumRep = "\((overNumber as! Int) - 1).\(deliveryNumber)"
                 
                 
                 switch ballType {

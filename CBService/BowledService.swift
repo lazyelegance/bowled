@@ -579,8 +579,8 @@ open class BowledService {
         var parts: [String] = []
         for (name, value) in queryParameters {
             let part = NSString(format: "%@=%@",
-                name.addingPercentEscapes(using: String.Encoding.utf8)!,
-                value.addingPercentEscapes(using: String.Encoding.utf8)!)
+                name.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlHostAllowed)!,
+                value.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlHostAllowed)!)
             parts.append(part as String)
         }
         return parts.joined(separator: "&")

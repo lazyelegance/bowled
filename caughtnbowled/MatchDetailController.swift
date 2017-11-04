@@ -334,8 +334,8 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         mainMenu.borderColor = whitecolor
         
         mainMenu.backgroundColor = headerView.backgroundColor
-        mainMenu.titleTextAttributes = [NSForegroundColorAttributeName: whitecolor , NSFontAttributeName: UIFont.systemFont(ofSize: 10)]
-        mainMenu.selectedTitleTextAttributes = [NSForegroundColorAttributeName: headerView.backgroundColor , NSFontAttributeName: UIFont.systemFont(ofSize: 10)]
+        mainMenu.titleTextAttributes = [NSAttributedStringKey.foregroundColor: whitecolor , NSAttributedStringKey.font: UIFont.systemFont(ofSize: 10)]
+        mainMenu.selectedTitleTextAttributes = [NSAttributedStringKey.foregroundColor: headerView.backgroundColor , NSAttributedStringKey.font: UIFont.systemFont(ofSize: 10)]
         menuPlaceholder.addSubview(mainMenu)
         
         mainMenu.alpha = 0
@@ -495,7 +495,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func showMotMPlayerProfileView() {
+    @objc func showMotMPlayerProfileView() {
         if motmPlayer.id != -1 && match.status == .completed {
             self.showPlayerProfileView(player: self.motmPlayer)
         }
@@ -513,7 +513,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     
     //MARK: - segemented views
     
-    func mainMenuChangedValue(_ mainMenu: HMSegmentedControl) {
+    @objc func mainMenuChangedValue(_ mainMenu: HMSegmentedControl) {
         
         switch mainMenu.selectedSegmentIndex {
         case 0:
@@ -531,7 +531,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableView.reloadData()
     }
     
-    func subMenuChangedValue(_ subMenu: HMSegmentedControl) {
+    @objc func subMenuChangedValue(_ subMenu: HMSegmentedControl) {
         
         self.tableView.reloadData()
         
@@ -540,7 +540,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     
     //MARK: - Refresh/get Scorecard
     
-    func refreshLiveMatchData() {
+    @objc func refreshLiveMatchData() {
 
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         switch Reach().connectionStatus() {
@@ -599,7 +599,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                             
                             self.subMenu.selectionIndicatorColor = whitecolor                            
                             self.subMenu.backgroundColor = self.headerView.backgroundColor
-                            self.subMenu.titleTextAttributes = [NSForegroundColorAttributeName: whitecolor , NSFontAttributeName: UIFont.systemFont(ofSize: 10)]
+                            self.subMenu.titleTextAttributes = [NSAttributedStringKey.foregroundColor: whitecolor , NSAttributedStringKey.font: UIFont.systemFont(ofSize: 10)]
                             self.menuPlaceholder.addSubview(self.subMenu)
                             self.hasSubMenu = true
                             

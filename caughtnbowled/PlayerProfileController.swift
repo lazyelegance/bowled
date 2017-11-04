@@ -99,8 +99,8 @@ class PlayerProfileController: UIViewController {
         
         mainMenu.backgroundColor = Color.clear
         
-        mainMenu.titleTextAttributes = [NSForegroundColorAttributeName: mainColor, NSFontAttributeName: RobotoFont.regular]
-        mainMenu.selectedTitleTextAttributes = [NSForegroundColorAttributeName: mainColor, NSFontAttributeName: RobotoFont.regular]
+        mainMenu.titleTextAttributes = [NSAttributedStringKey.foregroundColor: mainColor, NSAttributedStringKey.font: RobotoFont.regular]
+        mainMenu.selectedTitleTextAttributes = [NSAttributedStringKey.foregroundColor: mainColor, NSAttributedStringKey.font: RobotoFont.regular]
         mainMenu.selectedSegmentIndex = 0
         
         menuPlaceHolder.backgroundColor = Color.clear
@@ -136,7 +136,7 @@ class PlayerProfileController: UIViewController {
     }
     */
 
-    func mainMenuChangedValue(_ mainMenu: HMSegmentedControl) {
+    @objc func mainMenuChangedValue(_ mainMenu: HMSegmentedControl) {
         //DO SOMETHING
     }
 }

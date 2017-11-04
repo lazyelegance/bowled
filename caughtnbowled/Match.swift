@@ -475,7 +475,7 @@ func stringFromQueryParameters(_ queryParameters : Dictionary<String, String>) -
     var parts: [String] = []
     for (name, value) in queryParameters {
         let part = NSString(format: "%@=%@",
-            name.addingPercentEscapes(using: String.Encoding.utf8)!, value.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+            name.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!, value.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         )
         parts.append(part as String)
     }

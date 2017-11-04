@@ -79,8 +79,8 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         
         mainMenu.backgroundColor = mainColor
        
-        mainMenu.titleTextAttributes = [NSForegroundColorAttributeName: secondaryColor, NSFontAttributeName: RobotoFont.regular]
-        mainMenu.selectedTitleTextAttributes = [NSForegroundColorAttributeName: secondaryColor, NSFontAttributeName: RobotoFont.regular]
+        mainMenu.titleTextAttributes = [NSAttributedStringKey.foregroundColor: secondaryColor, NSAttributedStringKey.font: RobotoFont.regular]
+        mainMenu.selectedTitleTextAttributes = [NSAttributedStringKey.foregroundColor: secondaryColor, NSAttributedStringKey.font: RobotoFont.regular]
         mainMenu.selectedSegmentIndex = 0
         
         headerView.backgroundColor = mainColor
@@ -189,11 +189,11 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
-    func mainMenuChangedValue(_ mainMenu: HMSegmentedControl) {
+    @objc func mainMenuChangedValue(_ mainMenu: HMSegmentedControl) {
         tableView.reloadData()
     }
     
-    func switchStateChanged() {
+    @objc func switchStateChanged() {
         
         defaults?.set(intOnlySwitch.on, forKey: "showInternationalOnly")
         
