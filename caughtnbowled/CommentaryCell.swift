@@ -48,9 +48,9 @@ class CommentaryCell: UITableViewCell {
                 resultLabel.layer.cornerRadius = 5
                 
                 if comment?.result == "W" {
-                    resultLabel.textColor = Color.red
+                    resultLabel.textColor = UIColor.red
                 } else if comment?.result == "6" || comment?.result == "4" {
-                    resultLabel.textColor = Color.green
+                    resultLabel.textColor = UIColor.green
                 }
                 
                 if comment?.ballType == "NonBallComment" {

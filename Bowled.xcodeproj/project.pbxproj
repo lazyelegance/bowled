@@ -22,6 +22,7 @@
 		63173E071CAD0E3500F614F6 /* SwiftLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63173E061CAD0E3500F614F6 /* SwiftLoader.swift */; };
 		6327B3121BD29DC800B0EB23 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6327B3101BD29DC800B0EB23 /* HMSegmentedControl.m */; };
 		632A9DEA1E3AE4F000416FED /* CellWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632A9DE91E3AE4F000416FED /* CellWithText.swift */; };
+		632E56D91FAD9FDE00456011 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 632E56D81FAD9FDE00456011 /* GoogleService-Info.plist */; };
 		63348C101CB3D4EF00BC6AE8 /* menu_filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 63348C0F1CB3D4EF00BC6AE8 /* menu_filled.png */; };
 		63348C121CB3D58500BC6AE8 /* xbox_menu_filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 63348C111CB3D58500BC6AE8 /* xbox_menu_filled.png */; };
 		633ED6671C532D2300173A4E /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 633ED6661C532D2300173A4E /* home.png */; };
@@ -35,6 +36,10 @@
 		6359AA501DDC40F900C3F943 /* BowledService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6359AA3A1DDC40F900C3F943 /* BowledService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6359AA571DDC413500C3F943 /* BowledService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630846B11BD0B4E60019AD3F /* BowledService.swift */; };
 		635EA3B01E4C539100CE4694 /* UpcomingMatchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635EA3AF1E4C539100CE4694 /* UpcomingMatchController.swift */; };
+		63756C0D1FADA6FD00AE9AF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 632E56D81FAD9FDE00456011 /* GoogleService-Info.plist */; };
+		63756C0E1FADA6FE00AE9AF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 632E56D81FAD9FDE00456011 /* GoogleService-Info.plist */; };
+		63756C0F1FADA6FE00AE9AF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 632E56D81FAD9FDE00456011 /* GoogleService-Info.plist */; };
+		63756C101FADA6FF00AE9AF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 632E56D81FAD9FDE00456011 /* GoogleService-Info.plist */; };
 		63786EC81C980786007EF12D /* AsyncImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63786EC71C980786007EF12D /* AsyncImageView.m */; };
 		63786ECA1C9A95F2007EF12D /* playerdefault.png in Resources */ = {isa = PBXBuildFile; fileRef = 63786EC91C9A95F2007EF12D /* playerdefault.png */; };
 		6379F3D11DE1844F0024FC07 /* MatchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3D01DE1844F0024FC07 /* MatchHeaderView.swift */; };
@@ -84,7 +89,6 @@
 		63C0EA511DE5757F00BAC52E /* Partnership.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0EA501DE5757F00BAC52E /* Partnership.swift */; };
 		63C0EA531DE60BFF00BAC52E /* PartnershipCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C0EA521DE60BFF00BAC52E /* PartnershipCell.swift */; };
 		63CCC2021E0AB45A007C2B66 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63CCC2011E0AB45A007C2B66 /* String.swift */; };
-		63CCC6C31E219507008FA36E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63CCC6C21E219507008FA36E /* GoogleService-Info.plist */; };
 		63D259F51E01DC2200B3F9D1 /* BattingWheel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D259F41E01DC2200B3F9D1 /* BattingWheel.swift */; };
 		63D259F71E01DC3500B3F9D1 /* Shot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D259F61E01DC3500B3F9D1 /* Shot.swift */; };
 		63D259F91E02B70F00B3F9D1 /* WheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D259F81E02B70F00B3F9D1 /* WheelView.swift */; };
@@ -181,6 +185,7 @@
 		6327B3101BD29DC800B0EB23 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		6327B3111BD29DC800B0EB23 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
 		632A9DE91E3AE4F000416FED /* CellWithText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellWithText.swift; sourceTree = "<group>"; };
+		632E56D81FAD9FDE00456011 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		63348C0F1CB3D4EF00BC6AE8 /* menu_filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_filled.png; sourceTree = "<group>"; };
 		63348C111CB3D58500BC6AE8 /* xbox_menu_filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xbox_menu_filled.png; sourceTree = "<group>"; };
 		633ED6661C532D2300173A4E /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
@@ -245,7 +250,6 @@
 		63C0EA501DE5757F00BAC52E /* Partnership.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Partnership.swift; sourceTree = "<group>"; };
 		63C0EA521DE60BFF00BAC52E /* PartnershipCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PartnershipCell.swift; sourceTree = "<group>"; };
 		63CCC2011E0AB45A007C2B66 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = ../String.swift; sourceTree = "<group>"; };
-		63CCC6C21E219507008FA36E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		63D259F41E01DC2200B3F9D1 /* BattingWheel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BattingWheel.swift; sourceTree = "<group>"; };
 		63D259F61E01DC3500B3F9D1 /* Shot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shot.swift; sourceTree = "<group>"; };
 		63D259F81E02B70F00B3F9D1 /* WheelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WheelView.swift; sourceTree = "<group>"; };
@@ -529,7 +533,7 @@
 			isa = PBXGroup;
 			children = (
 				6308466A1BD0B1A60019AD3F /* Info.plist */,
-				63CCC6C21E219507008FA36E /* GoogleService-Info.plist */,
+				632E56D81FAD9FDE00456011 /* GoogleService-Info.plist */,
 				639053971E3C5B8700002FCE /* caught-1d629-firebase-crashreporting-riqjb-73a40d8ab2.json */,
 				63970B911DDC33F100D171C9 /* keys.plist */,
 				630846C11BD1B3880019AD3F /* caughtnbowled-Bridging-Header.h */,
@@ -787,6 +791,7 @@
 				639053981E3C5B8700002FCE /* caught-1d629-firebase-crashreporting-riqjb-73a40d8ab2.json in Resources */,
 				63F5DC611CB65A9B00E0DDDD /* medium_placeholder.png in Resources */,
 				6350003F1C50AE84002015E6 /* 64x64.png in Resources */,
+				632E56D91FAD9FDE00456011 /* GoogleService-Info.plist in Resources */,
 				63C0B1A61BD4BED600CE198A /* team15.png in Resources */,
 				63C0B1A11BD4BED600CE198A /* team7.png in Resources */,
 				63F5DC5F1CB6532700E0DDDD /* Icon-Small.png in Resources */,
@@ -805,7 +810,6 @@
 				63F5DC5D1CB651DD00E0DDDD /* bowled_white_20.png in Resources */,
 				63C0B1A31BD4BED600CE198A /* team9.png in Resources */,
 				63BB00791C844ACD00083668 /* tableviewbcg.png in Resources */,
-				63CCC6C31E219507008FA36E /* GoogleService-Info.plist in Resources */,
 				63970B9C1DDC37F800D171C9 /* Main.storyboard in Resources */,
 				63C0B19D1BD4BED600CE198A /* team3.png in Resources */,
 				63BB007B1C844D2D00083668 /* spinner.png in Resources */,
@@ -819,6 +823,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63756C0F1FADA6FE00AE9AF8 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -826,6 +831,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63756C0E1FADA6FE00AE9AF8 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -833,6 +839,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63756C0D1FADA6FD00AE9AF8 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -840,6 +847,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63756C101FADA6FF00AE9AF8 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -903,7 +911,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		3931984E8F9E23750F5DF551 /* [CP] Check Pods Manifest.lock */ = {
@@ -918,7 +926,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		639053961E3C5AA100002FCE /* ShellScript */ = {
@@ -932,7 +940,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "GOOGLE_APP_ID=caught-1d629\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"caughtnbowled/caught-1d629-firebase-crashreporting-riqjb-73a40d8ab2.json\"";
+			shellScript = "
+
+";
 		};
 		832AB371B721529F252A3D95 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -976,7 +986,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		BFDE2BF0061A8DB22B31898E /* [CP] Check Pods Manifest.lock */ = {
@@ -991,7 +1001,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		C360A4EE7A6D6D0F2256F490 /* [CP] Embed Pods Frameworks */ = {
@@ -1051,7 +1061,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		F5A8484269EACE2760662454 /* [CP] Embed Pods Frameworks */ = {

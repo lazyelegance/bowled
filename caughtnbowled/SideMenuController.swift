@@ -171,7 +171,7 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func getMatchTypes() {
-        let ref = FIRDatabase.database().reference()
+        let ref = Database.database().reference()
         
         ref.child("matchTypes").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value

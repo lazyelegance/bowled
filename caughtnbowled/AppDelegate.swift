@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let status =
         switch Reach().connectionStatus() {
             case .online :
-                FIRApp.configure()
+                FirebaseApp.configure()
 
             default:
                 break
