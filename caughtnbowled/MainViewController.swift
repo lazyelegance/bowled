@@ -87,9 +87,9 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         
         if mainViewControllerType == .main {
             swiftLoaderConfig.size = 100
-            swiftLoaderConfig.spinnerColor = whitecolor
+            swiftLoaderConfig.spinnerColor = txtColor
             swiftLoaderConfig.backgroundColor = clearcolor
-            swiftLoaderConfig.titleTextColor = whitecolor
+            swiftLoaderConfig.titleTextColor = txtColor
             swiftLoaderConfig.foregroundAlpha = 0
             SwiftLoader.setConfig(swiftLoaderConfig)
             SwiftLoader.show(true)
@@ -101,7 +101,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         
         //prepare menu
         
-        menuButton.image = mainViewControllerType == .main ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "ic_arrow_back_white")
+        menuButton.image = mainViewControllerType == .main ? UIImage(named: "ic_menu_blue") : UIImage(named: "ic_arrow_back_blue")
         
         editButton.alpha = mainViewControllerType == .favorite ? 1 : 0
         
@@ -115,10 +115,12 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
+         print("viewDidAppear")
+        
         topMatchesTableView.reloadData()
         
         if mainViewControllerType == .main {
-            timer = Timer.scheduledTimer( timeInterval: 120, target: self, selector: #selector(getMatchData), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer( timeInterval: 30, target: self, selector: #selector(getMatchData), userInfo: nil, repeats: true)
         } else if mainViewControllerType == .favorite {
             updateFavoriteTeam()
         }
@@ -139,6 +141,8 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     
     @objc func getMatchData() {
+        
+        print("getmatchData")
 
         switch Reach().connectionStatus() {
         case .online :
@@ -200,12 +204,14 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     @IBAction func menuButtonAction(_ sender: Any) {
         if mainViewControllerType == .main {
             if !menuExpanded {
-                menuButton.image = UIImage(named: "cm_arrow_upward_white")
+                menuButton.image = UIImage(named: "ic_arrow_back_blue")
                 menuExpanded = !menuExpanded
                 delegate?.toggleLeftPanel(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }, showFullMenu: true)
             } else {
-                menuButton.image = UIImage(named: "cm_arrow_downward_white")
+                menuButton.image = UIImage(named: "ic_menu_blue")
                 menuExpanded = !menuExpanded
+                print("default select")
+                getMatchData()
                 delegate?.collapseSidePanels()
             }
         } else {
@@ -218,7 +224,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     func menuItemSelected(item: String, type: MenuItemType) {
 
         menuExpanded = !menuExpanded
-        menuButton.image = !menuExpanded ? UIImage(named: "cm_arrow_downward_white") : UIImage(named: "cm_arrow_upward_white")
+        menuButton.image = !menuExpanded ? UIImage(named: "ic_menu_blue") : UIImage(named: "ic_arrow_back_blue")
         let allMatches = [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }
         
         switch type {
@@ -383,37 +389,22 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         return topMatchesTableView.dequeueReusableCell(withIdentifier: "topMatchCell", for: indexPath)
     }
     
-//    may be it's better without section header 😮
-//    may be it is not 🙄
-//    nope 😕
-//    2.0.1 😬
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        if mainViewControllerType != .main && Array(Set((matchList.map { $0.seriesName }))).count != 0 {
-//            return mainViewControllerType == .fixtures ? Array(Set((matchList.map { $0.startDateMonth })))[section] : Array(Set((matchList.map { $0.seriesName })))[section]
-//        }
-//        return nil
-//    }
-//    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        if mainViewControllerType != .main && Array(Set((matchList.map { $0.seriesName }))).count != 0 {
-//            var sectionTitle = UILabel()
-//            sectionTitle.text = mainViewControllerType == .fixtures ? Array(Set((matchList.map { $0.startDateMonth })))[section] : Array(Set((matchList.map { $0.seriesName })))[section]
-//            sectionTitle.textColor = secondaryColor
-//            sectionTitle.font = RobotoFont.light
-//            
-//            return sectionTitle
-//        }
-//        return nil
-//    }
 
     // MARK: - Bowled Service
     
     
     func didReceiveResults(_ requestType: RequestType, inningsId: NSNumber?, matchId: NSNumber?,  results: NSObject) {
+        
+        var internationalOnly = false
+        
+        if let showInternationalOnly = defaults?.bool(forKey: "showInternationalOnly") {
+            internationalOnly = showInternationalOnly
+        }
+        
         if requestType == .matches {
             if let resultsArray = results as? [AnyObject] {
                 DispatchQueue.main.async(execute: {
-                    (self.topMatches, self.liveMatches, self.completedMatches, self.upcomingMatches) = Match.topMatchesFromAPI(results: resultsArray, internationalOnly: false)
+                    (self.topMatches, self.liveMatches, self.completedMatches, self.upcomingMatches) = Match.topMatchesFromAPI(results: resultsArray, internationalOnly: internationalOnly)
                     self.matchList = self.topMatches
                     self.topMatchesTableView.reloadData()
                     SwiftLoader.hide()

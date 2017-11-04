@@ -36,19 +36,10 @@ class PlayerProfileController: UIViewController {
         
         //TEST
         
-        var vKohli = Player(id: 3788, name: "Virat Kohli (c)")
-        vKohli.battingStyle = "Right Hand"
-        vKohli.bowlingStyle = "Right Arm Medium"
-        vKohli.imageURL = URL(string: "http://www.cricket.com.au/-/media/Players/Men/International/India/Virat-Kohli-Test.ashx")!
-        vKohli.bio = "HEIR APPARENT TO CAPTAIN MS DHONI, VIRAT KOHLI&RSQUO;S AGGRESSIVE AND CONSISTENT BATTING HAS SEEN HIM REMAIN CLOSE TO THE TOP OF THE ONE-DAY INTERNATIONAL BATTING RANKINGS SINCE EARLY 2010.\nKOHLI ALWAYS DREAMED OF REPRESENTING HIS COUNTRY IN CRICKET AND HAD HIS FIRST OPPORTUNITY AS A TEENAGER WHEN HE PLAYED FOR THE INDIA UNDER-19 TEAM IN 2006, GUIDING THE SAME TEAM TO A WORLD CUP WIN IN 2008.\n HIS SENIOR INTERNATIONAL CAREER TOOK OFF SOON AFTER WHEN KOHLI MADE HIS ONE-DAY INTERNATIONAL DEBUT AGAINST SRI LANKA IN AUGUST 2008.\n THE 26-YEAR-OLD NOW HAS MORE THAN 20 ONE-DAY HUNDREDS AND MORE THAN 30 FIFTIES TO HIS NAME. HIS HIGH-SCORE OF 183 CAME AGAINST PAKISTAN IN 2012 AND HAD SCORED THREE CENTURIES FOR 2014 BY THE START OF NOVEMBER.\n HE PLAYED A CRUCIAL ROLE WHEN INDIA TOPPLED SRI LANKA IN THE ICC CRICKET WORLD CUP 2011 FINAL, ARRIVING AT THE CREASE WHEN INDIA WAS 2-31 AND STEADYING THE SHIP WITH A CALM 35. \n KOHLI WAS HANDED THE ONE-DAY CAPTAINCY FOR INDIA&RSQUO;S SERIES AGAINST SRI LANKA IN NOVEMBER 2014 WHEN MS DHONI WAS RESTED."
-        vKohli.didYouKnow = "HAS BEEN NAMED ONE OF GQ MAGAZINE&RSQUO;S BEST DRESSED INTERNATIONAL MEN."
-        
-        
-//        player = vKohli
         
         playerImage.imageURL = player?.imageURL
-        playerImage.backgroundColor = mainColor
-        playerImage.layer.borderColor = Color.white.cgColor
+        playerImage.backgroundColor = txtColor
+        playerImage.layer.borderColor = txtColor.cgColor
         playerImage.layer.borderWidth = 3
         playerImage.layer.cornerRadius = 5
         
@@ -60,7 +51,7 @@ class PlayerProfileController: UIViewController {
         
         playerBio.isScrollEnabled = false
         playerBio.text = player?.bio
-        playerBio.textColor = mainColor
+        playerBio.textColor = txtColor
         
         if player?.didYouKnow != nil {
             playerBio.text = playerBio.text + (player?.didYouKnow)! + "\n"
@@ -89,7 +80,7 @@ class PlayerProfileController: UIViewController {
         mainMenu.frame = CGRect(x: 10, y: 0, width: menuPlaceHolder.frame.width - 20, height: menuPlaceHolder.frame.height)
         mainMenu.autoresizingMask =  UIViewAutoresizing()
         
-        mainMenu.selectionIndicatorColor = mainColor
+        mainMenu.selectionIndicatorColor = txtColor
         mainMenu.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleDynamic
         mainMenu.layer.cornerRadius = 2
         
@@ -99,8 +90,8 @@ class PlayerProfileController: UIViewController {
         
         mainMenu.backgroundColor = Color.clear
         
-        mainMenu.titleTextAttributes = [NSAttributedStringKey.foregroundColor: mainColor, NSAttributedStringKey.font: RobotoFont.regular]
-        mainMenu.selectedTitleTextAttributes = [NSAttributedStringKey.foregroundColor: mainColor, NSAttributedStringKey.font: RobotoFont.regular]
+        mainMenu.titleTextAttributes = [NSAttributedStringKey.foregroundColor: txtColor, NSAttributedStringKey.font: RobotoFont.regular]
+        mainMenu.selectedTitleTextAttributes = [NSAttributedStringKey.foregroundColor: txtColor, NSAttributedStringKey.font: RobotoFont.regular]
         mainMenu.selectedSegmentIndex = 0
         
         menuPlaceHolder.backgroundColor = Color.clear

@@ -30,8 +30,8 @@ class CommentaryCell: UITableViewCell {
                 commentLabel.text = comment?.text
                 
                 
-                deliveryNumber.textColor = secondaryColor
-                commentLabel.textColor = secondaryColor
+                deliveryNumber.textColor = txtColor
+                commentLabel.textColor = txtColor
                 
                 deliveryNumber.font = RobotoFont.medium(with: 15)
                 commentLabel.font = RobotoFont.regular(with: 15)
@@ -42,16 +42,20 @@ class CommentaryCell: UITableViewCell {
                 deliverNumberWidth.constant = 40
                 resultWidth.constant = 40
                 
-                resultLabel.backgroundColor = secondaryColor
-                resultLabel.textColor = mainColor
+                resultLabel.backgroundColor = mainColor
+                resultLabel.textColor = txtColor
                 resultLabel.layer.masksToBounds = true
                 resultLabel.layer.cornerRadius = 5
+                resultLabel.layer.borderWidth = 1
+                
                 
                 if comment?.result == "W" {
                     resultLabel.textColor = UIColor.red
                 } else if comment?.result == "6" || comment?.result == "4" {
                     resultLabel.textColor = UIColor.green
                 }
+                
+                resultLabel.layer.borderColor = resultLabel.textColor.cgColor
                 
                 if comment?.ballType == "NonBallComment" {
                     commentLabel.font = RobotoFont.bold

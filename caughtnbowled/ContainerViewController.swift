@@ -41,7 +41,7 @@ class ContainerViewController: UIViewController, MainViewControllerDelegate {
     
     var leftViewController: SideMenuController?
     var rightViewController: FilterMenuController?
-    let centerPanelExpandedOffset: CGFloat = kMatchListHeaderHeight - 30
+    let centerPanelExpandedOffset: CGFloat = CGFloat(kCenterPanelExpandedOffset)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +66,7 @@ class ContainerViewController: UIViewController, MainViewControllerDelegate {
     }
     
     override var preferredStatusBarStyle : UIStatusBarStyle {
-        return UIStatusBarStyle.lightContent
+        return UIStatusBarStyle.default
     }
     
     func toggleLeftPanel(matchList: [Match]?, showFullMenu: Bool) {
@@ -168,11 +168,11 @@ class ContainerViewController: UIViewController, MainViewControllerDelegate {
             
             leftPanelState = .leftPanelExpanded
             
-            //animateCenterPanelXPosition(targetPosition: CGRectGetWidth(centerNVC.view.frame) - centerPanelExpandedOffset)
-            animateCenterPanelYPosition(targetPosition: centerNVC.view.frame.height - centerPanelExpandedOffset)
+            animateCenterPanelXPosition(targetPosition: centerNVC.view.frame.width - centerPanelExpandedOffset)
+            //animateCenterPanelYPosition(targetPosition: centerNVC.view.frame.height - centerPanelExpandedOffset)
         } else {
-            //animateCenterPanelXPosition(targetPosition: 0) { finished in
-            animateCenterPanelYPosition(targetPosition: 1) { finished in
+            animateCenterPanelXPosition(targetPosition: 0) { finished in
+            //animateCenterPanelYPosition(targetPosition: 1) { finished in
                 self.leftPanelState = .leftPanelCollapsed
                 
                 self.leftViewController!.view.removeFromSuperview()

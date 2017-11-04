@@ -69,7 +69,7 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         mainMenu.frame = CGRect(x: 10, y: 0, width: headerView.frame.width - 20, height: 30)
         mainMenu.autoresizingMask =  UIViewAutoresizing()
         
-        mainMenu.selectionIndicatorColor = secondaryColor
+        mainMenu.selectionIndicatorColor = txtColor
         mainMenu.segmentWidthStyle = HMSegmentedControlSegmentWidthStyleDynamic
         mainMenu.layer.cornerRadius = 2
         
@@ -79,8 +79,8 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         
         mainMenu.backgroundColor = mainColor
        
-        mainMenu.titleTextAttributes = [NSAttributedStringKey.foregroundColor: secondaryColor, NSAttributedStringKey.font: RobotoFont.regular]
-        mainMenu.selectedTitleTextAttributes = [NSAttributedStringKey.foregroundColor: secondaryColor, NSAttributedStringKey.font: RobotoFont.regular]
+        mainMenu.titleTextAttributes = [NSAttributedStringKey.foregroundColor: txtColor, NSAttributedStringKey.font: RobotoFont.regular]
+        mainMenu.selectedTitleTextAttributes = [NSAttributedStringKey.foregroundColor: txtColor, NSAttributedStringKey.font: RobotoFont.regular]
         mainMenu.selectedSegmentIndex = 0
         
         headerView.backgroundColor = mainColor
@@ -91,7 +91,7 @@ class SideMenuController: UIViewController, UITableViewDelegate, UITableViewData
         intOnlyView.alpha = isFullmenu ? 1 : 0
         intOnlyLabel.text = isFullmenu ? "Show International Matches Only?" : "Select Favorite Team"
         
-        intOnlyLabel.textColor = mainColor
+        intOnlyLabel.textColor = txtColor
         intOnlyLabel.font = RobotoFont.medium
         
         intOnlySwitch = Switch(state: .off, style: .dark, size: .medium)

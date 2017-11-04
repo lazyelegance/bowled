@@ -20,7 +20,7 @@ class MenuCell: UITableViewCell {
             if menuItem != nil {
                 menuLabel.text = menuItem
                 menuView.backgroundColor = mainColor
-                menuLabel.textColor = secondaryColor
+                menuLabel.textColor = txtColor
                 menuLabel.font = RobotoFont.regular
                 self.contentView.backgroundColor = Color.clear
                 self.backgroundColor = Color.clear

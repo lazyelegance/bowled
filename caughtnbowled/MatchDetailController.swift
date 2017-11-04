@@ -112,7 +112,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
 //        headerView.frame.size.height = kHeaderHeight
         menuPlaceholder.backgroundColor = mainColor
         headerView.backgroundColor = mainColor
-        pulseView.backgroundColor = secondaryColor
+        pulseView.backgroundColor = mainColor
         
 //        tableView.tableHeaderView = nil
 //        tableView.addSubview(headerView)
@@ -170,7 +170,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         
         series.text = match.seriesName.uppercased() + "\n" + match.matchName.uppercased()
         series.font = RobotoFont.regular(with: 14)
-        series.textColor = secondaryColor
+        series.textColor = txtColor
         
     
         if match.status == .live {
@@ -206,22 +206,22 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         
         matchStatus.font = RobotoFont.regular
         
-        teamOneName.textColor = mainColor
+        teamOneName.textColor = txtColor
         teamOneName.font = RobotoFont.regular(with: 20)
         
-        teamOneScore.textColor = mainColor
+        teamOneScore.textColor = txtColor
         teamOneScore.font = RobotoFont.regular(with: 30)
         
-        teamTwoName.textColor = mainColor
+        teamTwoName.textColor = txtColor
         teamTwoName.font = RobotoFont.regular
         
-        teamTwoScore.textColor = mainColor
+        teamTwoScore.textColor = txtColor
         teamTwoScore.font = RobotoFont.regular
         
         awardsViewHeight.constant = 0
         
         battingView.backgroundColor = mainColor
-        matchStatus.textColor = secondaryColor
+        matchStatus.textColor = txtColor
         
         // MOVE FROM HERE
         bowledServiceAPI = BowledService(delegate: self)
@@ -278,14 +278,14 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                 motmStats.text = ""
             }
             
-            motmTitle.textColor = secondaryColor
+            motmTitle.textColor = txtColor
             motmTitle.font = RobotoFont.light
  
-            motmNameBtn.titleLabel?.textColor = secondaryColor
-            motmNameBtn.titleColor = secondaryColor
+            motmNameBtn.titleLabel?.textColor = txtColor
+            motmNameBtn.titleColor = txtColor
             motmNameBtn.titleLabel?.font = RobotoFont.bold
             
-            motmStats.textColor = secondaryColor
+            motmStats.textColor = txtColor
             motmStats.font = RobotoFont.medium
             
             motmTitle.alpha = 1
@@ -321,9 +321,9 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         mainMenu.layer.cornerRadius = 2
         mainMenu.layer.masksToBounds = true
         mainMenu.layer.borderWidth = 1
-        mainMenu.layer.borderColor = whitecolor.cgColor
+        mainMenu.layer.borderColor = txtColor.cgColor
         
-        mainMenu.selectionIndicatorColor = whitecolor
+        mainMenu.selectionIndicatorColor = txtColor
         
         mainMenu.borderType = HMSegmentedControlBorderType.right
         mainMenu.selectionStyle = HMSegmentedControlSelectionStyleBox
@@ -331,11 +331,11 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         
-        mainMenu.borderColor = whitecolor
+        mainMenu.borderColor = txtColor
         
-        mainMenu.backgroundColor = headerView.backgroundColor
-        mainMenu.titleTextAttributes = [NSAttributedStringKey.foregroundColor: whitecolor , NSAttributedStringKey.font: UIFont.systemFont(ofSize: 10)]
-        mainMenu.selectedTitleTextAttributes = [NSAttributedStringKey.foregroundColor: headerView.backgroundColor , NSAttributedStringKey.font: UIFont.systemFont(ofSize: 10)]
+        mainMenu.backgroundColor = mainColor
+        mainMenu.titleTextAttributes = [NSAttributedStringKey.foregroundColor: txtColor , NSAttributedStringKey.font: UIFont.systemFont(ofSize: 10)]
+        mainMenu.selectedTitleTextAttributes = [NSAttributedStringKey.foregroundColor: mainColor , NSAttributedStringKey.font: UIFont.systemFont(ofSize: 10)]
         menuPlaceholder.addSubview(mainMenu)
         
         mainMenu.alpha = 0
@@ -592,14 +592,14 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
                             self.subMenu.autoresizingMask =  [.flexibleRightMargin, .flexibleWidth]
                             self.subMenu.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe
                             self.subMenu.borderType = HMSegmentedControlBorderType.bottom
-                            self.subMenu.borderColor = whitecolor
+                            self.subMenu.borderColor = mainColor
                             
                             
                             self.subMenu.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown
                             
-                            self.subMenu.selectionIndicatorColor = whitecolor                            
+                            self.subMenu.selectionIndicatorColor = txtColor
                             self.subMenu.backgroundColor = self.headerView.backgroundColor
-                            self.subMenu.titleTextAttributes = [NSAttributedStringKey.foregroundColor: whitecolor , NSAttributedStringKey.font: UIFont.systemFont(ofSize: 10)]
+                            self.subMenu.titleTextAttributes = [NSAttributedStringKey.foregroundColor: txtColor , NSAttributedStringKey.font: UIFont.systemFont(ofSize: 10)]
                             self.menuPlaceholder.addSubview(self.subMenu)
                             self.hasSubMenu = true
                             
