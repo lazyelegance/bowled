@@ -51,7 +51,9 @@ class ContainerViewController: UIViewController, MainViewControllerDelegate {
         centerVC.delegate = self
         
         
-        centerNVC = UINavigationController(rootViewController: centerVC)
+        centerNVC = NavigationController(rootViewController: centerVC)
+        centerNVC.interactivePopGestureRecognizer?.isEnabled = true
+        
         view.addSubview(centerNVC.view)
         addChildViewController(centerNVC)
         centerNVC.didMove(toParentViewController: self)

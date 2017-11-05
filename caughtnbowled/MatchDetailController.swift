@@ -108,21 +108,14 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         
         headerViewWidth.constant = view.bounds.width
 
-//        headerView = tableView.tableHeaderView
-//        headerView.frame.size.height = kHeaderHeight
         menuPlaceholder.backgroundColor = mainColor
         headerView.backgroundColor = mainColor
         pulseView.backgroundColor = txtColor
         
-//        tableView.tableHeaderView = nil
-//        tableView.addSubview(headerView)
         prepareHeaderView()
         prepareMainMenu()
         
-        
-        
-//        tableView.contentInset = UIEdgeInsets(top: kHeaderHeight, left: 0, bottom: 0, right: 0)
-//        tableView.contentOffset = CGPoint(x: 0, y: -kHeaderHeight)
+
         tableView.separatorStyle = .none
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -138,6 +131,8 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         SwiftLoader.setConfig(swiftLoaderConfig)
         
         SwiftLoader.show(true)
+        
+        
 
     }
     
