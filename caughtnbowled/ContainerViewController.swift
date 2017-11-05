@@ -29,13 +29,21 @@ class ContainerViewController: UIViewController, MainViewControllerDelegate {
     
     var currentState: SlideOutState = .bothCollapsed {
         didSet {
-            let shouldShowShadow = currentState != .bothCollapsed
-            showShadowForCenterViewController(shouldShowShadow)
+            showShadowForCenterViewController(false)
         }
     }
     
-    var leftPanelState: SlideOutState = .leftPanelCollapsed
-    var topPanelState: SlideOutState = .topPanelCollapsed
+    var leftPanelState: SlideOutState = .leftPanelCollapsed {
+        didSet {
+            showShadowForCenterViewController(true)
+        }
+    }
+    
+    var topPanelState: SlideOutState = .topPanelCollapsed {
+        didSet {
+            showShadowForCenterViewController(true)
+        }
+    }
     
     
     
@@ -217,7 +225,7 @@ class ContainerViewController: UIViewController, MainViewControllerDelegate {
     
     func showShadowForCenterViewController(_ shouldShowShadow: Bool) {
         if (shouldShowShadow) {
-            centerNVC.view.layer.shadowOpacity = 0.0
+            centerNVC.view.layer.shadowOpacity = 0.5
         } else {
             centerNVC.view.layer.shadowOpacity = 0.0
         }
