@@ -35,13 +35,6 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var motmStats: UILabel!
     
     
-    @IBOutlet weak var backButton: FlatButton!
-    
-    
-    @IBAction func backToMain(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     @IBOutlet weak var awardsView: PulseView!
     @IBOutlet weak var battingView: PulseView!
     

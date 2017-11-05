@@ -27,6 +27,8 @@ var resoursesURL = URL(string: resoursesURLString)
 
 // MARK: - Colors
 
+let bearRed = UIColor(red: 221.0/255.0, green: 75.0/255.0, blue: 79.0/255.0, alpha: 1.0)
+
 let clearcolor = Color.clear
 let whitecolor = Color.white
 let mainColor = UIColor.white

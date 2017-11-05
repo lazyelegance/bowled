@@ -37,6 +37,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     var completedMatches = [Match]()
     var upcomingMatches = [Match]()
     var topMatches = [Match]()
+    var unFilteredmatchList = [Match]()
     var matchList = [Match]()
     var allMatches = [Match]()
     
@@ -101,13 +102,17 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         
         //prepare menu
         
-        menuButton.image = mainViewControllerType == .main ? UIImage(named: "ic_menu_blue") : UIImage(named: "ic_arrow_back_blue")
+        menuButton.image = UIImage(named: "ic_menu_blue")
+        
+        menuButton.imageView?.contentMode = UIViewContentMode.scaleAspectFit
+        
+        menuButton.alpha = mainViewControllerType == .main ? 1 : 0
         
         editButton.alpha = mainViewControllerType == .favorite ? 1 : 0
         
         //prepareTitle
         titleLabel.font = RobotoFont.regular
-        titleLabel.textColor = secondaryColor
+        titleLabel.textColor = txtColor
         titleLabel.text = titleText
 
     }
@@ -115,9 +120,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-         print("viewDidAppear")
-        
-        topMatchesTableView.reloadData()
+        reloadTableView()
         
         if mainViewControllerType == .main {
             timer = Timer.scheduledTimer( timeInterval: 30, target: self, selector: #selector(getMatchData), userInfo: nil, repeats: true)
@@ -142,7 +145,6 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     @objc func getMatchData() {
         
-        print("getmatchData")
 
         switch Reach().connectionStatus() {
         case .online :
@@ -162,6 +164,21 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         
         topMatchesTableView.backgroundColor = Color.clear
         
+    }
+    
+    func reloadTableView() {
+        
+        var internationalOnly = false
+        
+        if let showInternationalOnly = defaults?.bool(forKey: "showInternationalOnly") {
+            internationalOnly = showInternationalOnly
+        }
+        
+       self.matchList = self.unFilteredmatchList.filter { (match) -> Bool in
+            internationalOnly ? match.isInternational == internationalOnly : true
+        }
+        
+        self.topMatchesTableView.reloadData()
     }
     
     func prepareFixtures() {
@@ -190,7 +207,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     func showSelectedMatches(selectionTitle: String, matchList: [Match], selectionType: MainViewControllerType) {
         if let selectedMatchListVC = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
             selectedMatchListVC.mainViewControllerType = selectionType
-            selectedMatchListVC.matchList = matchList
+            selectedMatchListVC.unFilteredmatchList = matchList
             selectedMatchListVC.titleText = selectionTitle
             self.navigationController?.pushViewController(selectedMatchListVC, animated: true)
         }
@@ -204,14 +221,13 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     @IBAction func menuButtonAction(_ sender: Any) {
         if mainViewControllerType == .main {
             if !menuExpanded {
-                menuButton.image = UIImage(named: "ic_arrow_back_blue")
+                menuButton.image = UIImage(named: "cm_close_blue")
                 menuExpanded = !menuExpanded
                 delegate?.toggleLeftPanel(matchList: [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }, showFullMenu: true)
             } else {
                 menuButton.image = UIImage(named: "ic_menu_blue")
                 menuExpanded = !menuExpanded
-                print("default select")
-                getMatchData()
+                reloadTableView()
                 delegate?.collapseSidePanels()
             }
         } else {
@@ -224,7 +240,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     func menuItemSelected(item: String, type: MenuItemType) {
 
         menuExpanded = !menuExpanded
-        menuButton.image = !menuExpanded ? UIImage(named: "ic_menu_blue") : UIImage(named: "ic_arrow_back_blue")
+        menuButton.image = !menuExpanded ? UIImage(named: "ic_menu_blue") : UIImage(named: "cm_close_blue")
         let allMatches = [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }
         
         switch type {
@@ -260,8 +276,8 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         if let fav_team = defaults?.value(forKey: "favoriteTeamName") as? String {
             if let selectedMatchListVC = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController {
                 selectedMatchListVC.mainViewControllerType = .favorite
-                selectedMatchListVC.matchList = [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.hometeamName == fav_team || $0.awayteamName == fav_team }
-                for match in uniq(source: selectedMatchListVC.matchList.map({ $0.seriesName })) {
+                selectedMatchListVC.unFilteredmatchList = [liveMatches, completedMatches, upcomingMatches].flatMap { $0 }.filter { $0.hometeamName == fav_team || $0.awayteamName == fav_team }
+                for match in uniq(source: selectedMatchListVC.unFilteredmatchList.map({ $0.seriesName })) {
                     print(match)
                 }
                 selectedMatchListVC.titleText = fav_team
@@ -315,7 +331,8 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if matchList.count != 0 {
+        
+        if matchList.count != 0 && !menuExpanded {
             let newMatchList = mainViewControllerType == .main || mainViewControllerType == .fixtures ? matchList :  matchList.filter{ $0.seriesName == uniq(source: matchList.map({ $0.seriesName }))[indexPath.section] }
             if let match = newMatchList[indexPath.row] as Match? {
                 if let matchDetailViewController = self.storyboard?.instantiateViewController(withIdentifier: "MatchDetailController") as? MatchDetailController {
@@ -395,18 +412,14 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     func didReceiveResults(_ requestType: RequestType, inningsId: NSNumber?, matchId: NSNumber?,  results: NSObject) {
         
-        var internationalOnly = false
         
-        if let showInternationalOnly = defaults?.bool(forKey: "showInternationalOnly") {
-            internationalOnly = showInternationalOnly
-        }
         
         if requestType == .matches {
             if let resultsArray = results as? [AnyObject] {
                 DispatchQueue.main.async(execute: {
-                    (self.topMatches, self.liveMatches, self.completedMatches, self.upcomingMatches) = Match.topMatchesFromAPI(results: resultsArray, internationalOnly: internationalOnly)
-                    self.matchList = self.topMatches
-                    self.topMatchesTableView.reloadData()
+                    (self.topMatches, self.liveMatches, self.completedMatches, self.upcomingMatches) = Match.topMatchesFromAPI(results: resultsArray, internationalOnly: false)
+                    self.unFilteredmatchList = self.topMatches
+                    self.reloadTableView()
                     SwiftLoader.hide()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 })

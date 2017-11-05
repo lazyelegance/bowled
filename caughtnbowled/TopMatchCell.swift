@@ -65,6 +65,11 @@ class TopMatchCell: UITableViewCell {
                 matchStatus.font = RobotoFont.light(with: 10)
                 matchStatus.textColor = txtColor
                 
+                if match?.status == .upcoming {
+                    matchStatus.font = RobotoFont.medium(with: 10)
+                    matchStatus.textColor = txtColor
+                }
+                
                 self.backgroundColor = Color.clear
                 self.contentView.backgroundColor = mainColor
                 pulseView.backgroundColor = secondaryColor

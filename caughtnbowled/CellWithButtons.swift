@@ -20,9 +20,12 @@ class CellWithButtons: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        btn1.titleColor = txtColor
-        btn2.titleColor = txtColor
-        btn3.titleColor = txtColor
+        btn1.backgroundColor = txtColor
+        btn2.backgroundColor = txtColor
+        btn3.backgroundColor = txtColor
+        btn1.titleColor = mainColor
+        btn2.titleColor = mainColor
+        btn3.titleColor = mainColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
