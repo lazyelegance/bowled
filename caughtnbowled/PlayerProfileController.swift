@@ -21,6 +21,7 @@ class PlayerProfileController: UIViewController {
 
     @IBOutlet weak var playerDidYouKnow: UITextView!
 
+    @IBOutlet weak var playerBioView: View!
     @IBOutlet weak var playerBio: UITextView!
     
     @IBOutlet weak var menuPlaceHolder: UIView!
@@ -38,8 +39,8 @@ class PlayerProfileController: UIViewController {
         
         
         playerImage.imageURL = player?.imageURL
-        playerImage.backgroundColor = txtColor
-        playerImage.layer.borderColor = txtColor.cgColor
+        playerImage.backgroundColor = mainColor
+        playerImage.layer.borderColor = mainColor.cgColor
         playerImage.layer.borderWidth = 3
         playerImage.layer.cornerRadius = 5
         
@@ -49,8 +50,16 @@ class PlayerProfileController: UIViewController {
         playerBattingStyle.text = player?.battingStyle
         playerBowlingStyle.text = player?.bowlingStyle
         
+        playerName.textColor = txtColor
+        playerBattingStyle.textColor = txtColor
+        playerBowlingStyle.textColor = txtColor
+        
+        playerBioView.backgroundColor = mainColor
+        playerBioView.layer.cornerRadius = 5
+        
         playerBio.isScrollEnabled = false
         playerBio.text = player?.bio
+        playerBio.backgroundColor = mainColor
         playerBio.textColor = txtColor
         
         if player?.didYouKnow != nil {

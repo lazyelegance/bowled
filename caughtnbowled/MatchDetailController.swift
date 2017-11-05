@@ -112,7 +112,7 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
 //        headerView.frame.size.height = kHeaderHeight
         menuPlaceholder.backgroundColor = mainColor
         headerView.backgroundColor = mainColor
-        pulseView.backgroundColor = mainColor
+        pulseView.backgroundColor = txtColor
         
 //        tableView.tableHeaderView = nil
 //        tableView.addSubview(headerView)
@@ -168,9 +168,9 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         
         
         
-        series.text = match.seriesName.uppercased() + "\n" + match.matchName.uppercased()
+        series.text = match.seriesName.uppercased() + " | " + match.matchName.uppercased()
         series.font = RobotoFont.regular(with: 14)
-        series.textColor = txtColor
+        series.textColor = mainColor
         
     
         if match.status == .live {
@@ -206,16 +206,16 @@ class MatchDetailController: UIViewController, UITableViewDelegate, UITableViewD
         
         matchStatus.font = RobotoFont.regular
         
-        teamOneName.textColor = txtColor
+        teamOneName.textColor = mainColor
         teamOneName.font = RobotoFont.regular(with: 20)
         
-        teamOneScore.textColor = txtColor
+        teamOneScore.textColor = mainColor
         teamOneScore.font = RobotoFont.regular(with: 30)
         
-        teamTwoName.textColor = txtColor
+        teamTwoName.textColor = mainColor
         teamTwoName.font = RobotoFont.regular
         
-        teamTwoScore.textColor = txtColor
+        teamTwoScore.textColor = mainColor
         teamTwoScore.font = RobotoFont.regular
         
         awardsViewHeight.constant = 0
