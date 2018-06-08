@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06E977D720CA691B003ABBF6 /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 06E977D620CA691B003ABBF6 /* keys.plist */; };
 		48C225F09915889FCA2E32E1 /* Pods_BowledService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DA5FAF97F1D6FEC19514F6 /* Pods_BowledService.framework */; };
 		53800AE9E96B75509ED927B2 /* Pods_Bowled.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D082D656125A4EE6C62551EE /* Pods_Bowled.framework */; };
 		63031BD41DEEDE0200C0AED4 /* CellWithButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63031BD31DEEDE0200C0AED4 /* CellWithButtons.swift */; };
@@ -60,7 +61,6 @@
 		6379F3F51DE47F2F0024FC07 /* CommentaryOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3F41DE47F2F0024FC07 /* CommentaryOver.swift */; };
 		6379F3F71DE47FCD0024FC07 /* CommentaryInnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3F61DE47FCD0024FC07 /* CommentaryInnings.swift */; };
 		637D69251E0BFB1E00012D89 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637D69241E0BFB1E00012D89 /* Team.swift */; };
-		63970B921DDC33F100D171C9 /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63970B911DDC33F100D171C9 /* keys.plist */; };
 		63970B941DDC342C00D171C9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63970B931DDC342C00D171C9 /* MainViewController.swift */; };
 		63970B961DDC34A100D171C9 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63970B951DDC34A100D171C9 /* SideMenuController.swift */; };
 		63970B981DDC34C200D171C9 /* FilterMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63970B971DDC34C200D171C9 /* FilterMenuController.swift */; };
@@ -157,6 +157,7 @@
 /* Begin PBXFileReference section */
 		0365B85F51F36824B5DEEE4D /* Pods_BowledServiceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BowledServiceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03802EEABA152E8E486CDE36 /* Pods-BowledTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BowledTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BowledTests/Pods-BowledTests.release.xcconfig"; sourceTree = "<group>"; };
+		06E977D620CA691B003ABBF6 /* keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = keys.plist; path = ../../../../Downloads/keys.plist; sourceTree = "<group>"; };
 		276D67E0404ABD416AC695C5 /* Pods-Bowled.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bowled.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bowled/Pods-Bowled.release.xcconfig"; sourceTree = "<group>"; };
 		362C93CD9115FCC25BDC2DB6 /* Pods-BowledServiceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BowledServiceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BowledServiceTests/Pods-BowledServiceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3DFEC6ACD1D29F61FCAB146C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -220,7 +221,6 @@
 		6379F3F41DE47F2F0024FC07 /* CommentaryOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentaryOver.swift; sourceTree = "<group>"; };
 		6379F3F61DE47FCD0024FC07 /* CommentaryInnings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentaryInnings.swift; sourceTree = "<group>"; };
 		637D69241E0BFB1E00012D89 /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
-		63970B911DDC33F100D171C9 /* keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		63970B931DDC342C00D171C9 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		63970B951DDC34A100D171C9 /* SideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		63970B971DDC34C200D171C9 /* FilterMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterMenuController.swift; sourceTree = "<group>"; };
@@ -534,8 +534,8 @@
 			isa = PBXGroup;
 			children = (
 				6308466A1BD0B1A60019AD3F /* Info.plist */,
+				06E977D620CA691B003ABBF6 /* keys.plist */,
 				632E56D81FAD9FDE00456011 /* GoogleService-Info.plist */,
-				63970B911DDC33F100D171C9 /* keys.plist */,
 				630846C11BD1B3880019AD3F /* caughtnbowled-Bridging-Header.h */,
 			);
 			name = config;
@@ -785,7 +785,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63970B921DDC33F100D171C9 /* keys.plist in Resources */,
+				06E977D720CA691B003ABBF6 /* keys.plist in Resources */,
 				63C0B1A01BD4BED600CE198A /* team6.png in Resources */,
 				63C0B1A71BD4BED600CE198A /* team16.png in Resources */,
 				6350003E1C50AE84002015E6 /* 32x32.png in Resources */,
@@ -1316,6 +1316,7 @@
 				CODE_SIGN_ENTITLEMENTS = Bowled.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 5SK3M6FYSQ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1343,6 +1344,7 @@
 				CODE_SIGN_ENTITLEMENTS = Bowled.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 5SK3M6FYSQ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

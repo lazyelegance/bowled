@@ -72,8 +72,6 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         self.navigationController?.isNavigationBarHidden = true
         
         view.backgroundColor = mainColor
@@ -144,8 +142,6 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
     
     
     @objc func getMatchData() {
-        
-
         switch Reach().connectionStatus() {
         case .online :
             bowledServiceAPI.getMatches()

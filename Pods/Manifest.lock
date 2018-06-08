@@ -11,10 +11,10 @@ PODS:
   - FirebaseAnalytics (4.0.3):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - nanopb (~> 0.3)
   - FirebaseCore (4.0.6):
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - nanopb (~> 0.3)
   - FirebaseDatabase (4.0.2):
     - FirebaseAnalytics (~> 4.0)
@@ -23,7 +23,7 @@ PODS:
   - FirebaseInstanceID (2.0.2):
     - FirebaseCore (~> 4.0)
   - GoogleToolboxForMac/Defines (2.1.1)
-  - GoogleToolboxForMac/NSData+zlib (2.1.1):
+  - "GoogleToolboxForMac/NSData+zlib (2.1.1)":
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - leveldb-library (1.18.3)
   - Material (2.3.7):
@@ -41,6 +41,19 @@ DEPENDENCIES:
   - Firebase/Database
   - Material (~> 2.0)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Charts
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseDatabase
+    - FirebaseInstanceID
+    - GoogleToolboxForMac
+    - leveldb-library
+    - Material
+    - nanopb
+
 SPEC CHECKSUMS:
   Charts: beb341928d2135613b4325a6c6aff9f2f6de895e
   Firebase: 052c0de688fc87b414996eea13e223dd9fee3fa2
@@ -55,4 +68,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 82582056fbb848a64ce79c9dc90691215e69873c
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.5.3
