@@ -16,6 +16,7 @@ public protocol BowledServiceProtocol {
 
 public enum RequestType {
     case matches
+    case oldMatches
     case matchDetail
     case scorecard
     case commentary
@@ -36,6 +37,9 @@ open class BowledService {
     }
     
     let dictionary = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "keys", ofType: "plist")!)
+    
+    
+    
     let config = URLSessionConfiguration.default
     
     
@@ -69,6 +73,8 @@ open class BowledService {
         
         
     }
+    
+    
     
     open func getTeamPlayers(_ teamid: NSNumber ) {
 

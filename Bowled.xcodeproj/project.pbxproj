@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0697780C20CB4B1000B0293D /* BowledService.h in Headers */ = {isa = PBXBuildFile; fileRef = 6359AA3C1DDC40F900C3F943 /* BowledService.h */; };
+		0697780E20CB4B8600B0293D /* CRMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A7358420CB470500699193 /* CRMatch.swift */; };
+		0697780F20CB4B8700B0293D /* CRMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A7358420CB470500699193 /* CRMatch.swift */; };
+		06A7355E20CB2F5D00699193 /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 06A7355D20CB2F5D00699193 /* keys.plist */; };
+		06A7355F20CB2F5D00699193 /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 06A7355D20CB2F5D00699193 /* keys.plist */; };
+		06A7356E20CB3BF800699193 /* CricService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06A7356520CB3BF700699193 /* CricService.framework */; };
+		06A7357520CB3BF800699193 /* CricServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A7357420CB3BF800699193 /* CricServiceTests.swift */; };
+		06A7357720CB3BF800699193 /* CricService.h in Headers */ = {isa = PBXBuildFile; fileRef = 06A7356720CB3BF800699193 /* CricService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		06A7357A20CB3BF800699193 /* CricService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06A7356520CB3BF700699193 /* CricService.framework */; };
+		06A7357B20CB3BF800699193 /* CricService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 06A7356520CB3BF700699193 /* CricService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		06A7358320CB3C1A00699193 /* CricService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A7358220CB3C1A00699193 /* CricService.swift */; };
+		06A7358620CB4A9500699193 /* CRMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A7358420CB470500699193 /* CRMatch.swift */; };
 		48C225F09915889FCA2E32E1 /* Pods_BowledService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65DA5FAF97F1D6FEC19514F6 /* Pods_BowledService.framework */; };
 		53800AE9E96B75509ED927B2 /* Pods_Bowled.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D082D656125A4EE6C62551EE /* Pods_Bowled.framework */; };
 		63031BD41DEEDE0200C0AED4 /* CellWithButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63031BD31DEEDE0200C0AED4 /* CellWithButtons.swift */; };
@@ -60,7 +72,6 @@
 		6379F3F51DE47F2F0024FC07 /* CommentaryOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3F41DE47F2F0024FC07 /* CommentaryOver.swift */; };
 		6379F3F71DE47FCD0024FC07 /* CommentaryInnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6379F3F61DE47FCD0024FC07 /* CommentaryInnings.swift */; };
 		637D69251E0BFB1E00012D89 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637D69241E0BFB1E00012D89 /* Team.swift */; };
-		63970B921DDC33F100D171C9 /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 63970B911DDC33F100D171C9 /* keys.plist */; };
 		63970B941DDC342C00D171C9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63970B931DDC342C00D171C9 /* MainViewController.swift */; };
 		63970B961DDC34A100D171C9 /* SideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63970B951DDC34A100D171C9 /* SideMenuController.swift */; };
 		63970B981DDC34C200D171C9 /* FilterMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63970B971DDC34C200D171C9 /* FilterMenuController.swift */; };
@@ -103,6 +114,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		06A7356F20CB3BF800699193 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 630846531BD0B1A50019AD3F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 06A7356420CB3BF700699193;
+			remoteInfo = CricService;
+		};
+		06A7357120CB3BF800699193 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 630846531BD0B1A50019AD3F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6308465A1BD0B1A50019AD3F;
+			remoteInfo = Bowled;
+		};
+		06A7357820CB3BF800699193 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 630846531BD0B1A50019AD3F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 06A7356420CB3BF700699193;
+			remoteInfo = CricService;
+		};
 		630846701BD0B1A60019AD3F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 630846531BD0B1A50019AD3F /* Project object */;
@@ -148,6 +180,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				6359AA501DDC40F900C3F943 /* BowledService.framework in Embed Frameworks */,
+				06A7357B20CB3BF800699193 /* CricService.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -157,6 +190,15 @@
 /* Begin PBXFileReference section */
 		0365B85F51F36824B5DEEE4D /* Pods_BowledServiceTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BowledServiceTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03802EEABA152E8E486CDE36 /* Pods-BowledTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BowledTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BowledTests/Pods-BowledTests.release.xcconfig"; sourceTree = "<group>"; };
+		06A7355D20CB2F5D00699193 /* keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
+		06A7356520CB3BF700699193 /* CricService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CricService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		06A7356720CB3BF800699193 /* CricService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CricService.h; sourceTree = "<group>"; };
+		06A7356820CB3BF800699193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06A7356D20CB3BF800699193 /* CricServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CricServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		06A7357420CB3BF800699193 /* CricServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CricServiceTests.swift; sourceTree = "<group>"; };
+		06A7357620CB3BF800699193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06A7358220CB3C1A00699193 /* CricService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CricService.swift; sourceTree = "<group>"; };
+		06A7358420CB470500699193 /* CRMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRMatch.swift; sourceTree = "<group>"; };
 		276D67E0404ABD416AC695C5 /* Pods-Bowled.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bowled.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bowled/Pods-Bowled.release.xcconfig"; sourceTree = "<group>"; };
 		362C93CD9115FCC25BDC2DB6 /* Pods-BowledServiceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BowledServiceTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BowledServiceTests/Pods-BowledServiceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3DFEC6ACD1D29F61FCAB146C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -220,7 +262,6 @@
 		6379F3F41DE47F2F0024FC07 /* CommentaryOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentaryOver.swift; sourceTree = "<group>"; };
 		6379F3F61DE47FCD0024FC07 /* CommentaryInnings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentaryInnings.swift; sourceTree = "<group>"; };
 		637D69241E0BFB1E00012D89 /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
-		63970B911DDC33F100D171C9 /* keys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		63970B931DDC342C00D171C9 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		63970B951DDC34A100D171C9 /* SideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuController.swift; sourceTree = "<group>"; };
 		63970B971DDC34C200D171C9 /* FilterMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterMenuController.swift; sourceTree = "<group>"; };
@@ -276,10 +317,26 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		06A7356120CB3BF700699193 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		06A7356A20CB3BF800699193 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06A7356E20CB3BF800699193 /* CricService.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		630846581BD0B1A50019AD3F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06A7357A20CB3BF800699193 /* CricService.framework in Frameworks */,
 				53800AE9E96B75509ED927B2 /* Pods_Bowled.framework in Frameworks */,
 				6359AA4F1DDC40F900C3F943 /* BowledService.framework in Frameworks */,
 			);
@@ -321,6 +378,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06A7355C20CB2E0200699193 /* redesign */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = redesign;
+			sourceTree = "<group>";
+		};
+		06A7356620CB3BF800699193 /* CricService */ = {
+			isa = PBXGroup;
+			children = (
+				06A7356720CB3BF800699193 /* CricService.h */,
+				06A7356820CB3BF800699193 /* Info.plist */,
+				06A7358220CB3C1A00699193 /* CricService.swift */,
+			);
+			path = CricService;
+			sourceTree = "<group>";
+		};
+		06A7357320CB3BF800699193 /* CricServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				06A7357420CB3BF800699193 /* CricServiceTests.swift */,
+				06A7357620CB3BF800699193 /* Info.plist */,
+			);
+			path = CricServiceTests;
+			sourceTree = "<group>";
+		};
 		36504E15289E34EAAA455A98 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,6 +433,8 @@
 				63B50A481C5B42FE00125FE4 /* Bowled.entitlements */,
 				6359AA3B1DDC40F900C3F943 /* BowledService */,
 				6359AA481DDC40F900C3F943 /* BowledServiceTests */,
+				06A7356620CB3BF800699193 /* CricService */,
+				06A7357320CB3BF800699193 /* CricServiceTests */,
 				6384CD691C57F9EE00041956 /* Frameworks */,
 				6308465D1BD0B1A50019AD3F /* bowled */,
 				630846721BD0B1A60019AD3F /* bowledTests */,
@@ -367,6 +452,8 @@
 				6308467A1BD0B1A60019AD3F /* Bowled.xctest */,
 				6359AA3A1DDC40F900C3F943 /* BowledService.framework */,
 				6359AA421DDC40F900C3F943 /* BowledServiceTests.xctest */,
+				06A7356520CB3BF700699193 /* CricService.framework */,
+				06A7356D20CB3BF800699193 /* CricServiceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -374,6 +461,7 @@
 		6308465D1BD0B1A50019AD3F /* bowled */ = {
 			isa = PBXGroup;
 			children = (
+				06A7355C20CB2E0200699193 /* redesign */,
 				6308465E1BD0B1A60019AD3F /* AppDelegate.swift */,
 				6390539C1E3D618500002FCE /* storyboards */,
 				639053991E3D611D00002FCE /* utils */,
@@ -440,6 +528,7 @@
 				630F86C81DFE94BC00E7C6F2 /* Player.swift */,
 				63B5E1E81DDC694800C1A63D /* Series.swift */,
 				637D69241E0BFB1E00012D89 /* Team.swift */,
+				06A7358420CB470500699193 /* CRMatch.swift */,
 			);
 			name = Structs;
 			sourceTree = "<group>";
@@ -533,9 +622,9 @@
 		6390539B1E3D617300002FCE /* config */ = {
 			isa = PBXGroup;
 			children = (
+				06A7355D20CB2F5D00699193 /* keys.plist */,
 				6308466A1BD0B1A60019AD3F /* Info.plist */,
 				632E56D81FAD9FDE00456011 /* GoogleService-Info.plist */,
-				63970B911DDC33F100D171C9 /* keys.plist */,
 				630846C11BD1B3880019AD3F /* caughtnbowled-Bridging-Header.h */,
 			);
 			name = config;
@@ -587,6 +676,15 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		06A7356220CB3BF700699193 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06A7357720CB3BF800699193 /* CricService.h in Headers */,
+				0697780C20CB4B1000B0293D /* BowledService.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6359AA371DDC40F900C3F943 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -598,6 +696,43 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		06A7356420CB3BF700699193 /* CricService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 06A7357C20CB3BF800699193 /* Build configuration list for PBXNativeTarget "CricService" */;
+			buildPhases = (
+				06A7356020CB3BF700699193 /* Sources */,
+				06A7356120CB3BF700699193 /* Frameworks */,
+				06A7356220CB3BF700699193 /* Headers */,
+				06A7356320CB3BF700699193 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CricService;
+			productName = CricService;
+			productReference = 06A7356520CB3BF700699193 /* CricService.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		06A7356C20CB3BF800699193 /* CricServiceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 06A7357F20CB3BF800699193 /* Build configuration list for PBXNativeTarget "CricServiceTests" */;
+			buildPhases = (
+				06A7356920CB3BF800699193 /* Sources */,
+				06A7356A20CB3BF800699193 /* Frameworks */,
+				06A7356B20CB3BF800699193 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				06A7357020CB3BF800699193 /* PBXTargetDependency */,
+				06A7357220CB3BF800699193 /* PBXTargetDependency */,
+			);
+			name = CricServiceTests;
+			productName = CricServiceTests;
+			productReference = 06A7356D20CB3BF800699193 /* CricServiceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		6308465A1BD0B1A50019AD3F /* Bowled */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 630846831BD0B1A60019AD3F /* Build configuration list for PBXNativeTarget "Bowled" */;
@@ -615,6 +750,7 @@
 			);
 			dependencies = (
 				6359AA4E1DDC40F900C3F943 /* PBXTargetDependency */,
+				06A7357920CB3BF800699193 /* PBXTargetDependency */,
 			);
 			name = Bowled;
 			productName = caughtnbowled;
@@ -711,10 +847,21 @@
 		630846531BD0B1A50019AD3F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0810;
+				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Ezra Bathini";
 				TargetAttributes = {
+					06A7356420CB3BF700699193 = {
+						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 0940;
+						ProvisioningStyle = Automatic;
+					};
+					06A7356C20CB3BF800699193 = {
+						CreatedOnToolsVersion = 9.4;
+						DevelopmentTeam = 5SK3M6FYSQ;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 6308465A1BD0B1A50019AD3F;
+					};
 					6308465A1BD0B1A50019AD3F = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 5SK3M6FYSQ;
@@ -776,16 +923,32 @@
 				630846791BD0B1A60019AD3F /* BowledUITests */,
 				6359AA391DDC40F900C3F943 /* BowledService */,
 				6359AA411DDC40F900C3F943 /* BowledServiceTests */,
+				06A7356420CB3BF700699193 /* CricService */,
+				06A7356C20CB3BF800699193 /* CricServiceTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		06A7356320CB3BF700699193 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		06A7356B20CB3BF800699193 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		630846591BD0B1A50019AD3F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63970B921DDC33F100D171C9 /* keys.plist in Resources */,
+				06A7355E20CB2F5D00699193 /* keys.plist in Resources */,
 				63C0B1A01BD4BED600CE198A /* team6.png in Resources */,
 				63C0B1A71BD4BED600CE198A /* team16.png in Resources */,
 				6350003E1C50AE84002015E6 /* 32x32.png in Resources */,
@@ -840,6 +1003,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06A7355F20CB2F5D00699193 /* keys.plist in Resources */,
 				63756C0D1FADA6FD00AE9AF8 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1083,6 +1247,23 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		06A7356020CB3BF700699193 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0697780E20CB4B8600B0293D /* CRMatch.swift in Sources */,
+				06A7358320CB3C1A00699193 /* CricService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		06A7356920CB3BF800699193 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06A7357520CB3BF800699193 /* CricServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		630846571BD0B1A50019AD3F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1099,6 +1280,7 @@
 				6379F3EB1DE2DB6A0024FC07 /* Batsman.swift in Sources */,
 				6379F3E51DE2D8140024FC07 /* BatsmanRecordCell.swift in Sources */,
 				6379F3F31DE47E5A0024FC07 /* Delivery.swift in Sources */,
+				06A7358620CB4A9500699193 /* CRMatch.swift in Sources */,
 				6379F3DD1DE1968D0024FC07 /* FallOfWicket.swift in Sources */,
 				632A9DEA1E3AE4F000416FED /* CellWithText.swift in Sources */,
 				6327B3121BD29DC800B0EB23 /* HMSegmentedControl.m in Sources */,
@@ -1154,6 +1336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0697780F20CB4B8700B0293D /* CRMatch.swift in Sources */,
 				6359AA571DDC413500C3F943 /* BowledService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1169,6 +1352,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		06A7357020CB3BF800699193 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 06A7356420CB3BF700699193 /* CricService */;
+			targetProxy = 06A7356F20CB3BF800699193 /* PBXContainerItemProxy */;
+		};
+		06A7357220CB3BF800699193 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6308465A1BD0B1A50019AD3F /* Bowled */;
+			targetProxy = 06A7357120CB3BF800699193 /* PBXContainerItemProxy */;
+		};
+		06A7357920CB3BF800699193 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 06A7356420CB3BF700699193 /* CricService */;
+			targetProxy = 06A7357820CB3BF800699193 /* PBXContainerItemProxy */;
+		};
 		630846711BD0B1A60019AD3F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6308465A1BD0B1A50019AD3F /* Bowled */;
@@ -1208,6 +1406,133 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		06A7357D20CB3BF800699193 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = CricService/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ezrabathini.CricService;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		06A7357E20CB3BF800699193 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = CricService/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ezrabathini.CricService;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		06A7358020CB3BF800699193 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5SK3M6FYSQ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = CricServiceTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ezrabathini.CricServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bowled.app/Bowled";
+			};
+			name = Debug;
+		};
+		06A7358120CB3BF800699193 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5SK3M6FYSQ;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = CricServiceTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ezrabathini.CricServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bowled.app/Bowled";
+			};
+			name = Release;
+		};
 		630846811BD0B1A60019AD3F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1321,7 +1646,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = caughtnbowled/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ezrabathini.bowled;
 				PRODUCT_NAME = Bowled;
@@ -1348,7 +1673,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = caughtnbowled/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ezrabathini.bowled;
 				PRODUCT_NAME = Bowled;
@@ -1526,6 +1851,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		06A7357C20CB3BF800699193 /* Build configuration list for PBXNativeTarget "CricService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				06A7357D20CB3BF800699193 /* Debug */,
+				06A7357E20CB3BF800699193 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		06A7357F20CB3BF800699193 /* Build configuration list for PBXNativeTarget "CricServiceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				06A7358020CB3BF800699193 /* Debug */,
+				06A7358120CB3BF800699193 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		630846561BD0B1A50019AD3F /* Build configuration list for PBXProject "Bowled" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
