@@ -8,6 +8,7 @@
 
 import UIKit
 import BowledService
+import CricService
 import Material
 
 
@@ -26,12 +27,17 @@ enum MainViewControllerType {
 }
 
 
-class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDelegate, UITableViewDataSource, MenuControllerDelegate {
+class MainViewController: UIViewController, BowledServiceProtocol, CricServiceProtocol, UITableViewDelegate, UITableViewDataSource, MenuControllerDelegate {
+   
+    
+    
+    
     
     var timer = Timer()
     
     
     var bowledServiceAPI: BowledService!
+    var cricServiceAPI: CricService!
     
     var liveMatches = [Match]()
     var completedMatches = [Match]()
@@ -83,6 +89,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
 
         //get match list
         bowledServiceAPI = BowledService(delegate: self)
+        cricServiceAPI = CricService(delegate: self)
         
         if mainViewControllerType == .main {
             swiftLoaderConfig.size = 100
@@ -145,6 +152,7 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
         switch Reach().connectionStatus() {
         case .online :
             bowledServiceAPI.getMatches()
+            cricServiceAPI.getMatches()
         default:
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             swiftLoaderConfig.spinnerColor = whitecolor
@@ -430,6 +438,22 @@ class MainViewController: UIViewController, BowledServiceProtocol, UITableViewDe
             }
         }
     }
+    
+    func didReceiveCricResults(_ requestType: CRRequestType, inningsId: NSNumber?, matchId: NSNumber?, results: NSObject) {
+        if requestType == .matches {
+            if let resultsArray = results as? [AnyObject] {
+                DispatchQueue.main.async(execute: {
+                    CRMatch.matchesFromApi(results: resultsArray)
+                    //                    self.unFilteredmatchList = self.topMatches
+                    //                    self.reloadTableView()
+                    //                    SwiftLoader.hide()
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                })
+            }
+        }
+    }
+
+    
     
     func didReceiveImageResults(_ data: Data) {
         
